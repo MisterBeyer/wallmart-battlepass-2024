@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkLowLevel.MotorType;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -12,11 +15,11 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.Encoder;
 import frc.robot.Constants.ModuleConstants;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
+
 
 public class SwerveModule {
-  private final Spark m_driveMotor;
-  private final Spark m_turningMotor;
+  private final CANSparkMax m_driveMotor;
+  private final CANSparkMax m_turningMotor;
 
   private final Encoder m_driveEncoder;
   private final Encoder m_turningEncoder;
@@ -37,26 +40,26 @@ public class SwerveModule {
   /**
    * Constructs a SwerveModule.
    *
-   * @param driveMotorChannel The channel of the drive motor.
-   * @param turningMotorChannel The channel of the turning motor.
-   * @param driveEncoderChannels The channels of the drive encoder.
-   * @param turningEncoderChannels The channels of the turning encoder.
+   * @param driveMotorId The Id of the drive motor.
+   * @param turningMotorId The Id of the turning motor.
+   * @param driveEncoderIds The Ids of the drive encoder.
+   * @param turningEncoderIds The Ids of the turning encoder.
    * @param driveEncoderReversed Whether the drive encoder is reversed.
    * @param turningEncoderReversed Whether the turning encoder is reversed.
    */
   public SwerveModule(
-      int driveMotorChannel,
-      int turningMotorChannel,
-      int[] driveEncoderChannels,
-      int[] turningEncoderChannels,
+      int driveMotorId,
+      int turningMotorId,
+      int[] driveEncoderIds,
+      int[] turningEncoderIds,
       boolean driveEncoderReversed,
       boolean turningEncoderReversed) {
-    m_driveMotor = new Spark(driveMotorChannel);
-    m_turningMotor = new Spark(turningMotorChannel);
+    m_driveMotor = new CANSparkMax(driveMotorId, MotorType.kBrushless);
+    m_turningMotor = new  CANSparkMax(turningMotorId, MotorType.kBrushless);
 
-    m_driveEncoder = new Encoder(driveEncoderChannels[0], driveEncoderChannels[1]);
+    m_driveEncoder = new Encoder(driveEncoderIds[0], driveEncoderIds[1]);
 
-    m_turningEncoder = new Encoder(turningEncoderChannels[0], turningEncoderChannels[1]);
+    m_turningEncoder = new Encoder(turningEncoderIds[0], turningEncoderIds[1]);
 
     // Set the distance per pulse for the drive encoder. We can simply use the
     // distance traveled for one rotation of the wheel divided by the encoder

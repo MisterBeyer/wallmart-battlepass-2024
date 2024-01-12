@@ -4,13 +4,14 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.hardware.Pigeon2;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -18,42 +19,42 @@ public class DriveSubsystem extends SubsystemBase {
   // Robot swerve modules
   private final SwerveModule m_frontLeft =
       new SwerveModule(
-          DriveConstants.kFrontLeftDriveMotorPort,
-          DriveConstants.kFrontLeftTurningMotorPort,
-          DriveConstants.kFrontLeftDriveEncoderPorts,
-          DriveConstants.kFrontLeftTurningEncoderPorts,
+          DriveConstants.kFrontLeftDriveMotorCanId,
+          DriveConstants.kFrontLeftTurningMotorCanId,
+          DriveConstants.kFrontLeftDriveEncoderCanIds,
+          DriveConstants.kFrontLeftTurningEncoderCanIds,
           DriveConstants.kFrontLeftDriveEncoderReversed,
           DriveConstants.kFrontLeftTurningEncoderReversed);
 
   private final SwerveModule m_rearLeft =
       new SwerveModule(
-          DriveConstants.kRearLeftDriveMotorPort,
-          DriveConstants.kRearLeftTurningMotorPort,
-          DriveConstants.kRearLeftDriveEncoderPorts,
-          DriveConstants.kRearLeftTurningEncoderPorts,
+          DriveConstants.kRearLeftDriveMotorCanId,
+          DriveConstants.kRearLeftTurningMotorCanId,
+          DriveConstants.kRearLeftDriveEncoderCanIds,
+          DriveConstants.kRearLeftTurningEncoderCanIds,
           DriveConstants.kRearLeftDriveEncoderReversed,
           DriveConstants.kRearLeftTurningEncoderReversed);
 
   private final SwerveModule m_frontRight =
       new SwerveModule(
-          DriveConstants.kFrontRightDriveMotorPort,
-          DriveConstants.kFrontRightTurningMotorPort,
-          DriveConstants.kFrontRightDriveEncoderPorts,
-          DriveConstants.kFrontRightTurningEncoderPorts,
+          DriveConstants.kFrontRightDriveMotorCanId,
+          DriveConstants.kFrontRightTurningMotorCanId,
+          DriveConstants.kFrontRightDriveEncoderCanIds,
+          DriveConstants.kFrontRightTurningEncoderCanIds,
           DriveConstants.kFrontRightDriveEncoderReversed,
           DriveConstants.kFrontRightTurningEncoderReversed);
 
   private final SwerveModule m_rearRight =
       new SwerveModule(
-          DriveConstants.kRearRightDriveMotorPort,
-          DriveConstants.kRearRightTurningMotorPort,
-          DriveConstants.kRearRightDriveEncoderPorts,
-          DriveConstants.kRearRightTurningEncoderPorts,
+          DriveConstants.kRearRightDriveMotorCanId,
+          DriveConstants.kRearRightTurningMotorCanId,
+          DriveConstants.kRearRightDriveEncoderCanIds,
+          DriveConstants.kRearRightTurningEncoderCanIds,
           DriveConstants.kRearRightDriveEncoderReversed,
           DriveConstants.kRearRightTurningEncoderReversed);
 
   // The gyro sensor
-  private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
+  private final Pigeon2 m_gyro = new Pigeon2(12);
 
   // Odometry class for tracking robot pose
   SwerveDriveOdometry m_odometry =
