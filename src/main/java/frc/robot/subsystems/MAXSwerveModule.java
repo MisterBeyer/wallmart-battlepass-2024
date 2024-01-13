@@ -10,10 +10,10 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkPIDController;
-import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
+
+import com.ctre.phoenix6.hardware.CANcoder;
 
 import frc.robot.Constants.ModuleConstants;
 
@@ -22,10 +22,12 @@ public class MAXSwerveModule {
   private final CANSparkMax m_turningSparkMax;
 
   private final RelativeEncoder m_drivingEncoder;
-  private final AbsoluteEncoder m_turningEncoder;
+  private final RelativeEncoder m_turningEncoder;
 
   private final SparkPIDController m_drivingPIDController;
   private final SparkPIDController m_turningPIDController;
+
+  private final CANcoder m_CANCoder;
 
   private double m_chassisAngularOffset = 0;
   private SwerveModuleState m_desiredState = new SwerveModuleState(0.0, new Rotation2d());
@@ -36,9 +38,12 @@ public class MAXSwerveModule {
    * MAXSwerve Module built with NEOs, SPARKS MAX, and a Through Bore
    * Encoder.
    */
-  public MAXSwerveModule(int drivingCANId, int turningCANId, double chassisAngularOffset) {
+  public MAXSwerveModule(int drivingCANId, int turningCANId, int encoderCANId, double chassisAngularOffset) {
     m_drivingSparkMax = new CANSparkMax(drivingCANId, MotorType.kBrushless);
     m_turningSparkMax = new CANSparkMax(turningCANId, MotorType.kBrushless);
+
+    m_CANCoder = new CANcoder(encoderCANId);
+    //TODO: Zero-out swerve angle using CANCoder
 
     // Factory reset, so we get the SPARKS MAX to a known state before configuring
     // them. This is useful in case a SPARK MAX is swapped out.
@@ -47,7 +52,7 @@ public class MAXSwerveModule {
 
     // Setup encoders and PID controllers for the driving and turning SPARKS MAX.
     m_drivingEncoder = m_drivingSparkMax.getEncoder();
-    m_turningEncoder = m_turningSparkMax.getAbsoluteEncoder(Type.kDutyCycle);
+    m_turningEncoder = m_drivingSparkMax.getEncoder();
     m_drivingPIDController = m_drivingSparkMax.getPIDController();
     m_turningPIDController = m_turningSparkMax.getPIDController();
     m_drivingPIDController.setFeedbackDevice(m_drivingEncoder);
