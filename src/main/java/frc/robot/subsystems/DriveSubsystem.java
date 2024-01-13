@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
+import com.pathplanner.lib.auto.AutoBuilder;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -15,6 +16,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.WPIUtilJNI;
+import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.utils.SwerveUtils;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -66,6 +69,26 @@ public class DriveSubsystem extends SubsystemBase {
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
+    // Configure AutoBuilder 
+    AutoBuilder.configureHolonomic(
+            this::getPose, // Robot pose supplier
+            this::resetOdometry, // Method to reset odometry (will be called if your auto has a starting pose)
+            this::getChassisSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+            this::driveChassisSpeed, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
+            Constants.AutoConstants.PathFollowerConfig,
+            () -> {
+                // Boolean supplier that controls when the path will be mirrored for the red alliance
+                // This will flip the path being followed to the red side of the field.
+                // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+
+                var alliance = DriverStation.getAlliance();
+                if (alliance.isPresent()) {
+                  return alliance.get() == DriverStation.Alliance.Red;
+                }
+                return false;
+            },
+            this // Reference to this subsystem to set requirements
+      );
   }
 
   @Override
@@ -105,6 +128,17 @@ public class DriveSubsystem extends SubsystemBase {
             m_rearRight.getPosition()
         },
         pose);
+  }
+
+  // Get chassis speed from modules
+  public ChassisSpeeds getChassisSpeeds() {
+    ChassisSpeeds reletivespeed = Constants.DriveConstants.kDriveKinematics.toChassisSpeeds(m_frontLeft.getState(), m_frontRight.getState(), m_rearLeft.getState(), m_rearRight.getState());
+    return reletivespeed;
+  }
+
+  // Convert ChassisSpeed variable back into indidual doubles for use in drive function
+  public void driveChassisSpeed(ChassisSpeeds chassis) {
+    drive(chassis.vxMetersPerSecond, chassis.vyMetersPerSecond, chassis.omegaRadiansPerSecond, true, true);
   }
 
   /**
