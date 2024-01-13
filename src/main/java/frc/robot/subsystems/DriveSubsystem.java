@@ -17,6 +17,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.utils.SwerveUtils;
@@ -73,6 +74,15 @@ public class DriveSubsystem extends SubsystemBase {
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
+
+    // SmartDashboard PID Tuning
+    SmartDashboard.putNumber("Turning P", Constants.ModuleConstants.kTurningP);
+    SmartDashboard.putNumber("Turning I", Constants.ModuleConstants.kTurningI);
+    SmartDashboard.putNumber("Turning D", Constants.ModuleConstants.kTurningD);
+    SmartDashboard.putNumber("Driving P", Constants.ModuleConstants.kDrivingP);
+    SmartDashboard.putNumber("Driving I", Constants.ModuleConstants.kDrivingI);
+    SmartDashboard.putNumber("Driving D", Constants.ModuleConstants.kDrivingD);
+    
     // Configure AutoBuilder 
     AutoBuilder.configureHolonomic(
             this::getPose, // Robot pose supplier
