@@ -1,115 +1,21 @@
-# Yet Another Generic Swerve Library (YAGSL) Example project
+One serene morning in their idyllic village, Doug, the embodiment of boundless energy, burst into Tim's tranquil cottage with an exuberant grin. "Tim, my friend! Today is calling for adventure. What do you say we embark on a hike to the meadow's edge?"
 
-YAGSL is intended to be an easy implementation of a generic swerve drive that should work for most
-square swerve drives. The project is documented
-on [here](https://github.com/BroncBotz3481/YAGSL/wiki). The JSON documentation can also be
-found [here](docs/START.md)
+Tim, a man who found solace in the unhurried pace of life, looked up from his morning tea with a furrowed brow. "A hike? Doug, you know I prefer the comfort of solid ground beneath my feet. Hiking isn't exactly my idea of a leisurely day."
 
-This example is intended to be a starting place on how to use YAGSL. By no means is this intended to
-be the base of your robot project. YAGSL provides an easy way to generate a SwerveDrive which can be
-used in both TimedRobot and Command-Based Robot templates.
+Undeterred, Doug practically tugged Tim from his chair, enthusiasm undiminished. "Come on, Tim! Trust me, this will be the adventure of a lifetime. A trek through nature, just you and me."
 
+Tim sighed, attempting to free himself from Doug's grasp. "Doug, I really don't see the appeal of trudging through the woods. Can't we just enjoy a quiet day in the village?"
 
-# Overview
+Doug, however, wasn't one to take no for an answer. With relentless cheerfulness, he convinced Tim to join him on the hike. As they traversed the woodland trails, Doug's exuberance was met with Tim's reluctant steps. The hike seemed like more of a chore than an adventure for Tim, who couldn't fathom the thrill of wandering through the wilderness.
 
-### Installation
+Eventually, the trees cleared, and they found themselves at the meadow's edge. Tim, catching his breath, couldn't help but give Doug a bemused look. "Well, we made it. Now what?"
 
-Vendor URL:
+Doug, realizing the hike didn't quite match his grand vision, scratched his head. "Uh, Tim, maybe the hike didn't turn out as expected, but look at this gorgeous meadow we discovered!"
 
-```
-https://broncbotz3481.github.io/YAGSL-Lib/yagsl/yagsl.json
-```
+Tim, though still skeptical, surveyed the scenic meadow with a reluctant appreciation. "I suppose it has its charm. But Doug, I'm not sure I understand the excitement of dragging ourselves through the woods."
 
-[Javadocs here](https://broncbotz3481.github.io/YAGSL/)  
-[Library here](https://github.com/BroncBotz3481/YAGSL/)  
-[Code here](https://github.com/BroncBotz3481/YAGSL/tree/main/swervelib)  
-[WIKI](https://github.com/BroncBotz3481/YAGSL/wiki)  
-[Config Generation](https://broncbotz3481.github.io/YAGSL-Example/)
+Undeterred, Doug shifted gears. "How about we forget the hike and just enjoy the meadow? No rush, no racing. Just a day in nature."
 
-# Create an issue if there is any errors you find!
+And so, in the midst of the meadow's serenity, Tim and Doug abandoned the notion of hiking, opting instead for a leisurely day surrounded by nature's beauty. They lounged in the soft grass, exchanged stories, and discovered the joy of simply being in each other's company.
 
-We will be actively montoring this and fix any issues when we can!
-
-## Development
-
-* Development happens here on `YAGSL-Example`. `YAGSL` and `YAGSL-Lib` are updated on a nightly
-  basis.
-
-# Support our developers!
-<a href='https://ko-fi.com/yagsl' target='_blank'><img height='35' style='border:0px;height:46px;' src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=0' border='0' alt='Buy Me a Robot at ko-fi.com'></a>
-
-### TL;DR Generate and download your configuration [here](https://broncbotz3481.github.io/YAGSL-Example/) and unzip it so that it follows structure below:
-
-```text
-deploy
-└── swerve
-    ├── controllerproperties.json
-    ├── modules
-    │   ├── backleft.json
-    │   ├── backright.json
-    │   ├── frontleft.json
-    │   ├── frontright.json
-    │   ├── physicalproperties.json
-    │   └── pidfproperties.json
-    └── swervedrive.json
-```
-
-### Then create your SwerveDrive object like this.
-
-```java
-import java.io.File;
-import edu.wpi.first.wpilibj.Filesystem;
-import swervelib.parser.SwerveParser;
-import swervelib.SwerveDrive;
-import edu.wpi.first.math.util.Units;
-
-
-SwerveDrive swerveDrive=new SwerveParser(new File(Filesystem.getDeployDirectory(),"swerve")).createSwerveDrive(Units.feetToMeters(14.5));
-```
-
-# Migrating Old Configuration Files
-
-1. Delete `wheelDiamter`, `gearRatio`, `encoderPulsePerRotation` from `physicalproperties.json`
-2. Add `optimalVoltage` to `physicalproperties.json`
-3. Delete `maxSpeed` and `optimalVoltage` from `swervedrive.json`
-4. **IF** a swerve module doesn't have the same drive motor or steering motor as the rest of the
-   swerve drive you **MUST** specify a `conversionFactor` for BOTH the drive and steering motor in
-   the modules configuration JSON file. IF one of the motors is the same as the rest of the swerve
-   drive and you want to use that `conversionFactor`, set the `conversionFactor` in the module JSON
-   configuration to 0.
-5. You MUST specify the maximum speed when creating a `SwerveDrive`
-   through `new SwerveParser(directory).createSwerveDrive(maximumSpeed);`
-6. IF you do not want to set `conversionFactor` in `swervedrive.json`. You can pass it into the
-   constructor as a parameter like this
-
-```java
-double DriveConversionFactor = SwerveMath.calculateMetersPerRotation(Units.inchesToMeters(WHEEL_DIAMETER), GEAR_RATIO, ENCODER_RESOLUTION);
-double SteeringConversionFactor = SwerveMath.calculateDegreesPerSteeringRotation(GEAR_RATIO, ENCODER_RESOLUTION);
-SwerveDrive swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed, SteeringConversionFactor, DriveConversionFactor);
-```
-
-### Falcon Support would not have been possible without support from Team 1466 Webb Robotics!
-
-# Configuration Tips
-
-### My Robot Spins around uncontrollably during autonomous or when attempting to set the heading!
-
-* Invert the gyro scope.
-* Invert the drive motors for every module. (If front and back become reversed when turning)
-
-### Angle motors are erratic.
-
-* Invert the angle motor.
-
-### My robot is heavy.
-
-* Implement momentum velocity limitations in SwerveMath.
-
-### Ensure the IMU is centered on the robot
-
-# Maintainers
-- @thenetworkgrinch
-- @Technologyman00 
-
-# Special Thanks to Team 7900! Trial N' Terror
-Without the debugging and aid of Team 7900 the project could never be as stable or active as it is. 
+As the sun dipped below the horizon, casting a warm glow over the meadow, Tim and Doug sat side by side, grateful for a day that started as a reluctant adventure and evolved into a tale of unexpected camaraderie. In their village, where the meadow whispered tales of unconventional journeys, the story of Tim and Doug's woodland escapade became a cherished legend, proving that sometimes, the most meaningful adventures are the ones that begin with a reluctant step.
