@@ -17,11 +17,14 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.intake.IntakeSpeed;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDrive;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteFieldDrive;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
 import frc.robot.subsystems.SwerveSubsystem;
+
+import frc.robot.subsystems.intake;
 
 import java.io.File;
 
@@ -34,12 +37,17 @@ import com.pathplanner.lib.auto.AutoBuilder;
  */
 public class RobotContainer
 {
+  private final double intakespeed;
+
   // Create and auto chooser for use with SmartDashboard
   private final SendableChooser<Command> autoChooser;
 
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                          "swerve/neo"));
+
+  private final intake noteintake = new intake();
+
   // CommandJoystick rotationController = new CommandJoystick(1);
   // Replace with CommandPS4Controller or CommandJoystick if needed
   CommandJoystick driverController = new CommandJoystick(1);
@@ -55,6 +63,10 @@ public class RobotContainer
     // Build an auto chooser. This will use "Skibbidi Auto" as the default option.
     autoChooser = AutoBuilder.buildAutoChooser("Skibbidi Auto");
     SmartDashboard.putData("Auto Chooser", autoChooser);
+
+    // Intake speed variable
+    intakespeed = 0.0;
+    SmartDashboard.putNumber("Intake Speed", intakespeed);
 
     // Configure the trigger bindings
     configureBindings();
@@ -117,7 +129,9 @@ public class RobotContainer
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
     new JoystickButton(driverXbox, 1).onTrue((new InstantCommand(drivebase::zeroGyro)));
-    new JoystickButton(driverXbox, 3).onTrue(new InstantCommand(drivebase::addFakeVisionReading));
+    //new JoystickButton(driverXbox, 3).onTrue(new InstantCommand(drivebase::addFakeVisionReading));
+
+    new JoystickButton(driverXbox, 3).onTrue(new IntakeSpeed(noteintake, intakespeed));
 //    new JoystickButton(driverXbox, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
   }
 
