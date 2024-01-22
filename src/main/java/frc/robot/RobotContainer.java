@@ -22,6 +22,7 @@ import frc.robot.commands.swervedrive.drivebase.AbsoluteDrive;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteFieldDrive;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
+import frc.robot.subsystems.LeanProtection;
 import frc.robot.subsystems.SwerveSubsystem;
 
 import frc.robot.subsystems.intake;
@@ -47,6 +48,7 @@ public class RobotContainer
                                                                          "swerve/neo"));
 
   private final intake noteintake = new intake();
+  private final LeanProtection stability = new LeanProtection();
 
   // CommandJoystick rotationController = new CommandJoystick(1);
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -56,8 +58,8 @@ public class RobotContainer
   XboxController driverXbox = new XboxController(0);
 
   /**
-   * The container for the robot. Contains subsystems, OI devices, and commands.
-   */
+   * The container for the robot. Contains subsystems, OI devices, and commands. 
+  */
   public RobotContainer()
   {
     // Build an auto chooser. This will use "Skibbidi Auto" as the default option.
