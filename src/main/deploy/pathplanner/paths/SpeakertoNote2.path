@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.3351518646165252,
+        "y": 5.553919733431884
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.3546051736653235,
+        "y": 5.515013115334288
+      },
+      "isLocked": false,
+      "linkedName": "Speaker"
+    },
+    {
+      "anchor": {
+        "x": 2.298090662532036,
+        "y": 5.553919733431884
+      },
+      "prevControl": {
+        "x": 2.181370808239247,
+        "y": 5.573373042480681
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Note2"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "SkibbidiAuto",
+  "previewStartingState": null,
+  "useDefaultConstraints": false
+}
