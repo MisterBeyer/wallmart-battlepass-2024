@@ -1,0 +1,55 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.9258123131659552,
+      "y": 6.719388054155439
+    },
+    "rotation": 91.31001356570437
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Start - Amp"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp - Note1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Note1 - Speaker"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Speaker - Note2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Note2 - Speaker"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Griddying out of wing"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}
