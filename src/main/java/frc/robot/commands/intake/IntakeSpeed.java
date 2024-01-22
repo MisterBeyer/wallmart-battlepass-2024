@@ -1,5 +1,4 @@
 package frc.robot.commands.intake;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.subsystems.intake;
@@ -9,6 +8,10 @@ public class IntakeSpeed extends Command {
     private intake intake;
     private double speed;
 
+    /** 
+     * {@param module} {@link intake} to set speed for.
+     * {@param speed} of the intake from provided as a {@link Double} between 0-1
+     */
     public IntakeSpeed(intake module, double speed) {
         this.speed = speed; 
         this.intake = module;
