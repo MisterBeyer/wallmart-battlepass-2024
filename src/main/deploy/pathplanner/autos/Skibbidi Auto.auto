@@ -2,7 +2,7 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.0044456107869557,
+      "x": 2.0,
       "y": 7.0
     },
     "rotation": 0
@@ -14,7 +14,37 @@
         {
           "type": "path",
           "data": {
-            "pathName": "New Path"
+            "pathName": "StartToSpeaker"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "SpeakerToNote"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "NoteToSpeaker"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "SpeakertoNote2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Note2ToSpeaker"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "SpeakerToOut"
           }
         }
       ]
