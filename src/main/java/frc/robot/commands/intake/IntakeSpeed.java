@@ -13,8 +13,6 @@ public class IntakeSpeed extends Command {
         this.speed = speed; 
         this.intake = module;
         addRequirements(this.intake);
-
-        SmartDashboard.putNumber("Intake Speed", speed);
     }
 
       // Called when the command is initially scheduled.
