@@ -1,31 +1,32 @@
 package frc.robot.commands.intake;
 import edu.wpi.first.wpilibj2.command.Command;
 
-import frc.robot.subsystems.intake;
+import frc.robot.subsystems.Intake;
 
 //dont unplug the ethernet
-public class IntakeSpeed extends Command {
-    private intake intake;
+public class IntakeNote extends Command {
+    private Intake intake;
     private double speed;
 
     /** 
-     * {@param module} {@link intake} to set speed for.
+     * Shoots Note out of Intake
+     * {@param module} {@link Intake} to intake note with
      * {@param speed} of the intake from provided as a {@link Double} between 0-1
      */
-    public IntakeSpeed(intake module, double speed) {
-        this.speed = speed; 
+    public IntakeNote(Intake module, double speed) {
         this.intake = module;
+        this.speed = -speed; 
         addRequirements(this.intake);
     }
-
+    
       // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        intake.setspeed(speed);
     }
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        intake.setspeed(speed);
     }
     // Called once the command ends or is interrupted.
     @Override
