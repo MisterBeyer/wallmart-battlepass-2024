@@ -2,9 +2,9 @@
 
 
 
-![rapidsave com_7mr2av0plgob1](https://github.com/MisterBeyer/wallmart-battlepass-2024/assets/25889332/29a9c2f0-04e0-4f97-870e-862f58914715)
+![rapidsave com_7mr2av0plgob1](https://github.com/MisterBeyer/wallmart-battlepass-2024/assets/25889332/29a9c2f0-04e0-4f97-870e-862f58914715) ![xbox-live-xbox](https://github.com/MisterBeyer/wallmart-battlepass-2024/assets/156412087/8fdb4461-c924-48df-b29f-18f344258647)
 
-![xbox-live-xbox](https://github.com/MisterBeyer/wallmart-battlepass-2024/assets/156412087/8fdb4461-c924-48df-b29f-18f344258647)
+
 
 
 
