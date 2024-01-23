@@ -5,9 +5,10 @@
 ![rapidsave com_7mr2av0plgob1](https://github.com/MisterBeyer/wallmart-battlepass-2024/assets/25889332/29a9c2f0-04e0-4f97-870e-862f58914715)
 <br/>
 <br/>
-7627 Bearcat Robotnics
+<h2>7627 Bearcat Robotnics</h2>
+<h4>Wallmart BattlePass</h4>
 <br/>
-mc.perhapsbot.dev
+Join us at <b>mc.perhapsbot.dev<b/>
 
 <br/>
 <br/>
