@@ -70,7 +70,7 @@ public class RobotContainer
 
     // Configure the trigger bindings
     configureBindings();
-
+    
     AbsoluteDrive closedAbsoluteDrive = new AbsoluteDrive(drivebase,
                                                           // Applies deadbands  and inverts controls because joysticks
                                                           // are back-right positive while robot
@@ -114,7 +114,7 @@ public class RobotContainer
         () -> MathUtil.applyDeadband(driverController.getRawAxis(0), OperatorConstants.LEFT_X_DEADBAND),
         () -> -driverController.getRawAxis(2), () -> true);
 
-    drivebase.setDefaultCommand(!RobotBase.isSimulation() ? closedAbsoluteDrive : closedFieldAbsoluteDrive);
+    //drivebase.setDefaultCommand(!RobotBase.isSimulation() ? closedAbsoluteDrive : closedFieldAbsoluteDrive); 
   }
 
   /**
