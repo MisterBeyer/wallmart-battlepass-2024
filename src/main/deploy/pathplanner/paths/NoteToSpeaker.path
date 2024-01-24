@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.288364008007637,
-        "y": 7.00319125756735
+        "x": 2.168910700160914,
+        "y": 7.014791090923124
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3175439715808337,
-        "y": 6.691938312786578
+        "x": 2.198090663734111,
+        "y": 6.703538146142352
       },
       "isLocked": false,
       "linkedName": "Note1"
     },
     {
       "anchor": {
-        "x": 1.3351518646165252,
-        "y": 5.553919733431884
+        "x": 1.3337957445145674,
+        "y": 5.515621031242063
       },
       "prevControl": {
-        "x": 2.4050838623004265,
-        "y": 5.544193078907485
+        "x": 2.403727742198469,
+        "y": 5.505894376717664
       },
       "nextControl": null,
       "isLocked": false,
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "SkibbidiAuto",
+  "folder": null,
   "previewStartingState": null,
   "useDefaultConstraints": false
 }

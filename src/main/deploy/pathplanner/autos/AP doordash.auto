@@ -2,21 +2,15 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.2153924307848631,
-      "y": 2.7035423301615844
+      "x": 0.7220452902444284,
+      "y": 4.272386237080167
     },
-    "rotation": 0
+    "rotation": 120.52970589993417
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Start - Speaker"
-          }
-        },
         {
           "type": "path",
           "data": {
@@ -32,7 +26,49 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Speaker - Out of Wing Note (2)"
+            "pathName": "Speaker - Note1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Note1 to Speaker"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "SpeakerToNote"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "top note - amp"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp - Out of Wing Note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Out of wing note - Amp"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "amp - top note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "top note - amp"
           }
         }
       ]
