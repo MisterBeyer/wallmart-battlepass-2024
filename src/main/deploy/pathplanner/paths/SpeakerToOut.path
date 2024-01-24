@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3351518646165252,
-        "y": 5.553919733431884
+        "x": 1.3337957445145674,
+        "y": 5.515621031242063
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3351518646165257,
-        "y": 5.053919733431884
+        "x": 2.3337957445145676,
+        "y": 5.015621031242063
       },
       "isLocked": false,
       "linkedName": "Speaker"
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "SkibbidiAuto",
+  "folder": null,
   "previewStartingState": null,
   "useDefaultConstraints": false
 }

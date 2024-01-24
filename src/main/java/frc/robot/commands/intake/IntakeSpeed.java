@@ -1,15 +1,14 @@
 package frc.robot.commands.intake;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
-import frc.robot.subsystems.intake;
+import frc.robot.subsystems.Intake;
 
 //dont unplug the ethernet
 public class IntakeSpeed extends Command {
-    private intake intake;
+    private Intake intake;
     private double speed;
 
-    public IntakeSpeed(intake module, double speed) {
+    public IntakeSpeed(Intake module, double speed) {
         this.speed = speed; 
         this.intake = module;
         addRequirements(this.intake);

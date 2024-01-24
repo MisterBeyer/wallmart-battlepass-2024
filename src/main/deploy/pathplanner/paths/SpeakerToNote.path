@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3351518646165252,
-        "y": 5.553919733431884
+        "x": 1.3337957445145674,
+        "y": 5.515621031242063
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.5005049915313098,
-        "y": 6.380685368005807
+        "x": 1.4620660010550806,
+        "y": 5.752427658701472
       },
       "isLocked": false,
       "linkedName": "Speaker"
     },
     {
       "anchor": {
-        "x": 2.288364008007637,
-        "y": 7.00319125756735
+        "x": 2.168910700160914,
+        "y": 7.014791090923124
       },
       "prevControl": {
-        "x": 1.6658581184460943,
-        "y": 6.6433050401645835
+        "x": 2.024481741271176,
+        "y": 6.758855825403959
       },
       "nextControl": null,
       "isLocked": false,
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "SkibbidiAuto",
+  "folder": null,
   "previewStartingState": null,
   "useDefaultConstraints": false
 }
