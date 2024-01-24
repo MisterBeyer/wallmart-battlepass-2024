@@ -25,7 +25,7 @@ import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
 import frc.robot.subsystems.LeanProtection;
 import frc.robot.subsystems.SwerveSubsystem;
 
-import frc.robot.subsystems.intake;
+import frc.robot.subsystems.Intake;
 
 import java.io.File;
 
@@ -47,7 +47,7 @@ public class RobotContainer
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                          "swerve/neo"));
 
-  private final intake noteintake = new intake();
+  private final Intake noteintake = new Intake();
   private final LeanProtection stability = new LeanProtection();
 
   // CommandJoystick rotationController = new CommandJoystick(1);
