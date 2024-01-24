@@ -20,7 +20,7 @@ public class Intake extends SubsystemBase{
      */
     public void setspeed(double speed){
         Intake0.set(speed);
-        Intake1.set(-speed);
+        Intake1.set(speed);
         //I might be done guys
         //He might not be either
      }
