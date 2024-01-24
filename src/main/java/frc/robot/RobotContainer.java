@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.intake.IntakeSpeed;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDrive;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteFieldDrive;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
@@ -24,8 +25,6 @@ import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
 import frc.robot.subsystems.LeanProtection;
 import frc.robot.subsystems.SwerveSubsystem;
 
-import frc.robot.commands.intake.IntakeNote;
-import frc.robot.commands.intake.ShootNote;
 import frc.robot.subsystems.Intake;
 
 import java.io.File;
@@ -39,6 +38,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
  */
 public class RobotContainer
 {
+  private final double intakespeed;
 
   // Create and auto chooser for use with SmartDashboard
   private final SendableChooser<Command> autoChooser;
@@ -46,7 +46,8 @@ public class RobotContainer
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                          "swerve/neo"));
-  private final Intake intake = new Intake();
+
+  private final Intake noteintake = new Intake();
   private final LeanProtection stability = new LeanProtection();
 
   // CommandJoystick rotationController = new CommandJoystick(1);
@@ -65,14 +66,15 @@ public class RobotContainer
     autoChooser = AutoBuilder.buildAutoChooser("Skibbidi Auto");
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
-    // Put intake speed variable on shuffleboard
-    SmartDashboard.putNumber("Intake Speed", Constants.Intake.IntakeSpeed);
+    // Intake speed variable
+    intakespeed = 0.0;
+    SmartDashboard.putNumber("Intake Speed", intakespeed);
 
     // Configure the trigger bindings
     configureBindings();
     
     AbsoluteDrive closedAbsoluteDrive = new AbsoluteDrive(drivebase,
-                                                          // Applies deadbands  and inverts controls because joysticks
+                                                          // Applies deadbands and inverts controls because joysticks
                                                           // are back-right positive while robot
                                                           // controls are front-left positive
                                                           () -> MathUtil.applyDeadband(driverXbox.getLeftY(),
@@ -131,8 +133,7 @@ public class RobotContainer
     new JoystickButton(driverXbox, 1).onTrue((new InstantCommand(drivebase::zeroGyro)));
     //new JoystickButton(driverXbox, 3).onTrue(new InstantCommand(drivebase::addFakeVisionReading));
 
-    new JoystickButton(driverXbox, 3).onTrue((new IntakeNote(intake, Constants.Intake.IntakeSpeed)));
-    new JoystickButton(driverXbox, 4).onTrue((new IntakeNote(intake, Constants.Intake.IntakeSpeed)));
+    new JoystickButton(driverXbox, 3).onTrue(new IntakeSpeed(noteintake, intakespeed));
 //    new JoystickButton(driverXbox, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
   }
 
