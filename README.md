@@ -39,4 +39,5 @@ As the sun dipped below the horizon, casting a warm glow over the meadow, Tim an
 
 ![tumblr_c3b70e13e581de098eeee49ab5ae6b5b_d6ca4606_500](https://github.com/MisterBeyer/wallmart-battlepass-2024/assets/25889332/db9b1335-a9fc-4ae9-8d39-271ee2c8554e)
 ![smug-smug-jug](https://github.com/MisterBeyer/wallmart-battlepass-2024/assets/156412087/34393cda-a8d2-445b-a6e1-5e4a5c86575a)
+![pot-of-greed](https://github.com/MisterBeyer/wallmart-battlepass-2024/assets/156412087/f83a2a55-ca0d-4683-bd54-cf7672f5af32)
 
