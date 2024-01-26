@@ -27,7 +27,7 @@ Eventually, the trees cleared, and they found themselves at the meadow's edge. T
 
 Doug, realizing the hike didn't quite match his grand vision, scratched his head. "Uh, Tim, maybe the hike didn't turn out as expected, but look at this gorgeous meadow we discovered!"
 
-![xbox-live-xbox](https://github.com/MisterBeyer/wallmart-battlepass-2024/assets/156412087/8fdb4461-c924-48df-b29f-18f344258647)
+![output-onlinegiftools(1)](https://github.com/MisterBeyer/wallmart-battlepass-2024/assets/25889332/af38364c-5f03-460f-9fb2-01b5866fc5b4)
 
 Tim, though still skeptical, surveyed the scenic meadow with a reluctant appreciation. "I suppose it has its charm. But Doug, I'm not sure I understand the excitement of dragging ourselves through the woods."
 
@@ -39,5 +39,5 @@ As the sun dipped below the horizon, casting a warm glow over the meadow, Tim an
 
 ![tumblr_c3b70e13e581de098eeee49ab5ae6b5b_d6ca4606_500](https://github.com/MisterBeyer/wallmart-battlepass-2024/assets/25889332/db9b1335-a9fc-4ae9-8d39-271ee2c8554e)
 ![smug-smug-jug](https://github.com/MisterBeyer/wallmart-battlepass-2024/assets/156412087/34393cda-a8d2-445b-a6e1-5e4a5c86575a)
-![pot-of-greed](https://github.com/MisterBeyer/wallmart-battlepass-2024/assets/156412087/f83a2a55-ca0d-4683-bd54-cf7672f5af32)
+![output-onlinegiftools](https://github.com/MisterBeyer/wallmart-battlepass-2024/assets/25889332/9269a21b-9f1a-4b67-b249-13e74744620c)
 
