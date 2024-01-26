@@ -13,9 +13,9 @@ public class Intake extends SubsystemBase{
       Intake1.setIdleMode(CANSparkMax.IdleMode.kCoast);
     }
 
-    public void setspeed(double speed){
-        Intake0.set(speed);
-        Intake1.set(speed);
+    public void setspeed(double speedTop, double speedBottom){
+        Intake0.set(speedTop);
+        Intake1.set(speedBottom);
         //I might be done guys
         //He might not be either
      }
