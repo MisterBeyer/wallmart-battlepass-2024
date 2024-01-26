@@ -38,4 +38,5 @@ And so, in the midst of the meadow's serenity, Tim and Doug abandoned the notion
 As the sun dipped below the horizon, casting a warm glow over the meadow, Tim and Doug sat side by side, grateful for a day that started as a reluctant adventure and evolved into a tale of unexpected camaraderie. In their village, where the meadow whispered tales of unconventional journeys, the story of Tim and Doug's woodland escapade became a cherished legend, proving that sometimes, the most meaningful adventures are the ones that begin with a reluctant step.
 
 ![tumblr_c3b70e13e581de098eeee49ab5ae6b5b_d6ca4606_500](https://github.com/MisterBeyer/wallmart-battlepass-2024/assets/25889332/db9b1335-a9fc-4ae9-8d39-271ee2c8554e)
-![image](https://github.com/MisterBeyer/wallmart-battlepass-2024/assets/156412087/f7c4bf48-4a70-484c-9eeb-069e3fdadbf3)
+![smug-smug-jug](https://github.com/MisterBeyer/wallmart-battlepass-2024/assets/156412087/34393cda-a8d2-445b-a6e1-5e4a5c86575a)
+
