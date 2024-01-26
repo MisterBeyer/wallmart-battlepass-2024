@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -13,9 +15,22 @@ public class Intake extends SubsystemBase{
       Intake1.setIdleMode(CANSparkMax.IdleMode.kCoast);
     }
 
+    /**
+     * Pulls the IntakeSpeed variables from shuffleboard
+     */
+    public void updatespeed() {
+      Constants.OperatorConstants.IntakeSpeedTop = SmartDashboard.getNumber("Top Intake Speed", Constants.OperatorConstants.IntakeSpeedTop);
+      Constants.OperatorConstants.IntakeSpeedBottom = SmartDashboard.getNumber("Bottom Intake Speed", Constants.OperatorConstants.IntakeSpeedBottom);
+    }
+
+    /**
+     * Sets speed of both intake motors
+     * @param speedTop Speed of Top Motor
+     * @param speedBottom Speed of Bottom Motor
+     */
     public void setspeed(double speedTop, double speedBottom){
-        Intake0.set(speedTop);
-        Intake1.set(speedBottom);
+        Intake0.set(speedBottom);
+        Intake1.set(speedTop);
         //I might be done guys
         //He might not be either
      }
