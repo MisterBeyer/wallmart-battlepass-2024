@@ -35,7 +35,9 @@ public final class Constants
 
   public static final class Drivebase
   {
-
+    // Drivebase Speed
+    public static final double MaxSpeed = Units.feetToMeters(1);
+    
     // Hold time on motor brakes when disabled
     public static final double WHEEL_LOCK_TIME = 10; // seconds
   }
@@ -52,6 +54,6 @@ public final class Constants
     public static final double RIGHT_X_DEADBAND = 0.05;
     public static final double TURN_CONSTANT = 0.75;
     public static final double IntakeDeadBand = 0.5;
-    
+
   }
 }
