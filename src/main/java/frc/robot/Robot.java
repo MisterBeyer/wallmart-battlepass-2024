@@ -7,7 +7,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import java.io.File;
@@ -159,9 +158,6 @@ public class Robot extends TimedRobot
   @Override
   public void testPeriodic()
   {
-    // Pull intake speed variables from shuffleboard
-    Constants.OperatorConstants.IntakeSpeedTop = SmartDashboard.getNumber("Top Intake Speed", Constants.OperatorConstants.IntakeSpeedTop);
-    Constants.OperatorConstants.IntakeSpeedBottom = SmartDashboard.getNumber("Bottom Intake Speed", Constants.OperatorConstants.IntakeSpeedBottom);
   }
 
   /**

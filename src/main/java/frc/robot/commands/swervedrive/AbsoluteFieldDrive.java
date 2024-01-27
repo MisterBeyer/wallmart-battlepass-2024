@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.swervedrive.drivebase;
+package frc.robot.commands.swervedrive;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.SwerveSubsystem;
-
 import java.util.List;
 import java.util.function.DoubleSupplier;
 import swervelib.SwerveController;
@@ -29,7 +28,7 @@ public class AbsoluteFieldDrive extends Command
   /**
    * Used to drive a swerve robot in full field-centric mode.  vX and vY supply translation inputs, where x is
    * torwards/away from alliance wall and y is left/right. headingHorzontal and headingVertical are the Cartesian
-   * coordinates from which the robot's angle will be derived— they will be converted to a polar angle, which the robot
+   * coordinates from which the robot's angle will be derived- they will be converted to a polar angle, which the robot
    * will rotate to.
    *
    * @param swerve  The swerve drivebase subsystem.
