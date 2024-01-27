@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.intake.IntakeShoot;
 import frc.robot.commands.swervedrive.AbsoluteDriveAdv;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LeanProtection;
@@ -83,6 +84,10 @@ public class RobotContainer
                                                                    driverXbox::getXButtonPressed,
                                                                    driverXbox::getBButtonPressed);
 
+    IntakeShoot intakeshoot = new IntakeShoot(noteintake, 
+                                              () -> MathUtil.applyDeadband(operatorXbox.getLeftY(), OperatorConstants.IntakeDeadBand),
+                                              () -> MathUtil.applyDeadband(operatorXbox.getLeftX(), OperatorConstants.IntakeDeadBand));
+
     // Applies deadbands and inverts controls because joysticks
     // are back-right positive while robot
     // controls are front-left positive
@@ -99,6 +104,7 @@ public class RobotContainer
     // controls are front-left positive
     // left stick controls translation
     // right stick controls the angular velocity of the robot
+    
     Command driveFieldOrientedAnglularVelocity = drivebase.driveCommand(
         () -> MathUtil.applyDeadband(driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
         () -> MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
@@ -107,10 +113,11 @@ public class RobotContainer
     Command driveFieldOrientedDirectAngleSim = drivebase.simDriveCommand(
         () -> MathUtil.applyDeadband(driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
         () -> MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
-        () -> driverXbox.getRawAxis(2));
+        () -> driverXbox.getRawAxis(2)); 
 
     drivebase.setDefaultCommand(
         !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle : driveFieldOrientedDirectAngleSim);
+    noteintake.setDefaultCommand(intakeshoot);
   }
 
   /**
