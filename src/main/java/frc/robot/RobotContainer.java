@@ -85,8 +85,10 @@ public class RobotContainer
                                                                    driverXbox::getBButtonPressed);
 
     IntakeShoot intakeshoot = new IntakeShoot(noteintake, 
-                                              () -> MathUtil.applyDeadband(operatorXbox.getLeftY(), OperatorConstants.IntakeDeadBand),
-                                              () -> MathUtil.applyDeadband(operatorXbox.getLeftX(), OperatorConstants.IntakeDeadBand));
+                                              () -> MathUtil.applyDeadband(operatorXbox.getLeftY(),
+                                                                           OperatorConstants.IntakeDeadBand),
+                                              () -> MathUtil.applyDeadband(operatorXbox.getRightY(),
+                                                                           OperatorConstants.IntakeDeadBand));
 
     // Applies deadbands and inverts controls because joysticks
     // are back-right positive while robot
@@ -131,8 +133,7 @@ public class RobotContainer
   {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
-    new JoystickButton(operatorXbox,1).onTrue((new InstantCommand(noteintake::updatespeed)));
-
+    // Driver Controller Binds
     new JoystickButton(driverXbox, 1).onTrue((new InstantCommand(drivebase::zeroGyro)));
     new JoystickButton(driverXbox, 3).onTrue(new InstantCommand(drivebase::addFakeVisionReading));
     new JoystickButton(driverXbox,
@@ -140,7 +141,11 @@ public class RobotContainer
         Commands.deferredProxy(() -> drivebase.driveToPose(
                                    new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
                               ));
-//    new JoystickButton(driverXbox, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
+    //   new JoystickButton(driverXbox, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
+
+
+    // Operator Controller Binds
+    new JoystickButton(operatorXbox,1).onTrue((new InstantCommand(noteintake::updatespeed)));
   }
 
   /**
