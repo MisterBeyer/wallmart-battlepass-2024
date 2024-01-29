@@ -8,7 +8,7 @@
 <h2>7627 Bearcat Robotnics</h2>
 <h4>Wallmart BattlePass</h4>
 <br/>
-Join us at <b>mc.perhapsbot.dev<b/>
+
 
 <br/>
 <br/>
