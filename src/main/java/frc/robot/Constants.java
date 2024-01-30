@@ -27,15 +27,15 @@ public final class Constants
   public static final class Auton
   {
 
-    public static final PIDFConfig TranslationPID     = new PIDFConfig(0.7, 0, 0);
-    public static final PIDFConfig angleAutoPID = new PIDFConfig(0.4, 0, 0.01);
+   // public static final PIDFConfig TranslationPID     = new PIDFConfig(0.7, 0, 0);
+   // public static final PIDFConfig angleAutoPID = new PIDFConfig(0.4, 0, 0.01);
 
-    public static final double MAX_ACCELERATION = 0.07;
+  //  public static final double MAX_ACCELERATION = 0.07;
   }
 
   public static final class Drivebase
   {
-    // Drivebase Speed
+    // Drivebase Max Speed
     public static final double MaxSpeed = Units.feetToMeters(1);
     
     // Hold time on motor brakes when disabled
