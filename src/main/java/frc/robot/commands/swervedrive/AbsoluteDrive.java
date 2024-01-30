@@ -88,7 +88,8 @@ public class AbsoluteDrive extends Command
       }
       //Dont Init Rotation Again
       initRotation = false;
-    }
+    }//it's so sad steve jobs died of ligma
+    //please let me out of the basement
 
     // Limit velocity to prevent tippy
     Translation2d translation = SwerveController.getTranslation2d(desiredSpeeds);
