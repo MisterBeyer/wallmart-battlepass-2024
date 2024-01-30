@@ -106,6 +106,8 @@ public class RobotContainer
     // controls are front-left positive
     // left stick controls translation
     // right stick controls the angular velocity of the robot
+
+    //bofa
     
     Command driveFieldOrientedAnglularVelocity = drivebase.driveCommand(
         () -> MathUtil.applyDeadband(driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
@@ -118,7 +120,7 @@ public class RobotContainer
         () -> driverXbox.getRawAxis(2)); 
 
     drivebase.setDefaultCommand(
-       !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle : driveFieldOrientedDirectAngleSim);
+       !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle : driveFieldOrientedAnglularVelocity);
     noteintake.setDefaultCommand(intakeshoot);
   }
 
