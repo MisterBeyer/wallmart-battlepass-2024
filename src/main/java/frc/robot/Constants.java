@@ -7,7 +7,8 @@ package frc.robot;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
-import swervelib.parser.PIDFConfig;
+
+import com.pathplanner.lib.util.PIDConstants;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean constants. This
@@ -24,13 +25,13 @@ public final class Constants
   public static final Matter CHASSIS    = new Matter(new Translation3d(Units.inchesToMeters(26), Units.inchesToMeters(26),  Units.inchesToMeters(8)), ROBOT_MASS);
   public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
 
-  public static final class Auton
+  public static final class Pathplanner
   {
+    // Translation PID constants
+    public static final PIDConstants TranslationPID = new PIDConstants(5.0, 0.0, 0.0);
 
-   // public static final PIDFConfig TranslationPID     = new PIDFConfig(0.7, 0, 0);
-   // public static final PIDFConfig angleAutoPID = new PIDFConfig(0.4, 0, 0.01);
-
-  //  public static final double MAX_ACCELERATION = 0.07;
+    // Max module speed, in m/s
+    public static final double MaxModuleSpeed = 4.5;
   }
 
   public static final class Drivebase
