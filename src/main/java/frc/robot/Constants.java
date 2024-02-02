@@ -28,10 +28,10 @@ public final class Constants
   public static final class Pathplanner
   {
     // Translation PID constants
-    public static final PIDConstants TranslationPID = new PIDConstants(5.0, 0.0, 0.0);
+    public static final PIDConstants TranslationPID = new PIDConstants(1, 0.0, 0.0);
 
     // Max module speed, in m/s
-    public static final double MaxModuleSpeed = 4.5;
+    public static final double MaxModuleSpeed = Units.feetToMeters(2);
   }
 
   public static final class Drivebase
