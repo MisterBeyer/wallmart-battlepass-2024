@@ -49,6 +49,13 @@ public final class Constants
     public static double IntakeSpeedTop = 0.1; 
     public static double IntakeSpeedBottom = 0.1;
 
+    // Arm/Wrist Motor Speed and amp limits
+    public static double ArmMotorSpeed = 0.1;
+    public static double WristMotorSpeed = 0.1;
+
+    public static double ArmAmpLimit = 2;
+    public static double WristAmpLimit = 2;
+    
     // Joystick Deadband
     public static final double LEFT_X_DEADBAND = 0.05;
     public static final double LEFT_Y_DEADBAND = 0.05;
