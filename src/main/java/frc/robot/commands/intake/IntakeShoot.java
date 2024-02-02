@@ -36,7 +36,7 @@ public class IntakeShoot extends Command {
     public void Shoot() {
         if(!inuse) {
             inuse = true;
-            intake.setspeed(OperatorConstants.IntakeSpeedTop, OperatorConstants.IntakeSpeedBottom);
+            intake.setSpeed(OperatorConstants.IntakeSpeedTop, OperatorConstants.IntakeSpeedBottom);
         }
     }
 
@@ -46,7 +46,7 @@ public class IntakeShoot extends Command {
     public void Intake() {
         if(!inuse) {
             inuse = true;
-            intake.setspeed(-OperatorConstants.IntakeSpeedTop, -OperatorConstants.IntakeSpeedBottom);
+            intake.setSpeed(-OperatorConstants.IntakeSpeedTop, -OperatorConstants.IntakeSpeedBottom);
         }
     }
 
