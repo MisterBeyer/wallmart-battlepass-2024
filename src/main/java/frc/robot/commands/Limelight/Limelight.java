@@ -5,49 +5,70 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpiutil.net.PortForwarder;
+import edu.wpi.first.net.PortForwarder;
+import java.util.ArrayList;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Limelight {
 
     
-    double tx = LimelightHelpers.getTX("7627_SpyCamera");
-
-
-
-    NetworkTable table = NetworkTable.getTable("limelight");
-double targetOffsetAngle_Horizontal = table.getNumber("tx", 0);
-double targetOffsetAngle_Vertical = table.getNumber("ty", 0);
-double targetArea = table.getNumber("ta", 0);
-double targetSkew = table.getNumber("ts", 0);
-
-
-
-NetworkTable Table = NetworkTableInstance.getDefault().getTable("limelight");
-NetworkTableEntry tx = table.getEntry("tx");
-NetworkTableEntry ty = table.getEntry("ty");
-NetworkTableEntry ta = table.getEntry("ta");
-
-//read values periodically
-double x = tx.getDouble(0.0);
-double y = ty.getDouble(0.0);
-double area = ta.getDouble(0.0);
-
-//post to smart dashboard periodically
-SmartDashboard.putNumber("LimelightX". x);
-SmartDashboard.putNumber("LimelightY". y);
-SmartDashboard.putNumber("LimelightArea". area);
-
-
-@Override
-public void robotInit() 
-{
-    // Make sure you only configure port forwarding once in your robot code.
-    // Do not place these function calls in any periodic functions
-    for (int port = 5800; port <= 5807; port++) {
-        PortForwarder.add(port, "limelight.local", port);
+    
+    public class Vision extends SubsystemBase {
+      private final NetworkTable m_limelightTable;
+      private double tv, tx, ta;
+      private ArrayList<Double> m_targetList;
+      private final int MAX_ENTRIES = 50;
+      private final NetworkTableEntry m_isTargetValid, m_led_entry;
+    
+    
+      /**
+       * Creates a new Vision.
+       */
+      public Vision() {
+        m_limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
+        m_targetList = new ArrayList<Double>(MAX_ENTRIES);
+        m_isTargetValid = ShuffleboardInfo.getInstance().getTargetEntry();
+        m_led_entry = m_limelightTable.getEntry("ledMode");
+      }
+    
+      @Override
+      public void periodic() {
+        // This method will be called once per scheduler run
+        tv = m_limelightTable.getEntry("tv").getDouble(0);
+        tx = m_limelightTable.getEntry("tx").getDouble(0);
+        ta = m_limelightTable.getEntry("ta").getDouble(0);
+    
+        m_isTargetValid.setBoolean(isTargetValid());
+    
+        if (m_targetList.size() >= MAX_ENTRIES) {
+          m_targetList.remove(0);
+        }
+        m_targetList.add(ta);
+      }
+    
+      public double getTX() {
+        return tx;
+      }
+    
+      public double getTA() {
+        double sum = 0;
+    
+        for (Double num : m_targetList) { 		      
+          sum += num.doubleValue();
+        }
+        return sum/m_targetList.size();
+      }
+    
+      public boolean isTargetValid() {
+        return (tv == 1.0); 
+      }
+    
+      public void setLlLedMode(int mode){
+        m_led_entry.setDouble((mode));
+      }
     }
-}
-
-
     
 }
