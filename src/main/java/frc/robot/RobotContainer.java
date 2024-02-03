@@ -21,11 +21,15 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.arm.ThreePos;
 import frc.robot.commands.intake.IntakeShoot;
 import frc.robot.commands.swervedrive.AbsoluteDriveAdv;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LeanProtection;
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.Wrist;
+
 import java.io.File;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -44,6 +48,12 @@ public class RobotContainer
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                          "swerve/neo"));
   private final Intake noteintake = new Intake();
+  private final Wrist wrist = new Wrist();
+  private final Arm arm = new Arm();
+
+  // Define Arm Command
+  ThreePos arm_control = new ThreePos(noteintake, arm, wrist);
+
   // CommandJoystick rotationController = new CommandJoystick(1);
   // Replace with CommandPS4Controller or CommandJoystick if needed
   //CommandJoystick driverController = new CommandJoystick(1);
@@ -64,10 +74,12 @@ public class RobotContainer
     autoChooser = AutoBuilder.buildAutoChooser("Skibbidi Auto");
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
-    // Intake speed variables
+    // Putchangable Constants on Smartdashboard
     SmartDashboard.putNumber("Top Intake Speed", Constants.OperatorConstants.IntakeSpeedTop);
     SmartDashboard.putNumber("Bottom Intake Speed", Constants.OperatorConstants.IntakeSpeedBottom);
 
+    SmartDashboard.putNumber("Wrist Motor Speed", Constants.OperatorConstants.IntakeSpeedTop);
+    SmartDashboard.putNumber("Arm Motor Speed", Constants.OperatorConstants.IntakeSpeedBottom);
 
     // Configure the trigger bindings
     configureBindings();
@@ -84,11 +96,11 @@ public class RobotContainer
                                                                    driverXbox::getXButtonPressed,
                                                                    driverXbox::getBButtonPressed);
 
-    IntakeShoot intakeshoot = new IntakeShoot(noteintake, 
+    /* IntakeShoot intakeshoot = new IntakeShoot(noteintake, 
                                               () -> MathUtil.applyDeadband(operatorXbox.getLeftY(),
                                                                            OperatorConstants.IntakeDeadBand),
                                               () -> MathUtil.applyDeadband(operatorXbox.getRightY(),
-                                                                           OperatorConstants.IntakeDeadBand));
+                                                                           OperatorConstants.IntakeDeadBand)); */
 
     // Applies deadbands and inverts controls because joysticks
     // are back-right positive while robot
@@ -121,7 +133,7 @@ public class RobotContainer
 
     drivebase.setDefaultCommand(
        !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle : driveFieldOrientedAnglularVelocity);
-    noteintake.setDefaultCommand(intakeshoot);
+    //noteintake.setDefaultCommand(intakeshoot);
   }
 
   /**
@@ -146,8 +158,13 @@ public class RobotContainer
     //   new JoystickButton(driverXbox, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
 
 
-    // Operator Controller Binds
-    new JoystickButton(operatorXbox,1).onTrue((new InstantCommand(noteintake::updatespeed)));
+    //   Operator Controller Binds
+
+    // Arm/Wrist
+    new JoystickButton(operatorXbox,2).onTrue(new InstantCommand(arm_control::ArmUp));
+    new JoystickButton(operatorXbox,3).onTrue(new InstantCommand(arm_control::IntakeOut));
+    new JoystickButton(operatorXbox,4).onTrue(new InstantCommand(arm_control::IntakeStow));
+    new JoystickButton(operatorXbox,5).onTrue(new InstantCommand(arm_control::Shoot));
   }
 
   /**
