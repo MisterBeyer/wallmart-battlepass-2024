@@ -132,7 +132,7 @@ public class RobotContainer
         () -> driverXbox.getRawAxis(2)); 
 
     drivebase.setDefaultCommand(
-       !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle : driveFieldOrientedAnglularVelocity);
+       !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle: driveFieldOrientedAnglularVelocity);
     //noteintake.setDefaultCommand(intakeshoot);
   }
 
@@ -175,6 +175,7 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
+    //drivebase.zeroGyro();
     return autoChooser.getSelected();
   }
 
