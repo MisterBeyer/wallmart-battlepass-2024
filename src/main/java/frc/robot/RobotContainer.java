@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.*;
 import frc.robot.commands.arm.ThreePos;
 import frc.robot.commands.intake.IntakeShoot;
 import frc.robot.commands.swervedrive.AbsoluteDriveAdv;
@@ -45,7 +45,7 @@ public class RobotContainer
   private final SendableChooser<Command> autoChooser;
 
   // The robot's subsystems and commands are defined here...
-  private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
+  private SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                          "swerve/neo"));
   private final Intake noteintake = new Intake();
   private final Wrist wrist = new Wrist();
@@ -81,6 +81,10 @@ public class RobotContainer
     SmartDashboard.putNumber("Wrist Motor Speed", Constants.OperatorConstants.IntakeSpeedTop);
     SmartDashboard.putNumber("Arm Motor Speed", Constants.OperatorConstants.IntakeSpeedBottom);
 
+    SmartDashboard.putNumber("Trans P", Constants.Pathplanner.TranslationPID.kP);
+    SmartDashboard.putNumber("Trans I", Constants.Pathplanner.TranslationPID.kI);
+    SmartDashboard.putNumber("Trans D", Constants.Pathplanner.TranslationPID.kD);
+
     // Configure the trigger bindings
     configureBindings();
 
@@ -96,11 +100,11 @@ public class RobotContainer
                                                                    driverXbox::getXButtonPressed,
                                                                    driverXbox::getBButtonPressed);
 
-    /* IntakeShoot intakeshoot = new IntakeShoot(noteintake, 
+     IntakeShoot intakeshoot = new IntakeShoot(noteintake, 
                                               () -> MathUtil.applyDeadband(operatorXbox.getLeftY(),
                                                                            OperatorConstants.IntakeDeadBand),
                                               () -> MathUtil.applyDeadband(operatorXbox.getRightY(),
-                                                                           OperatorConstants.IntakeDeadBand)); */
+                                                                           OperatorConstants.IntakeDeadBand));
 
     // Applies deadbands and inverts controls because joysticks
     // are back-right positive while robot
@@ -133,9 +137,9 @@ public class RobotContainer
 
     drivebase.setDefaultCommand(
        !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle: driveFieldOrientedAnglularVelocity);
-    //noteintake.setDefaultCommand(intakeshoot);
+      noteintake.setDefaultCommand(intakeshoot);
   }
-
+  
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
    * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary predicate, or via the
@@ -175,7 +179,6 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
-    //drivebase.zeroGyro();
     return autoChooser.getSelected();
   }
 
