@@ -67,9 +67,9 @@ public class IntakeShoot extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if(left.getAsDouble() > 0) Intake();
-        else if(right.getAsDouble() > 0) Shoot();
-        else Stop();
+        if(left.getAsDouble() > 0) { Intake(); }
+        else if(right.getAsDouble() > 0) { Shoot(); }
+        else { Stop(); }
     }
 
     // Called once the command ends or is interrupted.
