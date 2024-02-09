@@ -13,8 +13,6 @@ public class IntakeShoot extends Command {
     private DoubleSupplier left;
     private DoubleSupplier right;
 
-    private boolean inuse = false;
-
 
     /**
      *  Command providing Basic Intake Control by Operator Controller
@@ -30,24 +28,26 @@ public class IntakeShoot extends Command {
         addRequirements(this.intake);
     }
 
-   /**
-     * Shoots note from intake when called
-     */
-    public void Shoot() {
-        if(!inuse) {
-            inuse = true;
-            intake.setSpeed(OperatorConstants.IntakeSpeedTop, OperatorConstants.IntakeSpeedBottom);
-        }
+     /**
+     * Shoots note
+     * Ramps up speeed by using a natural log function
+     * @speed Speed provided by controller 
+     * @Constants.OutakeSpeed provides max achievable speed
+     */ 
+    public void Shoot(Double Speed) {
+        Double setSpeed = OperatorConstants.IntakeSpeed*Math.log(Speed);
+        intake.setSpeed(setSpeed, setSpeed);
     }
 
     /**
-     * Intakes note when called
-     */
-    public void Intake() {
-        if(!inuse) {
-            inuse = true;
-            intake.setSpeed(-OperatorConstants.IntakeSpeedTop, -OperatorConstants.IntakeSpeedBottom);
-        }
+     * Intakes note
+     * Ramps up speeed by using a natural log function
+     * @speed Speed provided by controller 
+     * @Constants.IntakeSpeed provides max achievable speed
+     */ 
+    public void Intake(Double Speed) {
+        Double setSpeed = -OperatorConstants.IntakeSpeed*Math.log(Speed);
+        intake.setSpeed(setSpeed, setSpeed);
     }
 
 
@@ -55,7 +55,6 @@ public class IntakeShoot extends Command {
      * Stops and resets the Intake's status when called
      */
     public void Stop() {
-        inuse = false;
         intake.stop();
     }
 
@@ -67,8 +66,8 @@ public class IntakeShoot extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if(left.getAsDouble() > 0) { Intake(); }
-        else if(right.getAsDouble() > 0) { Shoot(); }
+        if(left.getAsDouble() < 0) { Intake(left.getAsDouble()); }
+        else if(right.getAsDouble() < 0) { Shoot(right.getAsDouble()); }
         else { Stop(); }
     }
 

@@ -75,11 +75,11 @@ public class RobotContainer
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
     // Putchangable Constants on Smartdashboard
-    SmartDashboard.putNumber("Top Intake Speed", Constants.OperatorConstants.IntakeSpeedTop);
-    SmartDashboard.putNumber("Bottom Intake Speed", Constants.OperatorConstants.IntakeSpeedBottom);
+    SmartDashboard.putNumber("Top Intake Speed", Constants.OperatorConstants.IntakeSpeed);
+    SmartDashboard.putNumber("Bottom Intake Speed", Constants.OperatorConstants.OutakeSpeed);
 
-    SmartDashboard.putNumber("Wrist Motor Speed", Constants.OperatorConstants.IntakeSpeedTop);
-    SmartDashboard.putNumber("Arm Motor Speed", Constants.OperatorConstants.IntakeSpeedBottom);
+    SmartDashboard.putNumber("Wrist Motor Speed", Constants.OperatorConstants.IntakeSpeed);
+    SmartDashboard.putNumber("Arm Motor Speed", Constants.OperatorConstants.OutakeSpeed);
 
     SmartDashboard.putNumber("Trans P", Constants.Pathplanner.TranslationPID.kP);
     SmartDashboard.putNumber("Trans I", Constants.Pathplanner.TranslationPID.kI);
