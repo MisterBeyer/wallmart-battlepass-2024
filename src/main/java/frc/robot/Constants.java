@@ -29,16 +29,18 @@ public final class Constants
   {
     // Translation PID constants
     public static final PIDConstants TranslationPID = new PIDConstants(1, 0, 0.02);
+    public static final PIDConstants RotationPID = new PIDConstants(5, 0, 0);
     
 
     // Max module speed, in m/s
-    public static final double MaxModuleSpeed = Units.feetToMeters(2);
+    public static final double MaxModuleSpeed = Units.feetToMeters(15.1); 
+    
   }
 
   public static final class Drivebase
   {
     // Drivebase Max Speed
-    public static final double MaxSpeed = Units.feetToMeters(1);
+    public static final double MaxSpeed = Units.feetToMeters(15.1);
     
     // Hold time on motor brakes when disabled
     public static final double WHEEL_LOCK_TIME = 10; // seconds
