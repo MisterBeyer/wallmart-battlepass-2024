@@ -106,9 +106,10 @@ public class SwerveSubsystem extends SubsystemBase
         new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
                                          Constants.Pathplanner.TranslationPID,
                                          // Translation PID constants
-                                         new PIDConstants(swerveDrive.swerveController.config.headingPIDF.p,
+                                         Constants.Pathplanner.RotationPID,
+                                         /* new PIDConstants(swerveDrive.swerveController.config.headingPIDF.p,
                                                           swerveDrive.swerveController.config.headingPIDF.i,
-                                                          swerveDrive.swerveController.config.headingPIDF.d),
+                                                          swerveDrive.swerveController.config.headingPIDF.d), */
                                          // Rotation PID constants
                                          Constants.Pathplanner.MaxModuleSpeed,
                                          // Max module speed, in m/s
