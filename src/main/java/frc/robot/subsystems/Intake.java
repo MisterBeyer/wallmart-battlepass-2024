@@ -20,8 +20,8 @@ public class Intake extends SubsystemBase{
 
     /** Pulls the IntakeSpeed variables from shuffleboard  */
     public void updateSpeed() {
-      OperatorConstants.IntakeSpeedTop = SmartDashboard.getNumber("Top Intake Speed", OperatorConstants.IntakeSpeedTop);
-      OperatorConstants.IntakeSpeedBottom = SmartDashboard.getNumber("Bottom Intake Speed", OperatorConstants.IntakeSpeedBottom);
+      OperatorConstants.IntakeSpeed = SmartDashboard.getNumber("Intake Speed", OperatorConstants.IntakeSpeed);
+      OperatorConstants.OutakeSpeed = SmartDashboard.getNumber("Outake Speed", OperatorConstants.OutakeSpeed);
     }
 
     /** @return Average of Intake motor's Output Amperage */
