@@ -39,6 +39,7 @@ public final class Constants
   {
     // Drivebase Max Speed
     public static final double MaxSpeed = Units.feetToMeters(15.1);
+    public static final double MaxSpeed = Units.feetToMeters(15.1);
     
     // Hold time on motor brakes when disabled
     public static final double WHEEL_LOCK_TIME = 10; // seconds
