@@ -141,8 +141,10 @@ public class SwerveSubsystem extends SubsystemBase
     // Load the path you want to follow using its name in the GUI
     PathPlannerPath path = PathPlannerPath.fromPathFile(pathName);
 
+    System.out.println("Running Autonomous");
     if (setOdomToStart)
     {
+      System.out.println("Setting Odom to Start");
       resetOdometry(new Pose2d(path.getPoint(0).position, getHeading()));
     }
 
@@ -184,7 +186,7 @@ public class SwerveSubsystem extends SubsystemBase
   public Command driveCommand(DoubleSupplier translationX, DoubleSupplier translationY, DoubleSupplier headingX,
                               DoubleSupplier headingY)
   {
-    //swerveDrive.setHeadingCorrection(true); // Normally you would want heading correction for this kind of control.
+    // swerveDrive.setHeadingCorrection(true); // Normally you would want heading correction for this kind of control.
     return run(() -> {
       double xInput = Math.pow(translationX.getAsDouble(), 1); // Smooth controll out //TODO: Remeber this
       double yInput = Math.pow(translationY.getAsDouble(), 1); // Smooth controll out
