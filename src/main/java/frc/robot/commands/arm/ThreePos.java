@@ -24,7 +24,7 @@ public class ThreePos extends Command{
     public void IntakeOut() {
         arm.Down();
         wrist.SetWristPos(true);
-        intake.setSpeed(-OperatorConstants.IntakeSpeedTop, -OperatorConstants.IntakeSpeedBottom);
+        intake.setSpeed(-OperatorConstants.IntakeSpeed, -OperatorConstants.IntakeSpeed);
     }
 
     /** Brings Intake In */
@@ -43,7 +43,7 @@ public class ThreePos extends Command{
     
     /** Shoots note from intake */
     public void Shoot() {
-        if(arm.getPosition() != 1 ) intake.setSpeed(OperatorConstants.IntakeSpeedTop, OperatorConstants.IntakeSpeedBottom);
+        if(arm.getPosition() != 1 ) intake.setSpeed(OperatorConstants.OutakeSpeed, OperatorConstants.OutakeSpeed);
     }
 
 }
