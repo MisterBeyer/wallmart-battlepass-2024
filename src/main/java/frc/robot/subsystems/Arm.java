@@ -33,7 +33,7 @@ public class Arm extends SubsystemBase{
     public double getCurrent() {
         double current = (Arm0.getOutputCurrent() + Arm1.getOutputCurrent())/2;
   
-        SmartDashboard.putNumber("Arm Amps", current);
+        SmartDashboard.putNumber("Arm/Arm Amps", current);
         return current;
       }
 
@@ -43,14 +43,14 @@ public class Arm extends SubsystemBase{
      *      3: All the way UP 
     */
     public int getPosition() {
-        SmartDashboard.putNumber("Arm Position", position);
+        SmartDashboard.putNumber("Arm/Arm Position", position);
         return position;
       }
 
 
     /** Updates Motor Speeds from shuffleboard */
     public void updateSpeed() {
-        OperatorConstants.ArmMotorSpeed = SmartDashboard.getNumber("Wrist Motor Speed", OperatorConstants.ArmMotorSpeed);
+        OperatorConstants.ArmMotorSpeed = SmartDashboard.getNumber("Arm/Wrist Motor Speed", OperatorConstants.ArmMotorSpeed);
       }
 
     /** Sets all arm motors to coast, allowing arm to be manupilated by hand */
