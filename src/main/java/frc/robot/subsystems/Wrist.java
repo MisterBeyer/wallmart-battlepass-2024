@@ -20,7 +20,7 @@ public class Wrist extends SubsystemBase{
     /** @return Wrist motor's Output Amperage */
     public double getCurrent() {
         double current = Wrist0.getOutputCurrent();
-        SmartDashboard.putNumber("Wrist Motor Current", current);
+        SmartDashboard.putNumber("Arm/Wrist Motor Current", current);
         return current;
     }
 
@@ -29,14 +29,14 @@ public class Wrist extends SubsystemBase{
      *         False: Up
      */
     public boolean getPosition() {
-        SmartDashboard.putBoolean("Wrist Position", position);
+        SmartDashboard.putBoolean("Arm/Wrist Position", position);
         return position;
       }
 
 
     /** Updates Motor Speeds from shuffleboard */
     public void updateSpeed() {
-      OperatorConstants.WristMotorSpeed = SmartDashboard.getNumber("Wrist Motor Speed", OperatorConstants.WristMotorSpeed);
+      OperatorConstants.WristMotorSpeed = SmartDashboard.getNumber("Arm/Wrist Motor Speed", OperatorConstants.WristMotorSpeed);
     }
 
     /**
