@@ -96,6 +96,9 @@
           "arrowSize": 33,
           "arrowWeight": 3.0,
           "style": "Hidden"
+        },
+        "window": {
+          "visible": true
         }
       }
     }
