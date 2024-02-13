@@ -174,8 +174,10 @@ public class RobotContainer
    */
   public Command getAutonomousCommand()
   {
+    drivebase.zeroGyro(); // TODO: Test to make sure it does what it's supposed to do
     // An example command will be run in autonomous
     return autoChooser.getSelected();
+
   }
 
   public void setDriveMode()
