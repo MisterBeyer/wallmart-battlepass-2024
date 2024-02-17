@@ -75,13 +75,7 @@ public class RobotContainer
     // Build an auto chooser. This will use "Skibbidi Auto" as the default option.
     autoChooser = AutoBuilder.buildAutoChooser("Skibbidi Auto");
     SmartDashboard.putData("Auto Chooser", autoChooser);
-
-    // Putchangable Constants on Smartdashboard
-    SmartDashboard.putNumber("Arm/Intake Speed", Constants.OperatorConstants.IntakeSpeed);
-    SmartDashboard.putNumber("Arm/Outake Speed", Constants.OperatorConstants.OutakeSpeed);
-
-    SmartDashboard.putNumber("Arm/Wrist Motor Speed", Constants.OperatorConstants.IntakeSpeed);
-    SmartDashboard.putNumber("Arm/Arm Motor Speed", Constants.OperatorConstants.OutakeSpeed);
+  
 
     // Configure the trigger bindings
     configureBindings();
