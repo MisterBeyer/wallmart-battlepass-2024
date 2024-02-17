@@ -8,7 +8,7 @@ import com.revrobotics.CANSparkMax;
 import frc.robot.Constants.OperatorConstants;
 
 public class Wrist extends SubsystemBase{
-    private final CANSparkMax Wrist0 = new CANSparkMax(35, MotorType.kBrushless);
+    private final CANSparkMax Wrist0 = new CANSparkMax(30, MotorType.kBrushless);
 
     boolean position;
 
