@@ -44,6 +44,19 @@ public final class Constants
     public static final double WHEEL_LOCK_TIME = 10; // seconds
   }
 
+  public static class ClimberConstants
+  {
+    // Climber Max Speed
+    public static double MaxSpeed = Units.feetToMeters(15.1);
+    
+    // Amp Limits
+    public static double ChainReachedAmps = 12;
+    public static double RobotReachedAmps = 12;
+
+    // Set Encoder values
+    public static double FullExtensionEncoder = 12;
+  }
+
   public static class OperatorConstants
   {
     // Intake/Outake Speed
