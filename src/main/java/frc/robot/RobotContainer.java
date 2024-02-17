@@ -25,6 +25,7 @@ import frc.robot.commands.arm.ThreePos;
 import frc.robot.commands.intake.IntakeShoot;
 import frc.robot.commands.swervedrive.AbsoluteDriveAdv;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Bluetooth;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LeanProtection;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -50,6 +51,7 @@ public class RobotContainer
   private final Intake noteintake = new Intake();
   private final Wrist wrist = new Wrist();
   private final Arm arm = new Arm();
+  private final Bluetooth bluetooth = new Bluetooth();
 
   // Define Arm Command
   ThreePos arm_control = new ThreePos(noteintake, arm, wrist);
@@ -73,13 +75,7 @@ public class RobotContainer
     // Build an auto chooser. This will use "Skibbidi Auto" as the default option.
     autoChooser = AutoBuilder.buildAutoChooser("Skibbidi Auto");
     SmartDashboard.putData("Auto Chooser", autoChooser);
-
-    // Putchangable Constants on Smartdashboard
-    SmartDashboard.putNumber("Arm/Intake Speed", Constants.OperatorConstants.IntakeSpeed);
-    SmartDashboard.putNumber("Arm/Outake Speed", Constants.OperatorConstants.OutakeSpeed);
-
-    SmartDashboard.putNumber("Arm/Wrist Motor Speed", Constants.OperatorConstants.IntakeSpeed);
-    SmartDashboard.putNumber("Arm/Arm Motor Speed", Constants.OperatorConstants.OutakeSpeed);
+  
 
     // Configure the trigger bindings
     configureBindings();
@@ -145,9 +141,11 @@ public class RobotContainer
    */
   private void configureBindings()
   {
+    
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
     // Driver Controller Binds
+    
     new JoystickButton(driverXbox, 1).onTrue((new InstantCommand(drivebase::zeroGyro)));
     new JoystickButton(driverXbox, 3).onTrue(new InstantCommand(drivebase::addFakeVisionReading));
     new JoystickButton(driverXbox,
@@ -161,10 +159,14 @@ public class RobotContainer
     //   Operator Controller Binds
 
     // Arm/Wrist
+
     new JoystickButton(operatorXbox,2).onTrue(new InstantCommand(arm_control::ArmUp));
     new JoystickButton(operatorXbox,3).onTrue(new InstantCommand(arm_control::IntakeOut));
     new JoystickButton(operatorXbox,4).onTrue(new InstantCommand(arm_control::IntakeStow));
     new JoystickButton(operatorXbox,5).onTrue(new InstantCommand(arm_control::Shoot));
+    new JoystickButton(operatorXbox,6).onTrue(new InstantCommand(bluetooth::toogle));
+    new JoystickButton(operatorXbox,7).onTrue(new InstantCommand(bluetooth::th5));
+
   }
 
   /**
