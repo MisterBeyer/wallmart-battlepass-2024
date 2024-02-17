@@ -12,8 +12,8 @@ import frc.robot.Constants.OperatorConstants;
 
 public class Arm extends SubsystemBase{
     // Define Motor can Ids
-    private final CANSparkMax Arm0 = new CANSparkMax(36, MotorType.kBrushless);
-    private final CANSparkMax Arm1 = new CANSparkMax(37, MotorType.kBrushless);
+    private final CANSparkMax Arm0 = new CANSparkMax(35, MotorType.kBrushless);
+    private final CANSparkMax Arm1 = new CANSparkMax(36, MotorType.kBrushless);
 
      // Create PID Controller and Encoder Objects
     private SparkPIDController Arm0_pidController = Arm0.getPIDController();
@@ -90,7 +90,7 @@ public class Arm extends SubsystemBase{
     private void goToHardStop(double MotorSpeed, double AmpLimit) {
         while (getCurrent() < AmpLimit) {
             Arm0.set(MotorSpeed);
-            Arm1.set(MotorSpeed);
+            Arm1.set(-MotorSpeed);
         }
         Arm0.set(0.0);
         Arm1.set(0.0);
