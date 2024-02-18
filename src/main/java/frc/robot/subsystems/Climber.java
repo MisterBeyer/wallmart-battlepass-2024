@@ -8,15 +8,15 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import frc.robot.Constants.ClimberConstants;
 
 public class Climber extends SubsystemBase{
-    private final CANSparkMax Motor0 = new CANSparkMax(38, MotorType.kBrushless);
-    private final CANSparkMax Motor1 = new CANSparkMax(38, MotorType.kBrushless);
+    private final CANSparkMax Motor0 = new CANSparkMax(45, MotorType.kBrushless);
+    private final CANSparkMax Motor1 = new CANSparkMax(46, MotorType.kBrushless);
 
     private RelativeEncoder Motor0_encoder = Motor0.getEncoder();  // Encoder used to find max retraction distance
 
 
     public Climber() {
-      Motor0.setIdleMode(CANSparkMax.IdleMode.kCoast);
-      Motor1.setIdleMode(CANSparkMax.IdleMode.kCoast);
+      Motor0.setIdleMode(CANSparkMax.IdleMode.kBrake);
+      Motor1.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
       // Reset Encoder values
       Motor0_encoder.setPosition(0.0);
@@ -27,7 +27,7 @@ public class Climber extends SubsystemBase{
 
 
     /** Updates Motor Speeds and limits from shuffleboard */
-    public void updateSpeed() {
+    public void updateConstants() {
       // Speeds
       ClimberConstants.MaxSpeed = SmartDashboard.getNumber("Climber/Climber Motor Speed", ClimberConstants.MaxSpeed);
 
@@ -50,7 +50,7 @@ public class Climber extends SubsystemBase{
      * Using a set speed set in constants
      * @param goal Goal position represented as encoder value
      */
-    public void deploy(double goal) {
+    public void deploy(double goal) { // TODO: add pid
         while(Motor0_encoder.getPosition() > ClimberConstants.FullExtensionEncoder) Motor0.set(ClimberConstants.MaxSpeed);
         stop();
     }
@@ -59,7 +59,7 @@ public class Climber extends SubsystemBase{
      * Retracts the CLimber till amp limit is reached
      * Using a amp limit set in constants
      */
-    public void retractToChain() {
+    public void retractToChain() {//TODO: run for both motors inidivdually
       while (getCurrent() > ClimberConstants.ChainReachedAmps) Motor0.set(ClimberConstants.MaxSpeed);
       stop();
     }
@@ -69,7 +69,7 @@ public class Climber extends SubsystemBase{
      * Retracts the CLimber till amp limit is reached
      * Using a amp limit set in constants
      */
-    public void retractFully() {
+    public void retractFully() { //TODO use encoder position here but still run amp checks
       while (getCurrent() > ClimberConstants.RobotReachedAmps) Motor0.set(ClimberConstants.MaxSpeed);
       stop();
     }
@@ -92,5 +92,6 @@ public class Climber extends SubsystemBase{
     @Override
     public void periodic() { 
       getCurrent();
+      updateConstants();
     }
 }
