@@ -159,11 +159,14 @@ public class RobotContainer
     //   Operator Controller Binds
 
     // Arm/Wrist
-    new JoystickButton(operatorXbox, 1).onTrue(new InstantCommand(bluetooth::toogle));
+
     new JoystickButton(operatorXbox,2).onTrue(new InstantCommand(arm_control::ArmUp));
     new JoystickButton(operatorXbox,3).onTrue(new InstantCommand(arm_control::IntakeOut));
     new JoystickButton(operatorXbox,4).onTrue(new InstantCommand(arm_control::IntakeStow));
     new JoystickButton(operatorXbox,5).onTrue(new InstantCommand(arm_control::Shoot));
+    new JoystickButton(operatorXbox,6).onTrue(new InstantCommand(bluetooth::toogle));
+    new JoystickButton(operatorXbox,7).onTrue(new InstantCommand(bluetooth::th5));
+
   }
 
   /**
