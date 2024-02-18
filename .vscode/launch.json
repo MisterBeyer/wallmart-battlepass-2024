@@ -9,6 +9,13 @@
       "name": "Main",
       "request": "launch",
       "mainClass": "frc.robot.Main",
+      "projectName": "wallmart-battlepass-2024"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "frc.robot.Main",
       "projectName": "YAGSL-Example-main"
     },
     {
