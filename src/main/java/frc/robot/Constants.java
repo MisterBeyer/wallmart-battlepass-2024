@@ -61,7 +61,8 @@ public final class Constants
   {
     // Intake/Outake Speed
     public static double IntakeSpeed = 0.1; 
-    public static double OutakeSpeed = 0.1;
+    public static double BackOut = 0.1;
+    public static double FrontOut = 0.1;
 
     // Arm/Wrist Motor Speed and amp limits
     public static double ArmMotorSpeed = 0.1;

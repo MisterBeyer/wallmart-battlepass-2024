@@ -74,6 +74,9 @@ public class Wrist extends SubsystemBase{
         Wrist0.set(0.0);
     }
 
+    public void stop(){
+        Wrist0.set(0.0);
+    }
 
     @Override
     public void periodic() {
