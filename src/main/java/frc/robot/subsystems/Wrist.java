@@ -14,7 +14,7 @@ public class Wrist extends SubsystemBase{
 
     public Wrist() {
         Wrist0.setIdleMode(CANSparkMax.IdleMode.kBrake);
-      }
+      } //cash
 
 
     /** @return Wrist motor's Output Amperage */
