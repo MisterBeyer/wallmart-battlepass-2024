@@ -43,7 +43,7 @@ public class ThreePos extends Command{
     
     /** Shoots note from intake */
     public void Shoot() {
-        if(arm.getPosition() != 1 ) intake.setSpeed(OperatorConstants.OutakeSpeed, OperatorConstants.OutakeSpeed);
+        if(arm.getPosition() != 1 ) intake.setSpeed(OperatorConstants.BackOut, OperatorConstants.FrontOut);
     }
 
 }
