@@ -34,9 +34,11 @@ public class IntakeShoot extends Command {
      * @speed Speed provided by controller 
      * @Constants.OutakeSpeed provides max achievable speed
      */ 
-    public void Shoot(Double Speed) {
-        Double setSpeed = OperatorConstants.IntakeSpeed*Math.log(Speed);
-        intake.setSpeed(setSpeed, setSpeed);
+    public void Shoot(Double SpeedFront, double SpeedBack ) {
+        Double frontSpeed = OperatorConstants.FrontOut*Math.log(SpeedFront);
+        Double backSpeed = OperatorConstants.BackOut*Math.log(SpeedBack);
+        intake.setSpeed(frontSpeed, backSpeed);
+        
     }
 
     /**
