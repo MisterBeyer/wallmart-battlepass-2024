@@ -17,15 +17,27 @@ public class Arm extends SubsystemBase{
 
      // Create PID Controller and Encoder Objects
     private SparkPIDController Arm0_pidController = Arm0.getPIDController();
-    private SparkPIDController Arm1_pidController = Arm1.getPIDController();
     private RelativeEncoder Arm0_encoder = Arm0.getEncoder();
-    private RelativeEncoder Arm1_encoder = Arm1.getEncoder();
+
 
     private int position;
 
      public Arm() {
-      Arm0.setIdleMode(CANSparkMax.IdleMode.kBrake);
-      Arm1.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        // kBrake Mode
+        Arm0.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        Arm1.setIdleMode(CANSparkMax.IdleMode.kBrake);
+
+        // Follower Config
+        Arm1.setInverted(true);
+        Arm1.follow(Arm0);
+
+        // set PID coefficients
+        Arm0_pidController.setP(0.1);    // kP
+        Arm0_pidController.setI(0);      // kI
+        Arm0_pidController.setD(0);      // kD
+        Arm0_pidController.setIZone(0); //kIz
+        Arm0_pidController.setFF(0);     //kFF
+        Arm0_pidController.setOutputRange(0.1, 0.5); // kMINOutput, kMAXOutput
     }
 
 
@@ -47,6 +59,11 @@ public class Arm extends SubsystemBase{
         return position;
       }
 
+    /** returns encoder position of right motor */
+    public double getEncoder() {
+        return Arm0_encoder.getPosition();
+    }
+
 
     /** Updates Motor Speeds from shuffleboard */
     public void updateSpeed() {
@@ -67,7 +84,7 @@ public class Arm extends SubsystemBase{
 
      /** Brings Arm to some point in between */
     public void Mid() {
-        goToSoftStop(); 
+        goToSoftStop(10); 
         position = 2;
     }
 
@@ -77,8 +94,8 @@ public class Arm extends SubsystemBase{
         position = 3;
     }
 
-    private void goToSoftStop() {
-        //m_pidController.setReference(rotations, CANSparkMax.ControlType.kPosition);
+    private void goToSoftStop(double rotations) {
+        Arm0_pidController.setReference(rotations, CANSparkMax.ControlType.kPosition);
     }
 
     /**
@@ -102,6 +119,7 @@ public class Arm extends SubsystemBase{
         // This method will be called once per scheduler run
         getCurrent();
         getPosition();
+        getEncoder();
         updateSpeed();
     }
 }

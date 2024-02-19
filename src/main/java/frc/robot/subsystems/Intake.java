@@ -8,7 +8,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import frc.robot.Constants.OperatorConstants;;
 
 public class Intake extends SubsystemBase{
-    private final CANSparkMax Intake0 = new CANSparkMax(30, MotorType.kBrushless);
+    private final CANSparkMax Intake = new CANSparkMax(30, MotorType.kBrushless);
     private final CANSparkMax Intake1 = new CANSparkMax(31, MotorType.kBrushless);
 
 
@@ -44,7 +44,8 @@ public class Intake extends SubsystemBase{
         //He might not be either
      }
 
-     /**
+     
+
       * Stops Both Motors
       */
      public void stop(){
