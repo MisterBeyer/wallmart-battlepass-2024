@@ -34,12 +34,30 @@ public class IntakeShoot extends Command {
      * @speed Speed provided by controller 
      * @Constants.OutakeSpeed provides max achievable speed
      */ 
-    public void Shoot(Double SpeedFront, double SpeedBack ) {
-        Double frontSpeed = OperatorConstants.FrontOut*Math.log(SpeedFront);
-        Double backSpeed = OperatorConstants.BackOut*Math.log(SpeedBack);
-        intake.setSpeed(frontSpeed, backSpeed);
-        
-    }
+    public void Shoot(Double Speed) {
+        Double frontSpeed = OperatorConstants.FrontOut*Math.log(Speed);
+        Double backSpeed = OperatorConstants.BackOut*Math.log(Speed);
+        intake.setSpeed(frontSpeed, 0);
+
+       //mhm yup boom 
+        boolean isReady =  false;
+
+        while (!isReady){
+            if(intake.getFrontRPM() >= OperatorConstants.FrontRPM){
+                isReady = true;
+            }
+            else{ 
+                new Thread(){
+                    public void run(){
+                        try{
+                        Thread.sleep(110);   
+                        }catch(InterruptedException e){}
+                    }
+                }.start();
+            }
+        }
+         intake.setSpeed(frontSpeed, backSpeed);
+}
 
     /**
      * Intakes note
@@ -69,7 +87,7 @@ public class IntakeShoot extends Command {
     @Override
     public void execute() {
         if(left.getAsDouble() < 0) { Intake(left.getAsDouble()); }
-        else if(right.getAsDouble() < 0) { Shoot(right.getAsDouble()); }
+        else if(right.getAsDouble() < 0) { Shoot(right.getAsDouble()); } // TODO: rewrite when command actully exists
         else { Stop(); }
     }
 
