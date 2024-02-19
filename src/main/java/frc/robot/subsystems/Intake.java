@@ -13,7 +13,11 @@ public class Intake extends SubsystemBase{
     private final CANSparkMax Intake0 = new CANSparkMax(30, MotorType.kBrushless);
     private final CANSparkMax Intake1 = new CANSparkMax(31, MotorType.kBrushless);
     private final RelativeEncoder Intake0enc = Intake0.getEncoder();
-    private final RelativeEncoder Intake1enc = Intake0.getEncoder();
+    private final RelativeEncoder Intake1enc = Intake1.getEncoder();
+
+    public double getFrontRPM(){
+      return Intake1enc.getVelocity();
+    }
 
 
     public Intake() {
@@ -27,7 +31,8 @@ public class Intake extends SubsystemBase{
       OperatorConstants.IntakeSpeed = SmartDashboard.getNumber("Arm/Intake Speed", OperatorConstants.IntakeSpeed);
       OperatorConstants.BackOut = SmartDashboard.getNumber("BackOut", OperatorConstants.BackOut);
       OperatorConstants.FrontOut = SmartDashboard.getNumber("FrontOut", OperatorConstants.FrontOut);
-    }
+      SmartDashboard.putNumber("FrontRPM", getFrontRPM());
+     }
 
     /** @return Average of Intake motor's Output Amperage */
     public double getCurrent() {

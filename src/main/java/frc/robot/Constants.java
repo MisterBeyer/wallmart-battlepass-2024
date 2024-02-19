@@ -63,6 +63,8 @@ public final class Constants
     public static double IntakeSpeed = 0.1; 
     public static double BackOut = 0.1;
     public static double FrontOut = 0.1;
+    public static double FrontRPM = 0;
+    public static int BackRPM = 0;
 
     // Arm/Wrist Motor Speed and amp limits
     public static double ArmMotorSpeed = 0.1;
