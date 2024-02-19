@@ -26,6 +26,7 @@ import frc.robot.commands.intake.IntakeShoot;
 import frc.robot.commands.swervedrive.AbsoluteDriveAdv;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Bluetooth;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LeanProtection;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -51,6 +52,7 @@ public class RobotContainer
   private final Intake noteintake = new Intake();
   private final Wrist wrist = new Wrist();
   private final Arm arm = new Arm();
+  private final Climber climber = new Climber();
   private final Bluetooth bluetooth = new Bluetooth();
 
   // Define Arm Command
@@ -160,12 +162,15 @@ public class RobotContainer
 
     // Arm/Wrist
 
-    new JoystickButton(operatorXbox,2).onTrue(new InstantCommand(arm_control::ArmUp));
-    new JoystickButton(operatorXbox,3).onTrue(new InstantCommand(arm_control::IntakeOut));
+    new JoystickButton(operatorXbox,2).onTrue(new InstantCommand(climber::retractFully));
+    new JoystickButton(operatorXbox,3).onTrue(
+      Commands.startEnd(()->climber.deploy(Constants.ClimberConstants.FullExtensionEncoder), ()->climber.stop(), climber));
     new JoystickButton(operatorXbox,4).onTrue(new InstantCommand(arm_control::IntakeStow));
     new JoystickButton(operatorXbox,5).onTrue(new InstantCommand(arm_control::Shoot));
     new JoystickButton(operatorXbox,6).onTrue(new InstantCommand(bluetooth::toogle));
     new JoystickButton(operatorXbox,7).onTrue(new InstantCommand(bluetooth::th5));
+    new JoystickButton(operatorXbox,8).onTrue(
+      Commands.startEnd(()->wrist.SetWristPos(false), ()->wrist.stop(), wrist));
 
   }
 
