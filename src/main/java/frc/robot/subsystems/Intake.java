@@ -3,6 +3,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkRelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import frc.robot.Constants.OperatorConstants;;
@@ -10,6 +12,8 @@ import frc.robot.Constants.OperatorConstants;;
 public class Intake extends SubsystemBase{
     private final CANSparkMax Intake0 = new CANSparkMax(30, MotorType.kBrushless);
     private final CANSparkMax Intake1 = new CANSparkMax(31, MotorType.kBrushless);
+    private final RelativeEncoder Intake0enc = Intake0.getEncoder();
+    private final RelativeEncoder Intake1enc = Intake0.getEncoder();
 
 
     public Intake() {
