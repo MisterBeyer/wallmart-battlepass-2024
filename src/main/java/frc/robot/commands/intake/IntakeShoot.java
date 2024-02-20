@@ -34,12 +34,16 @@ public class IntakeShoot extends Command {
      * @speed Speed provided by controller 
      * @Constants.OutakeSpeed provides max achievable speed
      */ 
-    public void Shoot(Double Speed) {
-        Double frontSpeed = OperatorConstants.FrontOut*Math.log(Speed);
-        Double backSpeed = OperatorConstants.BackOut*Math.log(Speed);
-        intake.setSpeed(frontSpeed, 0);
+    public void Shoot(double speed) {
+        Double frontSpeed = OperatorConstants.FrontOut;
+        Double backSpeed = OperatorConstants.BackOut;
+        intake.setSpeed(frontSpeed*speed,  -backSpeed);
+
+
 
        //mhm yup boom 
+
+       /* 
         boolean isReady =  false;
 
         while (!isReady){
@@ -57,7 +61,10 @@ public class IntakeShoot extends Command {
             }
         }
          intake.setSpeed(frontSpeed, backSpeed);
+         */
 }
+
+
 
     /**
      * Intakes note
@@ -65,9 +72,9 @@ public class IntakeShoot extends Command {
      * @speed Speed provided by controller 
      * @Constants.IntakeSpeed provides max achievable speed
      */ 
-    public void Intake(Double Speed) {
-        Double setSpeed = -OperatorConstants.IntakeSpeed*Math.log(Speed);
-        intake.setSpeed(setSpeed, setSpeed);
+    public void Intake() {
+        Double setSpeed = OperatorConstants.IntakeSpeed;
+        intake.setSpeed(-setSpeed, setSpeed);
     }
 
 
@@ -86,8 +93,13 @@ public class IntakeShoot extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if(left.getAsDouble() < 0) { Intake(left.getAsDouble()); }
-        else if(right.getAsDouble() < 0) { Shoot(right.getAsDouble()); } // TODO: rewrite when command actully exists
+<<<<<<< HEAD
+        if(left.getAsDouble() < 0) { Shoot(1.0); } // TODO: set this to control front and back with RPM controller
+        else if(right.getAsDouble() < 0) { Shoot(0.0); } // TODO: else if(right.getAsDouble() < 0) { Shoot(0.0); } 
+=======
+        if(left.getAsDouble() < 0) { Shoot(1.0); } //TODO: Set this to control front and back with RPM controller
+        else if(right.getAsDouble() < 0) { Shoot(0.0); } // TODO: else if(right.getAsDouble() < 0) { Intake();} 
+>>>>>>> 98c275e58856a2dd9284228efd1549de27a088c3
         else { Stop(); }
     }
 

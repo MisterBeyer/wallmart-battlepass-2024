@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 //import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 //import frc.robot.commands.arm.ThreePos;
@@ -132,6 +133,7 @@ public class RobotContainer
     //drivebase.setDefaultCommand(
      //  !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle: driveFieldOrientedAnglularVelocity);
       noteintake.setDefaultCommand(intakeshoot);
+
   }
   
   /**
@@ -165,10 +167,8 @@ public class RobotContainer
     new JoystickButton(operatorXbox,2).onTrue(new InstantCommand(climber::retractFully));
     new JoystickButton(operatorXbox,3).onTrue(
       Commands.startEnd(()->climber.deploy(Constants.ClimberConstants.FullExtensionEncoder), ()->climber.stop(), climber));
-    //new JoystickButton(operatorXbox,4).onTrue(new InstantCommand(arm_control::IntakeStow));
-    //new JoystickButton(operatorXbox,5).onTrue(new InstantCommand(arm_control::Shoot));
-
-    new JoystickButton(driverXbox, 4).onTrue(arm.goToSoftStop(2));
+    new JoystickButton(operatorXbox,4).onTrue(new InstantCommand(arm::Mid));
+    new JoystickButton(operatorXbox,5).onTrue(new InstantCommand(arm_control::Shoot));
     new JoystickButton(operatorXbox,6).onTrue(new InstantCommand(bluetooth::toogle));
     new JoystickButton(operatorXbox,7).onTrue(new InstantCommand(bluetooth::th5));
     new JoystickButton(operatorXbox,8).onTrue(
