@@ -44,6 +44,20 @@ public final class Constants
     public static final double WHEEL_LOCK_TIME = 10; // seconds
   }
 
+  public static final class ArmConstants 
+  {
+    // Trapazoidal Profile Constants
+    public static double kMaxVelocityRadPerSecond = 0.10; 
+    public static double kMaxAccelerationRadPerSecSquared = 0.10;
+    public static double kArmOffsetRads = 0.10;
+
+    // Arm Feedforward Constants
+    public static double kSVolts = 0.10;
+    public static double kGVolts = 0.10;
+    public static double kVVoltSecondPerRad = 0.10;
+    public static double kAVoltSecondSquaredPerRad = 0.10;
+  }
+
   public static class ClimberConstants
   {
     // Climber Max Speed
@@ -60,9 +74,9 @@ public final class Constants
   public static class OperatorConstants
   {
     // Intake/Outake Speed
-    public static double IntakeSpeed = 0.1; 
-    public static double BackOut = 0.1;
-    public static double FrontOut = 0.1;
+    public static double IntakeSpeed = 0.8; 
+    public static double BackOut = 0.8;
+    public static double FrontOut = 0.8;
     public static double FrontRPM = 0;
     public static int BackRPM = 0;
 

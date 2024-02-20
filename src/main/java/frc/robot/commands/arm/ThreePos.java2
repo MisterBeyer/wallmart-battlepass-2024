@@ -19,7 +19,7 @@ public class ThreePos extends Command{
         addRequirements(this.wrist);
         addRequirements(this.intake);  
     }
-
+ 
     /** Brings Intake Out */
     public void IntakeOut() {
         arm.Down();
