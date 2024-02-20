@@ -3,6 +3,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkRelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import frc.robot.Constants.OperatorConstants;;
@@ -10,6 +12,12 @@ import frc.robot.Constants.OperatorConstants;;
 public class Intake extends SubsystemBase{
     private final CANSparkMax Intake = new CANSparkMax(30, MotorType.kBrushless);
     private final CANSparkMax Intake1 = new CANSparkMax(31, MotorType.kBrushless);
+    private final RelativeEncoder Intake0enc = Intake0.getEncoder();
+    private final RelativeEncoder Intake1enc = Intake1.getEncoder();
+
+    public double getFrontRPM(){
+      return Intake1enc.getVelocity();
+    }
 
 
     public Intake() {
@@ -21,8 +29,10 @@ public class Intake extends SubsystemBase{
     /** Pulls the IntakeSpeed variables from shuffleboard  */
     public void updateSpeed() {
       OperatorConstants.IntakeSpeed = SmartDashboard.getNumber("Arm/Intake Speed", OperatorConstants.IntakeSpeed);
-      OperatorConstants.OutakeSpeed = SmartDashboard.getNumber("Arm/Outake Speed", OperatorConstants.OutakeSpeed);
-    }
+      OperatorConstants.BackOut = SmartDashboard.getNumber("BackOut", OperatorConstants.BackOut);
+      OperatorConstants.FrontOut = SmartDashboard.getNumber("FrontOut", OperatorConstants.FrontOut);
+      SmartDashboard.putNumber("FrontRPM", getFrontRPM());
+     }
 
     /** @return Average of Intake motor's Output Amperage */
     public double getCurrent() {
@@ -34,12 +44,12 @@ public class Intake extends SubsystemBase{
 
     /**
      * Sets speed of both intake motors
-     * @param speedTop Speed of Top Motor
-     * @param speedBottom Speed of Bottom Motor
+     * @param speedFront Speed of Top Motor
+     * @param speedBack Speed of Bottom Motor
      */
-    public void setSpeed(double speedTop, double speedBottom){
-        Intake0.set(speedBottom);
-        Intake1.set(speedTop);
+    public void setSpeed(double speedFront, double speedBack){
+        Intake0.set(speedBack);
+        Intake1.set(speedFront);
         //I might be done guys
         //He might not be either
      }
