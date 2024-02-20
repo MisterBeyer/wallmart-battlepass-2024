@@ -89,7 +89,7 @@ public class Arm extends TrapezoidProfileSubsystem{
         encoder_goal = SmartDashboard.getNumber("Arm/Arm Encoder goal", encoder_goal);
       }
 
-    /** Sets all arm motors to coast, allowing arm to be manupilated by hand */
+    /** Sets all arm motors to coast, allowing it to be manupilated by hand */
     public void coast() {
         Arm0.setIdleMode(CANSparkMax.IdleMode.kCoast);
         Arm1.setIdleMode(CANSparkMax.IdleMode.kCoast); 
@@ -102,7 +102,6 @@ public class Arm extends TrapezoidProfileSubsystem{
      * @return Command for this function
      */
     public Command goToSoftStop(double kArmOffsetRads) {
-        //System.out.println("Running arm");
         return Commands.runOnce(() -> setGoal(encoder_goal), this);
     }
 
