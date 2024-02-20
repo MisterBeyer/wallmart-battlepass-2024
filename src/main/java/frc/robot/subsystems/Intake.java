@@ -54,7 +54,8 @@ public class Intake extends SubsystemBase{
         //He might not be either
      }
 
-     /**
+     
+    /**
       * Stops Both Motors
       */
      public void stop(){
