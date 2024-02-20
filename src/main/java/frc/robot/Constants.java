@@ -47,14 +47,14 @@ public final class Constants
   public static class ClimberConstants
   {
     // Climber Max Speed
-    public static double MaxSpeed = Units.feetToMeters(15.1);
+    public static double MaxSpeed = Units.feetToMeters(.1); //15.1
     
     // Amp Limits
     public static double ChainReachedAmps = 12;
     public static double RobotReachedAmps = 12;
 
     // Set Encoder values
-    public static double FullExtensionEncoder = 12;
+    public static double FullExtensionEncoder = 360;
   }
 
   public static class OperatorConstants
@@ -63,14 +63,14 @@ public final class Constants
     public static double IntakeSpeed = 0.1; 
     public static double BackOut = 0.1;
     public static double FrontOut = 0.1;
-    public static double FrontRPM = 0;
+    public static double FrontRPM = 762.7;
     public static int BackRPM = 0;
 
     // Arm/Wrist Motor Speed and amp limits
     public static double ArmMotorSpeed = 0.1;
     public static double WristMotorSpeed = 0.1;
 
-    public static double ArmAmpLimit = 2;
+    public static double ArmAmpLimit = 10;
     public static double WristAmpLimit = 2;
     
     // Joystick Deadband

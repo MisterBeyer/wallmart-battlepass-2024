@@ -17,12 +17,12 @@ public class Climber extends SubsystemBase{
     public Climber() {
       Motor0.setIdleMode(CANSparkMax.IdleMode.kBrake);
       Motor1.setIdleMode(CANSparkMax.IdleMode.kBrake);
+      Motor1.setInverted(true);
 
       // Reset Encoder values
       Motor0_encoder.setPosition(0.0);
 
       // Have Motors follow each other
-      Motor1.follow(Motor0);
     }
 
 
@@ -51,7 +51,8 @@ public class Climber extends SubsystemBase{
      * @param goal Goal position represented as encoder value
      */
     public void deploy(double goal) { // TODO: add pid
-        while(Motor0_encoder.getPosition() > ClimberConstants.FullExtensionEncoder) Motor0.set(ClimberConstants.MaxSpeed);
+        while(Motor0_encoder.getPosition() < ClimberConstants.FullExtensionEncoder){ Motor0.set(ClimberConstants.MaxSpeed);
+   Motor1.set(ClimberConstants.MaxSpeed);}
         stop();
     }
 

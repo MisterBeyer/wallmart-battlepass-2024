@@ -45,8 +45,7 @@ public class Arm extends SubsystemBase{
         Arm1.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
         // Follower Config
-        Arm1.setInverted(true);
-        Arm1.follow(Arm0);
+        Arm1.follow(Arm0, true);
 
         // set PID coefficients
         Arm0_pidController.setP(0.1);    // kP
@@ -101,7 +100,7 @@ public class Arm extends SubsystemBase{
 
      /** Brings Arm to some point in between */
     public void Mid() {
-        goToSoftStop(10); 
+        goToSoftStop(0.1); 
         position = 2;
     }
 
@@ -129,10 +128,10 @@ public class Arm extends SubsystemBase{
     private void goToHardStop(double MotorSpeed, double AmpLimit) {
         while (getCurrent() < AmpLimit) {
             Arm0.set(MotorSpeed);
-            Arm1.set(-MotorSpeed);
+            //Arm1.set(-MotorSpeed);
         }
         Arm0.set(0.0);
-        Arm1.set(0.0);
+        //Arm1.set(0.0);
     }
 
 

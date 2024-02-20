@@ -37,9 +37,12 @@ public class IntakeShoot extends Command {
     public void Shoot(Double Speed) {
         Double frontSpeed = OperatorConstants.FrontOut*Math.log(Speed);
         Double backSpeed = OperatorConstants.BackOut*Math.log(Speed);
-        intake.setSpeed(frontSpeed, 0);
+        intake.setSpeed(frontSpeed, backSpeed);
+
+
 
        //mhm yup boom 
+       /* 
         boolean isReady =  false;
 
         while (!isReady){
@@ -57,7 +60,9 @@ public class IntakeShoot extends Command {
             }
         }
          intake.setSpeed(frontSpeed, backSpeed);
+         */
 }
+
 
     /**
      * Intakes note
