@@ -12,6 +12,7 @@ public class Bluetooth extends SubsystemBase{
     //town hall 5 moment
 
     public Bluetooth(){
+      
         }
         static CANdle candle = new CANdle(40);
         static RainbowAnimation rainbowAnim = new RainbowAnimation(0.25, 0.5, 76);
