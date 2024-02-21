@@ -61,8 +61,8 @@ public final class Constants
   {
     // Intake/Outake Speed
     public static double IntakeSpeed = 0.1; 
-    public static double BackOut = 0.1;
-    public static double FrontOut = 0.1;
+    public static double BackOut = 0.8;
+    public static double FrontOut = 0.8;
     public static double FrontRPM = 762.7;
     public static int BackRPM = 0;
 

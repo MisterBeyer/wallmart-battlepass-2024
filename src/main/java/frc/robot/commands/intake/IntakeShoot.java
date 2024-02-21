@@ -34,10 +34,10 @@ public class IntakeShoot extends Command {
      * @speed Speed provided by controller 
      * @Constants.OutakeSpeed provides max achievable speed
      */ 
-    public void Shoot(Double Speed) {
-        Double frontSpeed = OperatorConstants.FrontOut*Math.log(Speed);
-        Double backSpeed = OperatorConstants.BackOut*Math.log(Speed);
-        intake.setSpeed(frontSpeed, backSpeed);
+    public void Shoot(double speed) {
+        Double frontSpeed = OperatorConstants.FrontOut;
+        Double backSpeed = OperatorConstants.BackOut;
+        intake.setSpeed(frontSpeed*speed,  -backSpeed);
 
 
 
@@ -62,6 +62,7 @@ public class IntakeShoot extends Command {
          intake.setSpeed(frontSpeed, backSpeed);
          */
 }
+
 
 
     /**
@@ -91,8 +92,8 @@ public class IntakeShoot extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if(left.getAsDouble() < 0) { Intake(left.getAsDouble()); }
-        else if(right.getAsDouble() < 0) { Shoot(right.getAsDouble()); } // TODO: rewrite when command actully exists
+        if(left.getAsDouble() < 0) { Shoot(1.0); }
+        else if(right.getAsDouble() < 0) { Shoot(0.0); } // TODO: rewrite when command actully exists
         else { Stop(); }
     }
 
