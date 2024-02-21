@@ -93,8 +93,13 @@ public class IntakeShoot extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+<<<<<<< HEAD
         if(left.getAsDouble() < 0) { Shoot(1.0); } // TODO: set this to control front and back with RPM controller
         else if(right.getAsDouble() < 0) { Shoot(0.0); } // TODO: else if(right.getAsDouble() < 0) { Shoot(0.0); } 
+=======
+        if(left.getAsDouble() < 0) { Shoot(1.0); } //TODO: Set this to control front and back with RPM controller
+        else if(right.getAsDouble() < 0) { Shoot(0.0); } // TODO: else if(right.getAsDouble() < 0) { Intake();} 
+>>>>>>> 98c275e58856a2dd9284228efd1549de27a088c3
         else { Stop(); }
     }
 
