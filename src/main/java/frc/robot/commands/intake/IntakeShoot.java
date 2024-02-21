@@ -42,6 +42,7 @@ public class IntakeShoot extends Command {
 
 
        //mhm yup boom 
+
        /* 
         boolean isReady =  false;
 
@@ -71,9 +72,9 @@ public class IntakeShoot extends Command {
      * @speed Speed provided by controller 
      * @Constants.IntakeSpeed provides max achievable speed
      */ 
-    public void Intake(Double Speed) {
-        Double setSpeed = -OperatorConstants.IntakeSpeed*Math.log(Speed);
-        intake.setSpeed(setSpeed, setSpeed);
+    public void Intake() {
+        Double setSpeed = OperatorConstants.IntakeSpeed;
+        intake.setSpeed(-setSpeed, setSpeed);
     }
 
 
@@ -92,8 +93,8 @@ public class IntakeShoot extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if(left.getAsDouble() < 0) { Shoot(1.0); }
-        else if(right.getAsDouble() < 0) { Shoot(0.0); } // TODO: rewrite when command actully exists
+        if(left.getAsDouble() < 0) { Shoot(1.0); } // TODO: set this to control front and back with RPM controller
+        else if(right.getAsDouble() < 0) { Shoot(0.0); } // TODO: else if(right.getAsDouble() < 0) { Shoot(0.0); } 
         else { Stop(); }
     }
 
