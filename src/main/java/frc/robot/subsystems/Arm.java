@@ -8,8 +8,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -35,7 +33,7 @@ public class Arm extends TrapezoidProfileSubsystem{
             ArmConstants.kVVoltSecondPerRad, ArmConstants.kAVoltSecondSquaredPerRad);
 
 
-    private double encoder_goal = 1 ;
+    private double encoder_goal = 1 ; //Test goal posisiton
 
      public Arm() {
         // Configure Trapezoid Profile Subsystem
@@ -55,16 +53,17 @@ public class Arm extends TrapezoidProfileSubsystem{
         Arm0_encoder.setPosition(0.0);
 
         // set PID coefficients
+        //TODO: Put PIDs and FF into shuffleboard
         Arm0_pidController.setP(0.15);    // kP
         Arm0_pidController.setI(0);      // kI
         Arm0_pidController.setD(0);      // kD
         Arm0_pidController.setIZone(0); //kIz
         Arm0_pidController.setFF(0);     //kFF
+        //TODO: See if we can go from -.5 to .5 vvv
         Arm0_pidController.setOutputRange(0, 0.5); // kMINOutput, kMAXOutput
         
 
         // Shuffleboard!
-        SmartDashboard.putNumber("Arm/Wrist Motor Speed", OperatorConstants.ArmMotorSpeed);
         SmartDashboard.putNumber("Arm/Arm Encoder goal", encoder_goal);
     }
 
@@ -84,13 +83,6 @@ public class Arm extends TrapezoidProfileSubsystem{
         return position;
     }
 
-
-    /** Updates Motor Speeds from shuffleboard */
-    public void updateSpeed() {
-        OperatorConstants.ArmMotorSpeed = SmartDashboard.getNumber("Arm/Wrist Motor Speed", OperatorConstants.ArmMotorSpeed);
-        encoder_goal = SmartDashboard.getNumber("Arm/Arm Encoder goal", encoder_goal);
-      }
-
     /** Sets all arm motors to coast, allowing it to be manupilated by hand */
     public void coast() {
         Arm0.setIdleMode(CANSparkMax.IdleMode.kCoast);
@@ -103,9 +95,18 @@ public class Arm extends TrapezoidProfileSubsystem{
      * @param kArmOffsetRads Postion to move Arm to in Radians
      * @return Command for this function
      */
+    //TODO: Goal should be based off kArmOffsetRads, will be function we call
     public Command goToSoftStop(double kArmOffsetRads) {
         return Commands.runOnce(() -> setGoal(encoder_goal), this);
     }
+
+//TODO: Implement relative stop
+    public Command goToRelativeSoftStop() {
+        
+
+
+}
+
 
     /**
      * Drive motor until it hits a hardstop, provided by the frame
@@ -114,8 +115,8 @@ public class Arm extends TrapezoidProfileSubsystem{
      * 
      * Dont Use this for comp
      */
-    public void goToHardStop(double MotorSpeed, double AmpLimit) {
-        while (getCurrent() < AmpLimit) {
+    public void goToHardStop(double MotorSpeed) {
+        while (getCurrent() < OperatorConstants.ArmAmpLimit) {
             Arm0.set(MotorSpeed);
         }
         Arm0.set(0.0);
@@ -123,6 +124,10 @@ public class Arm extends TrapezoidProfileSubsystem{
 
 
     @Override
+    /**
+     * Sets the next movement per time slice
+     * Called by the superclass TrapezoidProfile
+     */
     public void useState(TrapezoidProfile.State setpoint) {
         // calculate feedforawrd from the set point
         double feedforward = m_feedforward.calculate(setpoint.position, setpoint.velocity);
@@ -135,8 +140,7 @@ public class Arm extends TrapezoidProfileSubsystem{
         // This method will be called once per scheduler run
         getCurrent();
         getPosition();
-        updateSpeed();
-
+        //TODO: Do amp check here, new function "check current"(?)
         // Run the Trapzoidal Subsystem Periodic
         super.periodic();
     } 

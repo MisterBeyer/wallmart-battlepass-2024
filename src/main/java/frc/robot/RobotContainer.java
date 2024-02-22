@@ -167,8 +167,8 @@ public class RobotContainer
     new JoystickButton(operatorXbox,2).onTrue(new InstantCommand(climber::retractFully));
     new JoystickButton(operatorXbox,3).onTrue(
       Commands.startEnd(()->climber.deploy(Constants.ClimberConstants.FullExtensionEncoder), ()->climber.stop(), climber));
-    new JoystickButton(operatorXbox,4).onTrue(new InstantCommand(arm::Mid));
-    new JoystickButton(operatorXbox,5).onTrue(new InstantCommand(arm_control::Shoot));
+    new JoystickButton(operatorXbox,4).onTrue(new InstantCommand(Arm::goToHardStop));
+    new JoystickButton(operatorXbox,5).onTrue(new InstantCommand(noteintake::Shoot));
     new JoystickButton(operatorXbox,6).onTrue(new InstantCommand(bluetooth::toogle));
     new JoystickButton(operatorXbox,7).onTrue(new InstantCommand(bluetooth::th5));
     new JoystickButton(operatorXbox,8).onTrue(
