@@ -95,7 +95,6 @@ public final class Constants
     public static int BackRPM = 0;
 
     // Arm/Wrist Motor Speed and amp limits
-    public static double ArmMotorSpeed = 0.1;
     public static double WristMotorSpeed = 0.1;
 
     public static double ArmAmpLimit = 10;
