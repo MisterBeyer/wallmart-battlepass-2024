@@ -163,7 +163,7 @@ public class RobotContainer
     //   Operator Controller Binds
 
     // Arm/Wrist
-
+    //TODO: Redo all of these to prefered buttons and commands when theyre set
     new JoystickButton(operatorXbox,2).onTrue(new InstantCommand(climber::retractFully));
     new JoystickButton(operatorXbox,3).onTrue(
       Commands.startEnd(()->climber.deploy(Constants.ClimberConstants.FullExtensionEncoder), ()->climber.stop(), climber));
