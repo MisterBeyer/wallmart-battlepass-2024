@@ -171,8 +171,9 @@ public class RobotContainer
     new JoystickButton(operatorXbox,5).onTrue(new InstantCommand(noteintake::Shoot));
     new JoystickButton(operatorXbox,6).onTrue(new InstantCommand(bluetooth::toogle));
     new JoystickButton(operatorXbox,7).onTrue(new InstantCommand(bluetooth::th5));
-    new JoystickButton(operatorXbox,8).onTrue(
-      Commands.startEnd(()->wrist.SetWristPos(false), ()->wrist.stop(), wrist));
+    
+    new JoystickButton(driverXbox,4).onTrue(
+        Commands.startEnd(()->wrist.goToHardStop(0.2, 999), ()->wrist.stop(), wrist));
 
   }
 

@@ -68,6 +68,15 @@ public class Arm extends TrapezoidProfileSubsystem{
     }
 
 
+    /** Updates Constants from shuffleboard */
+    public void updateSpeed() {
+            OperatorConstants.WristMotorSpeed = SmartDashboard.getNumber("Arm/Wrist Motor Speed", OperatorConstants.WristMotorSpeed);
+            encoder_goal = SmartDashboard.getNumber("Arm/Wrist Encoder goal", encoder_goal);
+
+            Arm0_pidController = SmartDashboard.getData("Arm/Arm PID");
+    }
+    
+
     /** @return Average of Arm motor's Output Amperage  */
     public double getCurrent() {
         double current = (Arm0.getOutputCurrent() + Arm1.getOutputCurrent())/2;
@@ -88,6 +97,14 @@ public class Arm extends TrapezoidProfileSubsystem{
         Arm0.setIdleMode(CANSparkMax.IdleMode.kCoast);
         Arm1.setIdleMode(CANSparkMax.IdleMode.kCoast); 
     }
+
+    /**
+      * Stops Both Motors
+      */
+     public void stop(){
+      Arm0.set(0.0);
+     }
+     
 
  
     /**
