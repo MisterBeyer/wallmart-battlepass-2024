@@ -750,6 +750,32 @@
               "_glyph": 148,
               "_showGlyph": false
             }
+          },
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Arm/Arm Encoder",
+              "_title": "Arm Encoder",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "3,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Arm/Arm Encoder goal",
+              "_title": "Arm Encoder goal",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }
