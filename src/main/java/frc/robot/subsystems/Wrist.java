@@ -48,11 +48,13 @@ public class Wrist extends TrapezoidProfileSubsystem{
         Wrist0_encoder.setPosition(0.0);
 
         // set PID coefficients
+         //TODO: Put PIDs and FF into shuffleboard
         Wrist0_pidController.setP(0.15);    // kP
         Wrist0_pidController.setI(0);      // kI
         Wrist0_pidController.setD(0);      // kD
         Wrist0_pidController.setIZone(0); //kIz
         Wrist0_pidController.setFF(0);     //kFF
+        //TODO: See if we can go from -.5 to .5 vvv
         Wrist0_pidController.setOutputRange(0, 0.5); // kMINOutput, kMAXOutput
         
 
@@ -89,6 +91,14 @@ public class Wrist extends TrapezoidProfileSubsystem{
         Wrist0.setIdleMode(CANSparkMax.IdleMode.kCoast);
     }
 
+    /**
+    * Stops Motor
+    */
+      public void stop(){
+        Wrist0.set(0.0);
+    }
+       
+
  
     /**
      *  Moves arm to soft-stop using Trapazoidal Profiling
@@ -96,8 +106,14 @@ public class Wrist extends TrapezoidProfileSubsystem{
      * @return Command for this function
      */
     public Command goToSoftStop(double kArmOffsetRads) {
+        //TODO: Goal should be based off kArmOffsetRads, will be function we call
         return Commands.runOnce(() -> setGoal(encoder_goal), this);
     }
+
+//TODO: Implement relative stop
+public Command goToRelativeSoftStop() {
+    
+
 
     /**
      * Drive motor until it hits a hardstop, provided by the frame
