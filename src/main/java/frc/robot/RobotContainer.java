@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
-import frc.robot.commands.arm.ThreePos;
+//import frc.robot.commands.arm.ThreePos;
 import frc.robot.commands.intake.IntakeShoot;
 import frc.robot.commands.swervedrive.AbsoluteDriveAdv;
 import frc.robot.subsystems.Arm;
@@ -57,7 +57,7 @@ public class RobotContainer
   private final Bluetooth bluetooth = new Bluetooth();
 
   // Define Arm Command
-  ThreePos arm_control = new ThreePos(noteintake, arm, wrist);
+  //ThreePos arm_control = new ThreePos(noteintake, arm, wrist);
 
   // CommandJoystick rotationController = new CommandJoystick(1);
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -130,8 +130,8 @@ public class RobotContainer
         () -> MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
         () -> driverXbox.getRawAxis(2)); 
 
-    drivebase.setDefaultCommand(
-       !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle: driveFieldOrientedAnglularVelocity);
+    //drivebase.setDefaultCommand(
+     //  !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle: driveFieldOrientedAnglularVelocity);
       noteintake.setDefaultCommand(intakeshoot);
 
   }

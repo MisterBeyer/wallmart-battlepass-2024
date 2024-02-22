@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.TrapezoidProfileSubsystem;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -8,39 +10,40 @@ import com.revrobotics.SparkPIDController;
 
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 
+import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.OperatorConstants;
 
-public class Arm extends SubsystemBase{
+public class Arm extends TrapezoidProfileSubsystem{
     // Define Motor can Ids
     private final CANSparkMax Arm0 = new CANSparkMax(35, MotorType.kBrushless);
     private final CANSparkMax Arm1 = new CANSparkMax(36, MotorType.kBrushless);
-
 
      // Create PID Controller and Encoder Objects
     private SparkPIDController Arm0_pidController = Arm0.getPIDController();
     private RelativeEncoder Arm0_encoder = Arm0.getEncoder();
 
-
-    // Trapzoidal Profile setup
-    private static double kDt = 0.02;
     
-    private final SimpleMotorFeedforward m_feedforward = new SimpleMotorFeedforward(1, 1.5);
-
-    // Create a motion profile with the given maximum velocity and maximum
-    // acceleration constraints for the next setpoint.
-    private final TrapezoidProfile m_profile =
-        new TrapezoidProfile(new TrapezoidProfile.Constraints(1.75, 0.75));
-    private TrapezoidProfile.State m_goal = new TrapezoidProfile.State();
-    private TrapezoidProfile.State m_setpoint = new TrapezoidProfile.State();
+    // Configure Feedfoward
+    private final ArmFeedforward m_feedforward =
+        new ArmFeedforward(
+            ArmConstants.kSVolts, ArmConstants.kGVolts,
+            ArmConstants.kVVoltSecondPerRad, ArmConstants.kAVoltSecondSquaredPerRad);
 
 
-    private int position;
+    private double encoder_goal = 1 ;
 
      public Arm() {
+        // Configure Trapezoid Profile Subsystem
+        super(new TrapezoidProfile.Constraints(
+                ArmConstants.kMaxVelocityRadPerSecond, 
+                ArmConstants.kMaxAccelerationRadPerSecSquared),
+                ArmConstants.kArmOffsetRads);
+
         // kBrake Mode
         Arm0.setIdleMode(CANSparkMax.IdleMode.kBrake);
         Arm1.setIdleMode(CANSparkMax.IdleMode.kBrake);
@@ -48,13 +51,21 @@ public class Arm extends SubsystemBase{
         // Follower Config
         Arm1.follow(Arm0, true);
 
+        // Reset encoder
+        Arm0_encoder.setPosition(0.0);
+
         // set PID coefficients
-        Arm0_pidController.setP(0.1);    // kP
+        Arm0_pidController.setP(0.15);    // kP
         Arm0_pidController.setI(0);      // kI
         Arm0_pidController.setD(0);      // kD
         Arm0_pidController.setIZone(0); //kIz
         Arm0_pidController.setFF(0);     //kFF
-        Arm0_pidController.setOutputRange(0.1, 0.5); // kMINOutput, kMAXOutput
+        Arm0_pidController.setOutputRange(0, 0.5); // kMINOutput, kMAXOutput
+        
+
+        // Shuffleboard!
+        SmartDashboard.putNumber("Arm/Wrist Motor Speed", OperatorConstants.ArmMotorSpeed);
+        SmartDashboard.putNumber("Arm/Arm Encoder goal", encoder_goal);
     }
 
 
@@ -66,82 +77,67 @@ public class Arm extends SubsystemBase{
         return current;
       }
 
-    /** @return The arms current Posistion as a integer
-     *      1: All the way DOWN
-     *      2: In MID
-     *      3: All the way UP 
-    */
-    public int getPosition() {
-        SmartDashboard.putNumber("Arm/Arm Position", position);
+    /** @return The current encoder posistion of the right motor */
+    public double getPosition() {
+        double position = Arm0_encoder.getPosition();
+        SmartDashboard.putNumber("Arm/Arm Encoder", position);
         return position;
-      }
-
-    /** returns encoder position of right motor */
-    public double getEncoder() {
-        return Arm0_encoder.getPosition();
     }
 
 
     /** Updates Motor Speeds from shuffleboard */
     public void updateSpeed() {
         OperatorConstants.ArmMotorSpeed = SmartDashboard.getNumber("Arm/Wrist Motor Speed", OperatorConstants.ArmMotorSpeed);
+        encoder_goal = SmartDashboard.getNumber("Arm/Arm Encoder goal", encoder_goal);
       }
 
-    /** Sets all arm motors to coast, allowing arm to be manupilated by hand */
+    /** Sets all arm motors to coast, allowing it to be manupilated by hand */
     public void coast() {
         Arm0.setIdleMode(CANSparkMax.IdleMode.kCoast);
         Arm1.setIdleMode(CANSparkMax.IdleMode.kCoast); 
     }
 
-    /** Brings Arm All the way DOWN */
-    public void Down() {
-        goToHardStop(-OperatorConstants.ArmMotorSpeed, OperatorConstants.ArmAmpLimit);
-        position = 1;
-    }
-
-     /** Brings Arm to some point in between */
-    public void Mid() {
-        goToSoftStop(0.1); 
-        position = 2;
-    }
-
-     /** Brings Arm All the way UP */
-    public void Up() {
-        goToHardStop(OperatorConstants.ArmMotorSpeed, OperatorConstants.ArmAmpLimit);
-        position = 3;
-    }
-
-    private void goToSoftStop(double rotations) {
-        // Retrieve the profiled setpoint for the next timestep. This setpoint moves
-        // toward the goal while obeying the constraints.
-        m_setpoint = m_profile.calculate(kDt, m_setpoint, m_goal);
-
-        Arm0_pidController.setReference(m_setpoint.position, CANSparkMax.ControlType.kPosition, 0,
-                                        m_feedforward.calculate(m_setpoint.velocity));
+ 
+    /**
+     *  Moves arm to soft-stop using Trapazoidal Profiling
+     * @param kArmOffsetRads Postion to move Arm to in Radians
+     * @return Command for this function
+     */
+    public Command goToSoftStop(double kArmOffsetRads) {
+        return Commands.runOnce(() -> setGoal(encoder_goal), this);
     }
 
     /**
      * Drive motor until it hits a hardstop, provided by the frame
-     * @param Motor to drive into hardstop
      * @param MotorSpeed Maximuim allowed speed of motor
      * @param AmpLimit Current Limit to know when hardstop has been reached
+     * 
+     * Dont Use this for comp
      */
-    private void goToHardStop(double MotorSpeed, double AmpLimit) {
+    public void goToHardStop(double MotorSpeed, double AmpLimit) {
         while (getCurrent() < AmpLimit) {
             Arm0.set(MotorSpeed);
-            //Arm1.set(-MotorSpeed);
         }
         Arm0.set(0.0);
-        //Arm1.set(0.0);
     }
 
 
+    @Override
+    public void useState(TrapezoidProfile.State setpoint) {
+        // calculate feedforawrd from the set point
+        double feedforward = m_feedforward.calculate(setpoint.position, setpoint.velocity);
+        // Add the feedforward to the PID output to get the motor output
+        Arm0_pidController.setReference(setpoint.position, CANSparkMax.ControlType.kPosition, 0, feedforward / 12.0);
+    }
+ 
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
         getCurrent();
         getPosition();
-        getEncoder();
         updateSpeed();
-    }
+
+        // Run the Trapzoidal Subsystem Periodic
+        super.periodic();
+    } 
 }
