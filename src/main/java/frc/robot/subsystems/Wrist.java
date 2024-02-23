@@ -32,7 +32,6 @@ public class Wrist extends TrapezoidProfileSubsystem{
             WristConstants.kVVoltSecondPerRad, WristConstants.kAVoltSecondSquaredPerRad);
 
 
-    private double encoder_goal = 1 ;
 
      public Wrist() {
         // Configure Trapezoid Profile Subsystem
@@ -48,19 +47,20 @@ public class Wrist extends TrapezoidProfileSubsystem{
         Wrist0_encoder.setPosition(0.0);
 
         // set PID coefficients
-         //TODO: Put PIDs and FF into shuffleboard
-        Wrist0_pidController.setP(0.15);    // kP
-        Wrist0_pidController.setI(0);      // kI
-        Wrist0_pidController.setD(0);      // kD
-        Wrist0_pidController.setIZone(0); //kIz
-        Wrist0_pidController.setFF(0);     //kFF
+     
+        
+        
         //TODO: See if we can go from -.5 to .5 vvv
         Wrist0_pidController.setOutputRange(0, 0.5); // kMINOutput, kMAXOutput
         
 
         // Shuffleboard!
-        SmartDashboard.putNumber("Arm/Wrist Motor Speed", OperatorConstants.WristMotorSpeed);
-        SmartDashboard.putNumber("Arm/Wrist Encoder goal", encoder_goal);
+        Wrist0_pidController.setP(SmartDashboard.getNumber("Wrist P", 0.15));
+        Wrist0_pidController.setI(SmartDashboard.getNumber("Wrist I", 0));
+        Wrist0_pidController.setD(SmartDashboard.getNumber("Wrist D", 0));
+        Wrist0_pidController.setIZone(SmartDashboard.getNumber("Wrist IZone", 0));
+        Wrist0_pidController.setFF(SmartDashboard.getNumber("Wrist FF", 0));
+        
     }
 
 
@@ -81,10 +81,10 @@ public class Wrist extends TrapezoidProfileSubsystem{
 
 
     /** Updates Motor Speeds from shuffleboard */
-    public void updateSpeed() {
-        OperatorConstants.WristMotorSpeed = SmartDashboard.getNumber("Arm/Wrist Motor Speed", OperatorConstants.WristMotorSpeed);
-        encoder_goal = SmartDashboard.getNumber("Arm/Wrist Encoder goal", encoder_goal);
-      }
+    public void updateFromShuffleBoard() {
+
+    }
+    
 
     /** Sets all wrist motors to coast, allowing it to be manupilated by hand */
     public void coast() {
@@ -105,13 +105,35 @@ public class Wrist extends TrapezoidProfileSubsystem{
      * @param kArmOffsetRads Postion to move Arm to in Radians
      * @return Command for this function
      */
-    public Command goToSoftStop(double kArmOffsetRads) {
-        //TODO: Goal should be based off kArmOffsetRads, will be function we call
-        return Commands.runOnce(() -> setGoal(encoder_goal), this);
+    public Command goToSoftStop(double kWristOffsetRads) {
+        
+        return Commands.runOnce(() -> setGoal(kWristOffsetRads), this);
+    }
+    //TODO: put real values here
+    public Command goToStow(){
+        return goToSoftStop(0);
+    }
+    public Command goToIntake(){
+        return goToSoftStop(3/*Put real value in here*/);
+    }
+    public Command goToShootSpeaker(){
+        return goToSoftStop(2/*Put real value here*/);
+    }
+    public Command goToShootAmp(){
+        return goToSoftStop(4/*Put Real value here*/)
     }
 
-//TODO: Implement relative stop
-public Command goToRelativeSoftStop() {
+
+public Command goToRelativeSoftStop(boolean isPositive) {
+    double position = getPosition();
+        if (isPositive){
+            position = position+2;
+        }
+        else {
+            position = position-2;
+        }
+        return goToSoftStop(position);
+}
     
 
 
@@ -141,9 +163,11 @@ public Command goToRelativeSoftStop() {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        getCurrent();
-        getPosition();
-        updateSpeed();
+        double posisiton = getPosition();
+        if (getCurrent() < OperatorConstants.ArmAmpLimit) {
+            goToSoftStop(posisiton);
+        }
+        updateFromShuffleBoard();
 
         // Run the Trapzoidal Subsystem Periodic
         super.periodic();
