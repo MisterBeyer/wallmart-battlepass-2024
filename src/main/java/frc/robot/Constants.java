@@ -46,6 +46,9 @@ public final class Constants
 
   public static final class ArmConstants 
   {
+    // Rate of change to use when Changing position by ReletiveSoftStop
+    public static final double ReletiveSoftStopDelta = 2;
+
     // Trapazoidal Profile Constants
     public static double kMaxVelocityRadPerSecond = 0.10; 
     public static double kMaxAccelerationRadPerSecSquared = 0.10;

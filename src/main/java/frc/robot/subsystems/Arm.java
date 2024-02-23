@@ -54,33 +54,36 @@ public class Arm extends TrapezoidProfileSubsystem{
 
         // set PID coefficients
         //TODO: Put I, D and FF into shuffleboard 
-        /* 
         Arm0_pidController.setP(0.15);    // kP
         Arm0_pidController.setI(0);      // kI
         Arm0_pidController.setD(0);      // kD
         Arm0_pidController.setIZone(0); //kIz
         Arm0_pidController.setFF(0);     //kFF
-        */
+        
         //TODO: See if we can go from -.5 to .5 vvv
         Arm0_pidController.setOutputRange(0, 0.5); // kMINOutput, kMAXOutput
         
 
         // Shuffleboard!
-        Arm0_pidController.setP(SmartDashboard.getNumber("Arm P", 0.15));
-        Arm0_pidController.setI(SmartDashboard.getNumber("Arm I", 0));
-        Arm0_pidController.setD(SmartDashboard.getNumber("Arm D", 0));
-        Arm0_pidController.setIZone(SmartDashboard.getNumber("Arm IZone", 0));
-        Arm0_pidController.setFF(SmartDashboard.getNumber("Arm FF", 0));
         SmartDashboard.putNumber("Arm/Arm Encoder goal", encoder_goal);
+        SmartDashboard.putNumber("Arm/Reletive SoftStop Delta", ArmConstants.ReletiveSoftStopDelta);
     }
 
 
     /** Updates Constants from shuffleboard */
-    public void updateSpeed() {
-            OperatorConstants.WristMotorSpeed = SmartDashboard.getNumber("Arm/Wrist Motor Speed", OperatorConstants.WristMotorSpeed);
+    public void updateConstants() {
+            OperatorConstants.
             encoder_goal = SmartDashboard.getNumber("Arm/Wrist Encoder goal", encoder_goal);
 
-            Arm0_pidController.setP(SmartDashboard.getNumber("Arm/Arm PID", 0.15));
+            ArmConstants.ReletiveSoftStopDelta = SmartDashboard.getNumber("Arm/Reletive SoftStop Delta", ArmConstants.ReletiveSoftStopDelta);
+
+            // PID
+            Arm0_pidController.setP(SmartDashboard.getNumber("Arm P", 0.15));
+            Arm0_pidController.setI(SmartDashboard.getNumber("Arm I", 0));
+            Arm0_pidController.setD(SmartDashboard.getNumber("Arm D", 0));
+            Arm0_pidController.setIZone(SmartDashboard.getNumber("Arm IZone", 0));
+            Arm0_pidController.setFF(SmartDashboard.getNumber("Arm FF", 0));
+
     }
     
 
@@ -123,13 +126,18 @@ public class Arm extends TrapezoidProfileSubsystem{
         return Commands.runOnce(() -> setGoal(kArmOffsetRads), this);
     }
 
+    /**
+     * Move Arm to softstop to a point relitive to were it is now
+     * @param isPositvie moves arm forward(True) or backwards(False)
+     * by a set amount of Radians in Constants.ArmConstants.ReletiveSoftStopDelta
+      */
     public Command goToRelativeSoftStop(boolean isPositive) {
        double position = getPosition();
         if (isPositive){
-            position = position+2;
+            position = position+ArmConstants.ReletiveSoftStopDelta;
         }
         else {
-            position = position-2;
+            position = position-ArmConstants.ReletiveSoftStopDelta;
         }
         return goToSoftStop(position);
 }
