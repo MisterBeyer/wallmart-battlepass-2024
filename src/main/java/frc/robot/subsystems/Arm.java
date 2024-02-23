@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.TrapezoidProfileSubsystem;
@@ -13,7 +14,10 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+
 import frc.robot.Constants.ArmConstants;
+
+
 
 public class Arm extends TrapezoidProfileSubsystem{
     // Define Motor can Ids
