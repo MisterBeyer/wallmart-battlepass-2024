@@ -53,7 +53,7 @@ public class Arm extends TrapezoidProfileSubsystem{
         Arm0_encoder.setPosition(0.0);
 
         // set PID coefficients
-        //TODO: Put PIDs and FF into shuffleboard
+        //TODO: Put I, D and FF into shuffleboard
         Arm0_pidController.setP(0.15);    // kP
         Arm0_pidController.setI(0);      // kI
         Arm0_pidController.setD(0);      // kD
@@ -73,12 +73,12 @@ public class Arm extends TrapezoidProfileSubsystem{
             OperatorConstants.WristMotorSpeed = SmartDashboard.getNumber("Arm/Wrist Motor Speed", OperatorConstants.WristMotorSpeed);
             encoder_goal = SmartDashboard.getNumber("Arm/Wrist Encoder goal", encoder_goal);
 
-            Arm0_pidController = SmartDashboard.getData("Arm/Arm PID");
+            Arm0_pidController.setP(SmartDashboard.getNumber("Arm/Arm PID", 0.15));
     }
     
 
     /** @return Average of Arm motor's Output Amperage  */
-    public double getCurrent() {
+    public double getAverageCurrent() {
         double current = (Arm0.getOutputCurrent() + Arm1.getOutputCurrent())/2;
   
         SmartDashboard.putNumber("Arm/Arm Amps", current);
@@ -112,16 +112,19 @@ public class Arm extends TrapezoidProfileSubsystem{
      * @param kArmOffsetRads Postion to move Arm to in Radians
      * @return Command for this function
      */
-    //TODO: Goal should be based off kArmOffsetRads, will be function we call
     public Command goToSoftStop(double kArmOffsetRads) {
-        return Commands.runOnce(() -> setGoal(encoder_goal), this);
+        return Commands.runOnce(() -> setGoal(kArmOffsetRads), this);
     }
 
-//TODO: Implement relative stop
-    public Command goToRelativeSoftStop() {
-        
-
-
+    public Command goToRelativeSoftStop(boolean isPositive) {
+       double position = getPosition();
+        if (isPositive){
+            position = position+2;
+        }
+        else {
+            position = position-2;
+        }
+        return goToSoftStop(position);
 }
 
 
@@ -133,7 +136,7 @@ public class Arm extends TrapezoidProfileSubsystem{
      * Dont Use this for comp
      */
     public void goToHardStop(double MotorSpeed) {
-        while (getCurrent() < OperatorConstants.ArmAmpLimit) {
+        while (getAverageCurrent() < OperatorConstants.ArmAmpLimit) {
             Arm0.set(MotorSpeed);
         }
         Arm0.set(0.0);
@@ -154,10 +157,11 @@ public class Arm extends TrapezoidProfileSubsystem{
  
     @Override
     public void periodic() {
-        // This method will be called once per scheduler run
-        getCurrent();
-        getPosition();
-        //TODO: Do amp check here, new function "check current"(?)
+         // This method will be called once per scheduler run
+        double posisiton = getPosition();
+        if (getAverageCurrent() < OperatorConstants.ArmAmpLimit) {
+            goToSoftStop(posisiton);
+        }
         // Run the Trapzoidal Subsystem Periodic
         super.periodic();
     } 
