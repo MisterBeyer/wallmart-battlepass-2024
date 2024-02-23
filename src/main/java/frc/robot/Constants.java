@@ -46,8 +46,11 @@ public final class Constants
 
   public static final class ArmConstants 
   {
+    // Amp Limits
+    public static double AmpLimit = 10;
+
     // Rate of change to use when Changing position by ReletiveSoftStop
-    public static final double ReletiveSoftStopDelta = 2;
+    public static double ReletiveSoftStopDelta = 2;
 
     // Trapazoidal Profile Constants
     public static double kMaxVelocityRadPerSecond = 0.10; 
@@ -59,10 +62,20 @@ public final class Constants
     public static double kGVolts = 0.10;
     public static double kVVoltSecondPerRad = 0.10;
     public static double kAVoltSecondSquaredPerRad = 0.10;
+
+    // PID Values
+    public static double P = 0.15;
+    public static double I = 0.0;
+    public static double D = 0.0;
+    public static double Iz = 0.0;
+    public static double FF = 0.0;
   }
 
   public static final class WristConstants 
   {
+    // Amp Limits
+    public static double AmpLimit = 10;
+
     // Trapazoidal Profile Constants
     public static double kMaxVelocityRadPerSecond = 0.10; 
     public static double kMaxAccelerationRadPerSecSquared = 0.10;
@@ -73,6 +86,7 @@ public final class Constants
     public static double kGVolts = 0.10;
     public static double kVVoltSecondPerRad = 0.10;
     public static double kAVoltSecondSquaredPerRad = 0.10;
+
   }
 
   public static class ClimberConstants
@@ -100,8 +114,6 @@ public final class Constants
     // Arm/Wrist Motor Speed and amp limits
     public static double WristMotorSpeed = 0.1;
 
-    public static double ArmAmpLimit = 10;
-    public static double WristAmpLimit = 2;
     
     // Joystick Deadband
     public static final double LEFT_X_DEADBAND = 0.05;
