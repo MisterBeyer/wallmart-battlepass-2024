@@ -109,6 +109,19 @@ public class Wrist extends TrapezoidProfileSubsystem{
         
         return Commands.runOnce(() -> setGoal(kWristOffsetRads), this);
     }
+    //TODO: put real values here
+    public Command goToStow(){
+        return goToSoftStop(0);
+    }
+    public Command goToIntake(){
+        return goToSoftStop(3/*Put real value in here*/);
+    }
+    public Command goToShootSpeaker(){
+        return goToSoftStop(2/*Put real value here*/);
+    }
+    public Command goToShootAmp(){
+        return goToSoftStop(4/*Put Real value here*/)
+    }
 
 
 public Command goToRelativeSoftStop(boolean isPositive) {
