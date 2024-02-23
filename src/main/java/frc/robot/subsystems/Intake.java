@@ -1,4 +1,6 @@
 package frc.robot.subsystems;
+
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -7,7 +9,10 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkRelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+
 import frc.robot.Constants.OperatorConstants;;
+
+
 
 public class Intake extends SubsystemBase{
     private final CANSparkMax Intake0 = new CANSparkMax(30, MotorType.kBrushless);

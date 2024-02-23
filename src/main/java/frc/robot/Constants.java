@@ -52,6 +52,7 @@ public final class Constants
     // Rate of change to use when Changing position by ReletiveSoftStop
     public static double ReletiveSoftStopDelta = 2;
 
+
     // Trapazoidal Profile Constants
     public static double kMaxVelocityRadPerSecond = 0.10; 
     public static double kMaxAccelerationRadPerSecSquared = 0.10;
@@ -76,16 +77,24 @@ public final class Constants
     // Amp Limits
     public static double AmpLimit = 10;
 
+
     // Trapazoidal Profile Constants
     public static double kMaxVelocityRadPerSecond = 0.10; 
     public static double kMaxAccelerationRadPerSecSquared = 0.10;
-    public static double kArmOffsetRads = 0.10;
+    public static double kWristOffsetRads = 0.10;
 
     // Arm Feedforward Constants
     public static double kSVolts = 0.10;
     public static double kGVolts = 0.10;
     public static double kVVoltSecondPerRad = 0.10;
     public static double kAVoltSecondSquaredPerRad = 0.10;
+
+    // PID Values
+    public static double P = 0.15;
+    public static double I = 0.0;
+    public static double D = 0.0;
+    public static double Iz = 0.0;
+    public static double FF = 0.0;
 
   }
 
@@ -110,9 +119,6 @@ public final class Constants
     public static double FrontOut = 0.8;
     public static double FrontRPM = 2500;
     public static int BackRPM = 0;
-
-    // Arm/Wrist Motor Speed and amp limits
-    public static double WristMotorSpeed = 0.1;
 
     
     // Joystick Deadband
