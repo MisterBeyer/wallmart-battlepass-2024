@@ -53,17 +53,24 @@ public class Arm extends TrapezoidProfileSubsystem{
         Arm0_encoder.setPosition(0.0);
 
         // set PID coefficients
-        //TODO: Put I, D and FF into shuffleboard
+        //TODO: Put I, D and FF into shuffleboard 
+        /* 
         Arm0_pidController.setP(0.15);    // kP
         Arm0_pidController.setI(0);      // kI
         Arm0_pidController.setD(0);      // kD
         Arm0_pidController.setIZone(0); //kIz
         Arm0_pidController.setFF(0);     //kFF
+        */
         //TODO: See if we can go from -.5 to .5 vvv
         Arm0_pidController.setOutputRange(0, 0.5); // kMINOutput, kMAXOutput
         
 
         // Shuffleboard!
+        Arm0_pidController.setP(SmartDashboard.getNumber("Arm P", 0.15));
+        Arm0_pidController.setI(SmartDashboard.getNumber("Arm I", 0));
+        Arm0_pidController.setD(SmartDashboard.getNumber("Arm D", 0));
+        Arm0_pidController.setIZone(SmartDashboard.getNumber("Arm IZone", 0));
+        Arm0_pidController.setFF(SmartDashboard.getNumber("Arm FF", 0));
         SmartDashboard.putNumber("Arm/Arm Encoder goal", encoder_goal);
     }
 
