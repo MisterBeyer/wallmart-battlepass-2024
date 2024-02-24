@@ -99,7 +99,7 @@ public class RobotContainer
                                                                    driverXbox::getBButtonPressed);
 
     @SuppressWarnings("unused")
-     IntakeShoot intakeshoot = new IntakeShoot(noteintake, 
+     IntakeShoot intakeshoot = new IntakeShoot(intake, 
                                               () -> MathUtil.applyDeadband(operatorXbox.getLeftY(),
                                                                            OperatorConstants.IntakeDeadBand),
                                               () -> MathUtil.applyDeadband(operatorXbox.getRightY(),
