@@ -32,7 +32,7 @@ public class Climber extends SubsystemBase{
 
 
     /** Updates Motor Speeds and limits from shuffleboard */
-    public void updateConstants() {
+    private void updateConstants() {
       // Speeds
       ClimberConstants.MaxSpeed = SmartDashboard.getNumber("Climber/Climber Motor Speed", ClimberConstants.MaxSpeed);
 

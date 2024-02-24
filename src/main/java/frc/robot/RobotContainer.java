@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 import frc.robot.commands.Helpers.IntakeShoot;
 import frc.robot.commands.swervedrive.AbsoluteDriveAdv;
+import frc.robot.commands.teleop.FourPos;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Bluetooth;
 import frc.robot.subsystems.Climber;
@@ -49,14 +50,14 @@ public class RobotContainer
   // The robot's subsystems and commands are defined here...
   private SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                          "swerve/neo"));
-  private final Intake noteintake = new Intake();
+  private final Intake intake = new Intake();
   private final Wrist wrist = new Wrist();
   private final Arm arm = new Arm();
   private final Climber climber = new Climber();
   private final Bluetooth bluetooth = new Bluetooth();
 
   // Define Arm Command
-  //ThreePos arm_control = new ThreePos(noteintake, arm, wrist);
+  FourPos arm_control = new FourPos(arm, wrist, intake);
 
   // CommandJoystick rotationController = new CommandJoystick(1);
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -136,7 +137,7 @@ public class RobotContainer
 
     //drivebase.setDefaultCommand(
      //  !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle: driveFieldOrientedAnglularVelocity);
-      noteintake.setDefaultCommand(intakeshoot);
+    intake.setDefaultCommand(intakeshoot);
 
   }
   
@@ -171,8 +172,8 @@ public class RobotContainer
     new JoystickButton(operatorXbox,2).onTrue(new InstantCommand(climber::retractFully));
     new JoystickButton(operatorXbox,3).onTrue(
       Commands.startEnd(()->climber.deploy(Constants.ClimberConstants.FullExtensionEncoder), ()->climber.stop(), climber));
-    new JoystickButton(operatorXbox,4).onTrue(new InstantCommand(Arm::goToHardStop));
-    new JoystickButton(operatorXbox,5).onTrue(new InstantCommand(noteintake::Shoot));
+    new JoystickButton(operatorXbox,4).onTrue(arm_control.Stow());
+    new JoystickButton(operatorXbox,5).onTrue(arm_control.Intake());
     new JoystickButton(operatorXbox,6).onTrue(new InstantCommand(bluetooth::toogle));
     new JoystickButton(operatorXbox,7).onTrue(new InstantCommand(bluetooth::th5));
     

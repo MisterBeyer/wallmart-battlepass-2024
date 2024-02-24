@@ -85,7 +85,7 @@ public class Arm extends TrapezoidProfileSubsystem{
 
 
     /** Updates Constants from shuffleboard */
-    public void updateConstants() {
+    private void updateConstants() {
             // Function Constants
             ArmConstants.ReletiveSoftStopDelta = SmartDashboard.getNumber("Arm/Reletive SoftStop Delta", ArmConstants.ReletiveSoftStopDelta);
 
@@ -177,7 +177,7 @@ public class Arm extends TrapezoidProfileSubsystem{
 
 
     /** Make sure we're not hitting the AmpLimit */
-    public void verifyAmpLimit() {
+    private void verifyAmpLimit() {
         double posisiton = getPosition();
         if (getAverageCurrent() < ArmConstants.AmpLimit) {
             goToSoftStop(posisiton);
