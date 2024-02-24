@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
+import frc.robot.commands.Helpers.ArmCommands;
 import frc.robot.commands.Helpers.IntakeShoot;
 import frc.robot.commands.swervedrive.AbsoluteDriveAdv;
 import frc.robot.commands.teleop.FourPos;
@@ -55,6 +56,7 @@ public class RobotContainer
   private final Arm arm = new Arm();
   private final Climber climber = new Climber();
   private final Bluetooth bluetooth = new Bluetooth();
+  private final ArmCommands armCommands = new ArmCommands(arm);
 
   // Define Arm Command
   FourPos arm_control = new FourPos(arm, wrist, intake);
@@ -172,8 +174,12 @@ public class RobotContainer
     new JoystickButton(operatorXbox,2).onTrue(new InstantCommand(climber::retractFully));
     new JoystickButton(operatorXbox,3).onTrue(
       Commands.startEnd(()->climber.deploy(Constants.ClimberConstants.FullExtensionEncoder), ()->climber.stop(), climber));
+
+    new JoystickButton(operatorXbox,4).onTrue(new InstantCommand(armCommands::goToStow));
+
     new JoystickButton(operatorXbox,4).onTrue(arm_control.Stow());
     new JoystickButton(operatorXbox,5).onTrue(arm_control.Intake());
+
     new JoystickButton(operatorXbox,6).onTrue(new InstantCommand(bluetooth::toogle));
     new JoystickButton(operatorXbox,7).onTrue(new InstantCommand(bluetooth::th5));
     
