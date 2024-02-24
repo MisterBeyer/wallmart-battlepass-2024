@@ -34,38 +34,28 @@ public class IntakeShoot extends Command {
      * @speed Speed provided by controller 
      * @Constants.OutakeSpeed provides max achievable speed
      */ 
-    public void Shoot(double speed) {
+    int rollerState = 0;
+    public void Shoot() {
         Double frontSpeed = OperatorConstants.FrontOut;
         Double backSpeed = OperatorConstants.BackOut;
-        intake.setSpeed(frontSpeed*speed,  -backSpeed);
 
+       //mhm yup boom
 
-
-       //mhm yup boom 
-
-       /* 
-        boolean isReady =  false;
-
-        while (!isReady){
-            if(intake.getFrontRPM() >= OperatorConstants.FrontRPM){
-                isReady = true;
-            }
-            else{ 
-                new Thread(){
-                    public void run(){
-                        try{
-                        Thread.sleep(110);   
-                        }catch(InterruptedException e){}
-                    }
-                }.start();
-            }
-        }
-         intake.setSpeed(frontSpeed, backSpeed);
-         */
+    if(intake.getFrontRPM() > OperatorConstants.FrontRPM){
+        rollerState = 1;
+    }
+    if(rollerState == 0){
+          intake.setSpeed(frontSpeed, 0);
+       }
+    if(rollerState == 1){
+        intake.setSpeed(frontSpeed, -backSpeed);
+    }
 }
-
-
-
+public void ShootBack(){
+    double frontSpeed = OperatorConstants.FrontOut;
+    Double backspeed = OperatorConstants.BackOut;
+    intake.setSpeed(-frontSpeed, backspeed);
+}
     /**
      * Intakes note
      * Ramps up speeed by using a natural log function
@@ -74,7 +64,7 @@ public class IntakeShoot extends Command {
      */ 
     public void Intake() {
         Double setSpeed = OperatorConstants.IntakeSpeed;
-        intake.setSpeed(-setSpeed, setSpeed);
+        intake.setSpeed(-setSpeed, 0);
     }
 
 
@@ -93,14 +83,10 @@ public class IntakeShoot extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-
-        if(left.getAsDouble() < 0) { Shoot(1.0); } // TODO: set this to control front and back with RPM controller
-        else if(right.getAsDouble() < 0) { Shoot(0.0); } // TODO: else if(right.getAsDouble() < 0) { Shoot(0.0); } 
-
-        if(left.getAsDouble() < 0) { Shoot(1.0); } //TODO: Set this to control front and back with RPM controller
-        else if(right.getAsDouble() < 0) { Shoot(0.0); } // TODO: else if(right.getAsDouble() < 0) { Intake();} 
-
-        else { Stop(); }
+        if(right.getAsDouble() < 0) { Shoot(); }
+        else if(left.getAsDouble() < 0) { Intake(); }
+        else if (right.getAsDouble() > 0) { ShootBack(); }
+        else { {rollerState = 0;} { Stop(); } }
     }
 
     // Called once the command ends or is interrupted.

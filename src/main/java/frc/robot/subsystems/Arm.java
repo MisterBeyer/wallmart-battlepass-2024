@@ -52,6 +52,15 @@ public class Arm extends TrapezoidProfileSubsystem{
         Arm0_encoder.setPosition(0.0);
 
         // set PID coefficients
+
+        /* 
+        Arm0_pidController.setP(0.15);    // kP
+        Arm0_pidController.setI(0);      // kI
+        Arm0_pidController.setD(0);      // kD
+        Arm0_pidController.setIZone(0); //kIz
+        Arm0_pidController.setFF(0);     //kFF
+        */
+
         // NOTE: UpdatePID Does this already, remove to save RAM
         Arm0_pidController.setP(ArmConstants.P);
         Arm0_pidController.setI(ArmConstants.I);
@@ -60,6 +69,7 @@ public class Arm extends TrapezoidProfileSubsystem{
         Arm0_pidController.setFF(ArmConstants.FF);
 
         
+
         //TODO: See if we can go from -.5 to .5 vvv
         Arm0_pidController.setOutputRange(0, 0.5); // kMINOutput, kMAXOutput
         
