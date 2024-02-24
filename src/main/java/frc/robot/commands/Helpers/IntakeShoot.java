@@ -95,11 +95,11 @@ intake.setSpeed(frontSpeed, -backspeed);
 
     @Override
     public void execute() {
-        if(right.getAsDouble() < 0) { setshooterState(shooterState); }
-        else if(left.getAsDouble() < 0) { Intake(); }
-        else if (right.getAsDouble() > 0) { ShootBack(); }
-        else if (left.getAsDouble() > 0) { ShootFront(); }
-        else { {rollerState = 0;} { Stop(); } } 
+        if(shooterState == ShooterState.SHOOT) { Shoot(); }
+        else if(shooterState == ShooterState.INTAKE) { Intake(); }
+        else if (shooterState == ShooterState.SHOOTBACK) { ShootBack(); }
+        else if (shooterState == ShooterState.SHOOTFRONT) { ShootFront(); }
+        else (shooterState == ShooterState.STOP)  {rollerState = 0;} { Stop(); } } 
     }
 
     // Called once the command ends or is interrupted.
