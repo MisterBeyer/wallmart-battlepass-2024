@@ -135,19 +135,6 @@ public class Arm extends TrapezoidProfileSubsystem{
     public Command goToSoftStop(double kArmOffsetRads) {
         return Commands.runOnce(() -> setGoal(kArmOffsetRads), this);
     }
-    //TODO: Add real values
-    public Command goToStow(){
-        return goToSoftStop(0);
-    }
-    public Command goToIntake(){
-        return goToSoftStop(1);
-    }
-    public Command goToShootSpeaker(){
-        return goToSoftStop(2);
-    }
-    public Command goToShootAmp(){
-        return goToSoftStop(3);
-    }
 
     /**
      * Move Arm to softstop to a point relitive to were it is now
