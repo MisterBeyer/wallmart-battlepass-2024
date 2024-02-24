@@ -144,7 +144,7 @@ public class RobotContainer
         () -> driverXbox.getRawAxis(2)); 
 
     //drivebase.setDefaultCommand(
-     //  !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle: driveFieldOrientedAnglularVelocity);
+       //!RobotBase.isSimulation() ? driveFieldOrientedDirectAngle: driveFieldOrientedAnglularVelocity);
     intake.setDefaultCommand(intakeshoot);
 
   }
@@ -178,16 +178,17 @@ public class RobotContainer
     // Arm/Wrist
     //TODO: Redo all of these to prefered buttons and commands when theyre set
     /* Main Arm Movement Controls */
-    new JoystickButton(operatorXbox,1).onTrue((arm_control.Stow()));
-    new JoystickButton(operatorXbox,2).onTrue(arm_control.Intake());
-    new JoystickButton(operatorXbox,3).onTrue(arm_control.Amp());
+
+    new JoystickButton(operatorXbox,1).onTrue(arm_control.Amp());
+    new JoystickButton(operatorXbox,2).onTrue((arm_control.Stow()));
+    new JoystickButton(operatorXbox,3).onTrue(arm_control.Intake());
     new JoystickButton(operatorXbox,4).onTrue(arm_control.Speaker());
 
     /* Direct Arm Movement Controls */
     new JoystickButton(operatorXbox,5).onTrue(armCommands.MoveForward());
-    new JoystickButton(operatorXbox,5).onTrue(armCommands.MoveBackward());
-    new JoystickButton(operatorXbox,5).onTrue(wristCommands.MoveForward());
-    new JoystickButton(operatorXbox,5).onTrue(wristCommands.MoveBackward());
+    new JoystickButton(operatorXbox,6).onTrue(armCommands.MoveBackward());
+    new JoystickButton(operatorXbox,7).onTrue(wristCommands.MoveForward());
+    new JoystickButton(operatorXbox,8).onTrue(wristCommands.MoveBackward());
 
 
     Commands.startEnd(()->climber.deploy(Constants.ClimberConstants.FullExtensionEncoder), ()->climber.stop(), climber);
@@ -222,8 +223,8 @@ public class RobotContainer
 
   public void setDriveMode()
   {
-    //drivebase.setDefaultCommand();/..
-    \
+    //drivebase.setDefaultCommand();
+
   }
 
   public void setMotorBrake(boolean brake)
