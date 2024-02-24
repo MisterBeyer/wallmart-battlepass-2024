@@ -1,10 +1,32 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.commands.Helpers.ArmCommands;
+import frc.robot.commands.Helpers.IntakeShoot;
+import frc.robot.commands.Helpers.WristCommands;
+import frc.robot.subsystems.Intake;
+
 
 public class auto extends SequentialCommandGroup {
-    private autoShoot autoshoot;
-    public auto(){
-        addCommands(autoshoot); 
+    private ArmCommands armCommands;
+    private WristCommands wristCommands;
+    private IntakeShoot intakeShoot;
+
+    public auto(ArmCommands inarmCommands, WristCommands inwristCommands, IntakeShoot intakeShoot
+    ) {
+
+    this.armCommands =  inarmCommands;
+    this.intakeShoot = intakeShoot;
+    this.wristCommands = inwristCommands;
+
+
+      addCommands(armCommands.goToSpeaker());
+      addCommands(intakeShoot.Shoot());
+      addCommands(wristCommands.goToSpeaker());
+
+
     }
+    
 }
