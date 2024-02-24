@@ -73,7 +73,7 @@ public class Wrist extends TrapezoidProfileSubsystem{
 
 
     /** Updates Constants from shuffleboard */
-    private void updateConstants() {
+    public void updateConstants() {
         // Function Constants
         WristConstants.ReletiveSoftStopDelta = SmartDashboard.getNumber("Wrist/Reletive SoftStop Delta", WristConstants.ReletiveSoftStopDelta);
 
@@ -187,9 +187,7 @@ public class Wrist extends TrapezoidProfileSubsystem{
         // This method will be called once per scheduler run
       
         // Update values on Shufflboard
-        updateConstants();
-        getPosition(); 
-        getCurrent();
+        // Moved to Helper Commands to be called on buttonpress
 
         // Check to make sure we aren't burning out motors
         verifyAmpLimit();

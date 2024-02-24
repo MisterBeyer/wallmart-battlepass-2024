@@ -85,7 +85,7 @@ public class Arm extends TrapezoidProfileSubsystem{
 
 
     /** Updates Constants from shuffleboard */
-    private void updateConstants() {
+    public void updateConstants() {
             // Function Constants
             ArmConstants.ReletiveSoftStopDelta = SmartDashboard.getNumber("Arm/Reletive SoftStop Delta", ArmConstants.ReletiveSoftStopDelta);
 
@@ -203,9 +203,7 @@ public class Arm extends TrapezoidProfileSubsystem{
         // This method will be called once per scheduler run
 
         // Update values on Shufflboard
-        updateConstants();
-        getPosition(); 
-        getAverageCurrent();
+        // Moved to Helper Commands to be called on buttonpress
 
         // Check to make sure we aren't burning out motors
         verifyAmpLimit();
