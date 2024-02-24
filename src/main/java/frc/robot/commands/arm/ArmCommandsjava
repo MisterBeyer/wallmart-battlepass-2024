@@ -2,27 +2,75 @@ package frc.robot.commands.arm;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Arm;
+
 import frc.robot.Constants.OperatorConstants;
 
+/*
+ * ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣤⣴⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣤⣤⣤⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣶⣿⡿⠿⠛⠛⠉⠉⠉⢉⣭⣿⣿⣭⡉⠉⠉⠉⠛⠛⠻⢿⣿⣶⣦⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢀⣤⣶⣿⣿⡿⠋⠁⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣄⠀⠀⠀⠀⠀⠀⠈⠙⢻⣿⣿⣷⣤⡀⠀⠀⠀⠀⠀
+⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⠋⠀⠀⠙⢿⣿⡄⠀⠀⠀⠀⠀⠀⠀⢀⣿⣿⣿⣿⣿⣦⡀⠀⠀⠀
+⠀⠀⣰⣿⣿⠋⠸⣿⣿⣿⣷⣦⣀⠀⠀⠀⠀⠀⣾⣿⠃⠀⠀⠀⠀⠘⣿⣿⠀⠀⠀⠀⠀⣀⣤⣾⣿⣿⣿⠇⠙⣿⣿⣦⠀⠀
+⠀⣰⣿⣿⠇⠀⠀⠈⠻⣿⣿⣿⣿⣿⣷⣶⣦⣤⣿⣿⣄⣀⣀⣀⣀⣠⣿⣿⣦⣤⣶⣾⣿⣿⣿⣿⣿⠟⠋⠀⠀⠘⣿⣿⣧⠀
+⢠⣿⣿⣿⠀⠀⠀⠀⠀⠀⠉⠛⠻⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⠉⠀⠀⠀⠀⠀⠀⣿⣿⣿⡆
+⢸⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⢹⣿⡿⠿⠿⠿⠿⠿⠿⢿⣿⡏⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⡇      Toytota Arm Subsystem™
+⠘⣿⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣷⠀⠀⠀⠀⠀⠀⣸⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⠇
+⠀⠹⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣿⠀⠀⠀⠀⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⡏⠀
+⠀⠀⠹⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣧⠀⠀⠀⠀⣸⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⣿⠟⠀⠀
+⠀⠀⠀⠈⠻⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿⣧⣄⣠⣼⣿⣿⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⣿⣿⠟⠁⠀⠀⠀
+⠀⠀⠀⠀⠀⠈⠙⠿⣿⣷⣦⣄⡀⠀⠀⠀⠀⠀⠀⢻⣿⣿⣿⣿⣿⣿⡟⠀⠀⠀⠀⠀⠀⢀⣠⣴⣾⣿⡿⠛⠁⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠛⠿⣿⣷⣶⣤⣤⣀⣀⡀⠻⣿⣿⣿⣿⠟⠀⣀⣀⣠⣤⣴⣾⣿⠿⠛⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠙⠛⠛⠻⠿⠿⠿⠿⠿⠿⠿⠿⠟⠛⠛⠛⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+ */
 
 
+// Helper Commands File For Arm
 public class ArmCommands extends Command{
     Arm arm;
 
-    public ArmCommands(Arm arm, Wrist wrist) {
+    public ArmCommands(Arm armprovider) {
         // Assign Control
-        arm = armprovider;
+        this.arm = armprovider;
 
         // Add requirements
         addRequirements(this.arm);
     } 
 
 
+    /** Updates Motor Speeds and limits from shuffleboard */
+    public void updateConstants() {
+        // Encoder Posistions
+        OperatorConstants.AmpPosition = SmartDashboard.getNumber("Operator/Arm [Amp] Enocder Positon", OperatorConstants.AmpPosition);
+        OperatorConstants.SpeakerPosition = SmartDashboard.getNumber("Operator/Arm [Speaker] Enocder Positon", OperatorConstants.SpeakerPosition);
+    }
+
+
+
+    // The Real Helper Commands
+
+    /** Brings the arm All the way to the Bottom */
+    public Command goToStow() {
+       return arm.goToSoftStop(0);
+    }
+
+    /** Brings the arm all the way Up to the Amp Shooting Position */
+    public Command goToAmp() {
+        return arm.goToSoftStop(OperatorConstants.AmpPosition);
+    }
+
+    /** Brings the arm to the Speaker Shooting Position */
+    public Command goToSpeaker() {
+        return arm.goToSoftStop(OperatorConstants.SpeakerPosition);
+    }
+
 
 
     // Called when the command is initially scheduled.
     @Override
       public void initialize() {
+        // Put Constants into Shuffleboard
+        SmartDashboard.putNumber("Operator/Arm [Amp] Enocder Positon", OperatorConstants.AmpPosition);
+        SmartDashboard.putNumber("Operator/Arm [Speaker] Enocder Positon", OperatorConstants.SpeakerPosition);
     }
   
     // Called every time the scheduler runs while the command is scheduled.

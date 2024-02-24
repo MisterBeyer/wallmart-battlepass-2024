@@ -120,6 +120,10 @@ public final class Constants
     public static double FrontRPM = 2500;
     public static int BackRPM = 0;
 
+    // Arm Encoder Positions
+    public static double AmpPosition = 0.0;
+    public static double SpeakerPosition = 0.0;
+
     
     // Joystick Deadband
     public static final double LEFT_X_DEADBAND = 0.05;
