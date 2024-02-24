@@ -73,7 +73,7 @@ public class Wrist extends TrapezoidProfileSubsystem{
 
 
     /** Updates Constants from shuffleboard */
-    public void updateConstants() {
+    private void updateConstants() {
         // Function Constants
         WristConstants.ReletiveSoftStopDelta = SmartDashboard.getNumber("Wrist/Reletive SoftStop Delta", WristConstants.ReletiveSoftStopDelta);
 
@@ -165,7 +165,7 @@ public class Wrist extends TrapezoidProfileSubsystem{
 
 
     /** Make sure we're not hitting the AmpLimit */
-    public void verifyAmpLimit() {
+    private void verifyAmpLimit() {
         double posisiton = getPosition();
         if (getCurrent() < WristConstants.AmpLimit) {
             goToSoftStop(posisiton);
