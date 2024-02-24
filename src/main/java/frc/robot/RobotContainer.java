@@ -171,19 +171,13 @@ public class RobotContainer
 
     // Arm/Wrist
     //TODO: Redo all of these to prefered buttons and commands when theyre set
-    new JoystickButton(operatorXbox,2).onTrue(new InstantCommand(climber::retractFully));
-    new JoystickButton(operatorXbox,3).onTrue(
+    new JoystickButton(operatorXbox,1).onTrue((arm_control.Stow()));
+    new JoystickButton(operatorXbox,2).onTrue(arm_control.Intake());
+    new JoystickButton(operatorXbox,3).onTrue(arm_control.Amp());
+    new JoystickButton(operatorXbox,4).onTrue(arm_control.Speaker());
+    new JoystickButton(operatorXbox,5).onTrue(
       Commands.startEnd(()->climber.deploy(Constants.ClimberConstants.FullExtensionEncoder), ()->climber.stop(), climber));
-
-    new JoystickButton(operatorXbox,4).onTrue(new InstantCommand(armCommands::goToStow));
-
-    new JoystickButton(operatorXbox,4).onTrue(arm_control.Stow());
-    new JoystickButton(operatorXbox,5).onTrue(arm_control.Intake());
-
-    new JoystickButton(operatorXbox,6).onTrue(new InstantCommand(bluetooth::toogle));
-    new JoystickButton(operatorXbox,7).onTrue(new InstantCommand(bluetooth::th5));
-    
-    new JoystickButton(driverXbox,4).onTrue(
+    new JoystickButton(operatorXbox,     new JoystickButton(operatorXbox,0).onTrue(
         Commands.startEnd(()->wrist.goToHardStop(0.2, 999), ()->wrist.stop(), wrist));
 
   }
@@ -217,7 +211,8 @@ public class RobotContainer
 
   public void setDriveMode()
   {
-    //drivebase.setDefaultCommand();
+    //drivebase.setDefaultCommand();/..
+    \
   }
 
   public void setMotorBrake(boolean brake)
