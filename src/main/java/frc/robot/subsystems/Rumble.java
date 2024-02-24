@@ -21,12 +21,12 @@ public class Rumble extends SubsystemBase {
     }
 
     /* Shakes Driver Controller */
-    public Command driver() {
-        return driver.setRumble(GenericHID.RumbleType.kBothRumble, OperatorConstants.strength);
+   // public Command driver() {
+     //   return driver.setRumble(GenericHID.RumbleType.kBothRumble, OperatorConstants.strength);
     }
 
     /* Shakes Operator Controller */
-    public Command operator() {
-        return operator.setRumble(GenericHID.RumbleType.kBothRumble, OperatorConstants.strength);
-    }
-}
+   // public Command operator() {
+     //   return operator.setRumble(GenericHID.RumbleType.kBothRumble, OperatorConstants.strength);
+    //}
+//}

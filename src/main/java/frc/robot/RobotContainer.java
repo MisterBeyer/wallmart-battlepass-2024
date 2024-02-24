@@ -147,7 +147,7 @@ public class RobotContainer
 
     //drivebase.setDefaultCommand(
      //  !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle: driveFieldOrientedAnglularVelocity);
-    intake.setDefaultCommand(intakeshoot);
+    //intake.setDefaultCommand(intakeshoot);
 
   }
   
@@ -162,6 +162,8 @@ public class RobotContainer
   {
     
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
+
+    System.out.println("Button");
 
     // Driver Controller Binds
     new JoystickButton(driverXbox, 4).onTrue(arm_control.updateShuffleboard());
@@ -189,9 +191,9 @@ public class RobotContainer
 
     /* Direct Arm Movement Controls */
     new JoystickButton(operatorXbox,5).onTrue(armCommands.MoveForward());
-    new JoystickButton(operatorXbox,5).onTrue(armCommands.MoveBackward());
-    new JoystickButton(operatorXbox,5).onTrue(wristCommands.MoveForward());
-    new JoystickButton(operatorXbox,5).onTrue(wristCommands.MoveBackward());
+    new JoystickButton(operatorXbox,6).onTrue(armCommands.MoveBackward());
+    new JoystickButton(operatorXbox,7).onTrue(wristCommands.MoveForward());
+    new JoystickButton(operatorXbox,8).onTrue(wristCommands.MoveBackward());
 
 
     Commands.startEnd(()->climber.deploy(Constants.ClimberConstants.FullExtensionEncoder), ()->climber.stop(), climber);

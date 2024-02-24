@@ -44,6 +44,11 @@ public class WristCommands extends Command{
 
         // Add requirements
         addRequirements(this.wrist);
+
+        // ShuffleBoard!
+        SmartDashboard.putNumber("Operator/Wrist [Amp] Enocder Positon", OperatorConstants.WristAmpPosition);
+        SmartDashboard.putNumber("Operator/Wrist [Speaker] Enocder Positon", OperatorConstants.WristSpeakerPosition);
+        SmartDashboard.putNumber("Operator/Wrist [Intake] Enocder Positon", OperatorConstants.WristIntakePosition);
     } 
 
 

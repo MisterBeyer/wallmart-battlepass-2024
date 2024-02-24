@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.TrapezoidProfileSubsystem;
 
 import com.revrobotics.CANSparkMax;
@@ -42,7 +43,11 @@ public class Arm extends TrapezoidProfileSubsystem{
 
         // kBrake Mode
         Arm0.setIdleMode(CANSparkMax.IdleMode.kBrake);
-        Arm1.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        Arm1.setIdleMode(CANSparkMax.IdleMode.kCoast);
+
+        //Set Amp Limits
+        Arm0.setSmartCurrentLimit(ArmConstants.AmpLimit);
+        Arm1.setSmartCurrentLimit(ArmConstants.AmpLimit);
 
         // Follower Config
         Arm1.follow(Arm0, true);
@@ -67,10 +72,8 @@ public class Arm extends TrapezoidProfileSubsystem{
         Arm0_pidController.setIZone(ArmConstants.Iz);
         Arm0_pidController.setFF(ArmConstants.FF);
 
-        
-
-        //TODO: See if we can go from -.5 to .5 vvv
-        Arm0_pidController.setOutputRange(0, 0.5); // kMINOutput, kMAXOutput
+    
+        Arm0_pidController.setOutputRange(-0.5, 0.5); // kMINOutput, kMAXOutput
         
 
         // Shuffleboard!
@@ -110,7 +113,8 @@ public class Arm extends TrapezoidProfileSubsystem{
     public double getAverageCurrent() {
         double current = (Arm0.getOutputCurrent() + Arm1.getOutputCurrent())/2;
   
-        SmartDashboard.putNumber("Arm/Arm Amps", current);
+        SmartDashboard.putNumber("Arm/L Arm Amps", Arm0.getOutputCurrent());
+        SmartDashboard.putNumber("Arm/R Arm Amps", Arm1.getOutputCurrent());
         return current;
       }
 
@@ -149,15 +153,16 @@ public class Arm extends TrapezoidProfileSubsystem{
      * @param isPositvie moves arm forward(True) or backwards(False)
      * by a set amount of Radians in Constants.ArmConstants.ReletiveSoftStopDelta
       */
-    public Command goToRelativeSoftStop(boolean isPositive) {
+    public void goToRelativeSoftStop(boolean isPositive) {
        double position = getPosition();
-        if (isPositive){
+        if (isPositive) {
             position = position+ArmConstants.ReletiveSoftStopDelta;
         }
         else {
             position = position-ArmConstants.ReletiveSoftStopDelta;
         }
-        return goToSoftStop(position);
+
+        setGoal(position);
     }
 
     /**
@@ -178,9 +183,9 @@ public class Arm extends TrapezoidProfileSubsystem{
 
     /** Make sure we're not hitting the AmpLimit */
     private void verifyAmpLimit() {
-        double posisiton = getPosition();
+        double position = getPosition();
         if (getAverageCurrent() < ArmConstants.AmpLimit) {
-            goToSoftStop(posisiton);
+            goToSoftStop(position);
         }
     }
 
@@ -206,7 +211,6 @@ public class Arm extends TrapezoidProfileSubsystem{
         // Moved to Helper Commands to be called on buttonpress
 
         // Check to make sure we aren't burning out motors
-        verifyAmpLimit();
 
         // Run the Trapzoidal Subsystem Periodic
         super.periodic();
