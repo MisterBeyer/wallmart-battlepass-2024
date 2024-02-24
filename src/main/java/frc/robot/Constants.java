@@ -50,7 +50,7 @@ public final class Constants
     public static double AmpLimit = 10;
 
     // Rate of change to use when Changing position by ReletiveSoftStop
-    public static double ReletiveSoftStopDelta = 2;
+    public static double ReletiveSoftStopDelta = 2; // radians
 
 
     // Trapazoidal Profile Constants
@@ -77,6 +77,9 @@ public final class Constants
     // Amp Limits
     public static double AmpLimit = 10;
 
+    // Rate of change to use when Changing position by ReletiveSoftStop
+    public static double ReletiveSoftStopDelta = 2; // radians
+  
 
     // Trapazoidal Profile Constants
     public static double kMaxVelocityRadPerSecond = 3; 

@@ -32,7 +32,6 @@ public class Arm extends TrapezoidProfileSubsystem{
             ArmConstants.kVVoltSecondPerRad, ArmConstants.kAVoltSecondSquaredPerRad);
 
 
-    private double encoder_goal = 1 ; //Test goal posisiton
 
      public Arm() {
         // Configure Trapezoid Profile Subsystem
@@ -75,7 +74,6 @@ public class Arm extends TrapezoidProfileSubsystem{
         
 
         // Shuffleboard!
-        SmartDashboard.putNumber("Arm/Arm Encoder goal", encoder_goal);
         SmartDashboard.putNumber("Arm/Reletive SoftStop Delta", ArmConstants.ReletiveSoftStopDelta);
 
         SmartDashboard.putNumber("Arm/Arm P", ArmConstants.P); //PID
