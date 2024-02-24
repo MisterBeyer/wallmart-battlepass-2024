@@ -24,7 +24,7 @@ public class auto extends SequentialCommandGroup {
 
       addCommands(armCommands.goToSpeaker());
       addCommands(wristCommands.goToSpeaker());
-      addCommands(intakeShoot.Shoot());
+      addCommands(new InstantCommand(intakeShoot::Shoot));
 
 
     }

@@ -13,12 +13,6 @@ public class IntakeShoot extends Command {
     private DoubleSupplier left;
     private DoubleSupplier right;
 
-        private enum ShooterState {STOP,SHOOT,SHOOTBACK,SHOOTFRONT,INTAKE};
-        private ShooterState shooterState = ShooterState.STOP;
-        public void setshooterState(ShooterState inshooterState){
-            shooterState = inshooterState;
-        }
-
     /**
      *  Command providing Basic Intake Control by Operator Controller
      * @param module module to use as note intake
@@ -40,7 +34,7 @@ public class IntakeShoot extends Command {
      * @Constants.OutakeSpeed provides max achievable speed
      */ 
     int rollerState = 0;
-    public Command Shoot() {
+    public void Shoot() {
         Double frontSpeed = OperatorConstants.FrontOut;
         Double backSpeed = OperatorConstants.BackOut;
 
@@ -55,8 +49,6 @@ public class IntakeShoot extends Command {
     if(rollerState == 1){
         intake.setSpeed(frontSpeed, -backSpeed);
     }
-    //TODO: switched to a command, if it breaks everything return to void
-    return null;
 }
 public void ShootBack(){
     double frontSpeed = OperatorConstants.FrontOut;
@@ -97,11 +89,11 @@ intake.setSpeed(frontSpeed, -backspeed);
 
     @Override
     public void execute() {
-        if(shooterState == ShooterState.SHOOT) { Shoot(); }
-        else if(shooterState == ShooterState.INTAKE) { Intake(); }
-        else if (shooterState == ShooterState.SHOOTBACK) { ShootBack(); }
-        else if (shooterState == ShooterState.SHOOTFRONT) { ShootFront(); }
-        else {rollerState = 0;} { Stop(); } 
+        if (right.getAsDouble() < 0) { Shoot(); }
+        else if(left.getAsDouble() < 0) { Intake(); }
+        else if (left.getAsDouble() > 0) { ShootBack(); }
+        else if (right.getAsDouble() > 0) { ShootFront(); }
+        else rollerState = 0; Stop();
     } 
     
 
