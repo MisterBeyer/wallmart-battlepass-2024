@@ -9,6 +9,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -222,8 +223,9 @@ public class RobotContainer
 
   public void setDriveMode()
   {
+    // Shake the Driver Controller so we don't repeat Block Party
+    driverXbox.setRumble(GenericHID.RumbleType.kBothRumble, 1.0);
     //drivebase.setDefaultCommand();/..
-    \
   }
 
   public void setMotorBrake(boolean brake)
