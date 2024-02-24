@@ -39,10 +39,13 @@ public class ArmCommands extends Command{
 
 
     /** Updates Motor Speeds and limits from shuffleboard */
-    private void updateConstants() {
+    public void updateConstants() {
         // Encoder Posistions
         OperatorConstants.ArmAmpPosition = SmartDashboard.getNumber("Operator/Arm [Amp] Enocder Positon", OperatorConstants.ArmAmpPosition);
         OperatorConstants.ArmSpeakerPosition = SmartDashboard.getNumber("Operator/Arm [Speaker] Enocder Positon", OperatorConstants.ArmSpeakerPosition);
+
+        // Update Constants of Subsystems
+        arm.updateConstants();
     }
 
 
@@ -90,7 +93,6 @@ public class ArmCommands extends Command{
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        updateConstants();
     }
   
     // Called once the command ends or is interrupted.

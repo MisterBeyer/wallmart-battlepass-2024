@@ -31,7 +31,7 @@ public class Intake extends SubsystemBase{
 
 
     /** Pulls the IntakeSpeed variables from shuffleboard  */
-    private void updateConstants() {
+    public void updateConstants() {
       OperatorConstants.IntakeSpeed = SmartDashboard.getNumber("Arm/Intake Speed", OperatorConstants.IntakeSpeed);
       OperatorConstants.BackOut = SmartDashboard.getNumber("BackOut", OperatorConstants.BackOut);
       OperatorConstants.FrontOut = SmartDashboard.getNumber("FrontOut", OperatorConstants.FrontOut);
