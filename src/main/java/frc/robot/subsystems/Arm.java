@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.TrapezoidProfileSubsystem;
 
 import com.revrobotics.CANSparkMax;
@@ -56,16 +55,6 @@ public class Arm extends TrapezoidProfileSubsystem{
         Arm0_encoder.setPosition(0.0);
 
         // set PID coefficients
-
-        /* 
-        Arm0_pidController.setP(0.15);    // kP
-        Arm0_pidController.setI(0);      // kI
-        Arm0_pidController.setD(0);      // kD
-        Arm0_pidController.setIZone(0); //kIz
-        Arm0_pidController.setFF(0);     //kFF
-        */
-
-        // NOTE: UpdatePID Does this already, remove to save RAM
         Arm0_pidController.setP(ArmConstants.P);
         Arm0_pidController.setI(ArmConstants.I);
         Arm0_pidController.setD(ArmConstants.D);
@@ -153,7 +142,7 @@ public class Arm extends TrapezoidProfileSubsystem{
      * @param isPositvie moves arm forward(True) or backwards(False)
      * by a set amount of Radians in Constants.ArmConstants.ReletiveSoftStopDelta
       */
-    public void goToRelativeSoftStop(boolean isPositive) {
+    public Command goToRelativeSoftStop(boolean isPositive) {
        double position = getPosition();
         if (isPositive) {
             position = position+ArmConstants.ReletiveSoftStopDelta;
@@ -172,7 +161,7 @@ public class Arm extends TrapezoidProfileSubsystem{
      * 
      * Dont Use this for comp
      */
-    public void goToHardStop(double MotorSpeed, double CurrentLimit) {
+    public Command goToHardStop(double MotorSpeed, double CurrentLimit) {
         while (getAverageCurrent() < CurrentLimit) {
             Arm0.set(MotorSpeed);
         }
@@ -209,8 +198,6 @@ public class Arm extends TrapezoidProfileSubsystem{
 
         // Update values on Shufflboard
         // Moved to Helper Commands to be called on buttonpress
-
-        // Check to make sure we aren't burning out motors
 
         // Run the Trapzoidal Subsystem Periodic
         super.periodic();

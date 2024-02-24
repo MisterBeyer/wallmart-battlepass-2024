@@ -46,13 +46,12 @@ public class Wrist extends TrapezoidProfileSubsystem{
         Wrist0.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
         //Set Amp Limits
-        Wrist0.setSmartCurrentLimit(ArmConstants.AmpLimit);
+        Wrist0.setSmartCurrentLimit(WristConstants.AmpLimit);
 
         // Reset encoder
         Wrist0_encoder.setPosition(0.0);
 
         // set PID coefficients
-        // NOTE: UpdatePID Does this already, remove to save RAM
         Wrist0_pidController.setP(WristConstants.P);
         Wrist0_pidController.setI(WristConstants.I);
         Wrist0_pidController.setD(WristConstants.D);
@@ -191,8 +190,6 @@ public class Wrist extends TrapezoidProfileSubsystem{
       
         // Update values on Shufflboard
         // Moved to Helper Commands to be called on buttonpress
-
-        // Check to make sure we aren't burning out motors
 
         // Run the Trapzoidal Subsystem Periodic
         super.periodic();
