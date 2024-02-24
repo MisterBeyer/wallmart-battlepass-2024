@@ -151,6 +151,9 @@ public class Robot extends TimedRobot
     {
       throw new RuntimeException(e);
     }
+
+  
+    m_robotContainer.TestMode();
   }
 
   /**

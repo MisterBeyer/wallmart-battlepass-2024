@@ -195,6 +195,20 @@ public class RobotContainer
 
   }
 
+  /**
+   * Called when Robot Set to Test Mode in Driverstation
+   * Makes Robot go "limp" allowing it to be manipulated easily by hang
+   */
+  public void TestMode() {
+    // Stop Intake Just in case
+    intake.stop();
+
+    // Set All Modules to Coast
+    drivebase.setMotorBrake(false);
+    arm.coast();
+    wrist.coast();
+  }
+
   public void setDriveMode()
   {
     //drivebase.setDefaultCommand();
