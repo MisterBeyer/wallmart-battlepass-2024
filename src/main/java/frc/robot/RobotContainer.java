@@ -165,7 +165,7 @@ public class RobotContainer
 
     // Driver Controller Binds
     new JoystickButton(driverXbox, 4).onTrue(arm_control.updateShuffleboard());
-    })
+
 
     new JoystickButton(driverXbox, 1).onTrue((new InstantCommand(drivebase::zeroGyro)));
     new JoystickButton(driverXbox, 3).onTrue(new InstantCommand(drivebase::addFakeVisionReading));
