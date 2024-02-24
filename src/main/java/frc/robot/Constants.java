@@ -50,19 +50,19 @@ public final class Constants
     public static double AmpLimit = 10;
 
     // Rate of change to use when Changing position by ReletiveSoftStop
-    public static double ReletiveSoftStopDelta = 2;
+    public static double ReletiveSoftStopDelta = 2; // radians
 
 
     // Trapazoidal Profile Constants
-    public static double kMaxVelocityRadPerSecond = 0.10; 
-    public static double kMaxAccelerationRadPerSecSquared = 0.10;
-    public static double kArmOffsetRads = 0.10;
+    public static double kMaxVelocityRadPerSecond = 3; 
+    public static double kMaxAccelerationRadPerSecSquared = 3;
+    public static double kArmOffsetRads = 0.0;
 
     // Arm Feedforward Constants
-    public static double kSVolts = 0.10;
-    public static double kGVolts = 0.10;
-    public static double kVVoltSecondPerRad = 0.10;
-    public static double kAVoltSecondSquaredPerRad = 0.10;
+    public static double kSVolts = 1;
+    public static double kGVolts = 1;
+    public static double kVVoltSecondPerRad = 0.80;
+    public static double kAVoltSecondSquaredPerRad = 0.15;
 
     // PID Values
     public static double P = 0.15;
@@ -77,17 +77,20 @@ public final class Constants
     // Amp Limits
     public static double AmpLimit = 10;
 
+    // Rate of change to use when Changing position by ReletiveSoftStop
+    public static double ReletiveSoftStopDelta = 2; // radians
+  
 
     // Trapazoidal Profile Constants
-    public static double kMaxVelocityRadPerSecond = 0.10; 
-    public static double kMaxAccelerationRadPerSecSquared = 0.10;
-    public static double kWristOffsetRads = 0.10;
+    public static double kMaxVelocityRadPerSecond = 3; 
+    public static double kMaxAccelerationRadPerSecSquared = 3;
+    public static double kWristOffsetRads = 0.0;
 
     // Arm Feedforward Constants
-    public static double kSVolts = 0.10;
-    public static double kGVolts = 0.10;
-    public static double kVVoltSecondPerRad = 0.10;
-    public static double kAVoltSecondSquaredPerRad = 0.10;
+    public static double kSVolts = 1;
+    public static double kGVolts = 1;
+    public static double kVVoltSecondPerRad = 0.80;
+    public static double kAVoltSecondSquaredPerRad = 0.15;
 
     // PID Values
     public static double P = 0.15;
