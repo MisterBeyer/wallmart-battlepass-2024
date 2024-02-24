@@ -14,17 +14,17 @@ public class auto extends SequentialCommandGroup {
     private WristCommands wristCommands;
     private IntakeShoot intakeShoot;
 
-    public auto(ArmCommands inarmCommands, WristCommands inwristCommands, IntakeShoot intakeShoot
+    public auto(ArmCommands inarmCommands, WristCommands inwristCommands, IntakeShoot inintakeShoot
     ) {
 
     this.armCommands =  inarmCommands;
-    this.intakeShoot = intakeShoot;
+    this.intakeShoot = inintakeShoot;
     this.wristCommands = inwristCommands;
 
 
       addCommands(armCommands.goToSpeaker());
-      addCommands(intakeShoot.Shoot());
       addCommands(wristCommands.goToSpeaker());
+      addCommands(intakeShoot.Shoot());
 
 
     }
