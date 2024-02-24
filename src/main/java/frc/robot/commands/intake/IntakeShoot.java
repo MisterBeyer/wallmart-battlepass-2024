@@ -56,6 +56,11 @@ public void ShootBack(){
     Double backspeed = OperatorConstants.BackOut;
     intake.setSpeed(-frontSpeed, backspeed);
 }
+public void ShootFront(){
+double frontSpeed = OperatorConstants.FrontOut;
+double backspeed = OperatorConstants.BackOut;
+intake.setSpeed(frontSpeed, -backspeed);
+}
     /**
      * Intakes note
      * Ramps up speeed by using a natural log function
