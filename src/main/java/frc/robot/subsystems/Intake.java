@@ -45,10 +45,10 @@ public class Intake extends SubsystemBase{
     /**
      * Sets speed of both intake motors
      * @param speedFront Speed of Top Motor
-     * @param speedBack Speed of Bottom Motor
+     * @param backSpeed 
      */
-    public void setSpeed(double speedFront, double speedBack){
-        Intake0.set(speedBack);
+    public void setSpeed(double speedFront, double backSpeed){
+        Intake0.set(backSpeed);
         Intake1.set(speedFront);
         //I might be done guys
         //He might not be either
