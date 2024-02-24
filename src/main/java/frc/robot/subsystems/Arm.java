@@ -53,7 +53,6 @@ public class Arm extends TrapezoidProfileSubsystem{
         Arm0_encoder.setPosition(0.0);
 
         // set PID coefficients
-        //TODO: Put I, D and FF into shuffleboard 
         /* 
         Arm0_pidController.setP(0.15);    // kP
         Arm0_pidController.setI(0);      // kI
