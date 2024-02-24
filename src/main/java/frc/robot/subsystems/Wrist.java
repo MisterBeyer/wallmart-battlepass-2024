@@ -13,8 +13,10 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import frc.robot.Constants.OperatorConstants;
+
 import frc.robot.Constants.WristConstants;
+
+
 
 public class Wrist extends TrapezoidProfileSubsystem{
     // Define Motor can Ids
@@ -32,14 +34,13 @@ public class Wrist extends TrapezoidProfileSubsystem{
             WristConstants.kVVoltSecondPerRad, WristConstants.kAVoltSecondSquaredPerRad);
 
 
-    private double encoder_goal = 1 ;
 
      public Wrist() {
         // Configure Trapezoid Profile Subsystem
         super(new TrapezoidProfile.Constraints(
                 WristConstants.kMaxVelocityRadPerSecond, 
                 WristConstants.kMaxAccelerationRadPerSecSquared),
-                WristConstants.kArmOffsetRads);
+                WristConstants.kWristOffsetRads);
 
         // kBrake Mode
         Wrist0.setIdleMode(CANSparkMax.IdleMode.kBrake);
@@ -48,71 +49,130 @@ public class Wrist extends TrapezoidProfileSubsystem{
         Wrist0_encoder.setPosition(0.0);
 
         // set PID coefficients
-         //TODO: Put PIDs and FF into shuffleboard
-        Wrist0_pidController.setP(0.15);    // kP
-        Wrist0_pidController.setI(0);      // kI
-        Wrist0_pidController.setD(0);      // kD
-        Wrist0_pidController.setIZone(0); //kIz
-        Wrist0_pidController.setFF(0);     //kFF
+        // NOTE: UpdatePID Does this already, remove to save RAM
+        Wrist0_pidController.setP(WristConstants.P);
+        Wrist0_pidController.setI(WristConstants.I);
+        Wrist0_pidController.setD(WristConstants.D);
+        Wrist0_pidController.setIZone(WristConstants.Iz);
+        Wrist0_pidController.setFF(WristConstants.FF);
+
+        
         //TODO: See if we can go from -.5 to .5 vvv
         Wrist0_pidController.setOutputRange(0, 0.5); // kMINOutput, kMAXOutput
         
 
         // Shuffleboard!
-        SmartDashboard.putNumber("Arm/Wrist Motor Speed", OperatorConstants.WristMotorSpeed);
-        SmartDashboard.putNumber("Arm/Wrist Encoder goal", encoder_goal);
+        SmartDashboard.putNumber("Wrist/Wrist P", WristConstants.P); //PID
+        SmartDashboard.putNumber("Wrist/Wrist I", WristConstants.I);
+        SmartDashboard.putNumber("Wrist/Wrist D", WristConstants.D);
+        SmartDashboard.putNumber("Wrist/Wrist IZone", WristConstants.Iz);
+        SmartDashboard.putNumber("Wrist/Wrist FF", WristConstants.FF);
     }
 
 
-    /** @return Wrist motor's Output Amperage  */
+
+    /** Updates Constants from shuffleboard */
+    public void updateConstants() {
+        // Function Constants
+        // None so far
+
+        // PID Constants
+        WristConstants.P = SmartDashboard.getNumber("Wrist/Wrist P", WristConstants.P);
+        WristConstants.I = SmartDashboard.getNumber("Wrist/Wrist I", WristConstants.I);
+        WristConstants.D = SmartDashboard.getNumber("Wrist/Wrist D", WristConstants.D);
+        WristConstants.Iz = SmartDashboard.getNumber("Wrist/Wrist IZone", WristConstants.Iz);
+        WristConstants.FF = SmartDashboard.getNumber("Wrist/Wrist FF", WristConstants.FF);
+
+        // ^Update PID Controller
+        Wrist0_pidController.setP(WristConstants.P);
+        Wrist0_pidController.setI(WristConstants.I);
+        Wrist0_pidController.setD(WristConstants.D);
+        Wrist0_pidController.setIZone(WristConstants.Iz);
+        Wrist0_pidController.setFF(WristConstants.FF);
+
+    }
+
+
+    /** @return Wrist Motor Output Amperage  */
     public double getCurrent() {
         double current = Wrist0.getOutputCurrent();
   
-        SmartDashboard.putNumber("Arm/Wrist Amps", current);
+        SmartDashboard.putNumber("Wrist/Wrist Amps", current);
         return current;
       }
 
-    /** @return The current encoder posistion of the right motor */
+    /** @return The current encoder posistion of the Wrist motor */
     public double getPosition() {
         double position = Wrist0_encoder.getPosition();
-        SmartDashboard.putNumber("Arm/Wrist Encoder", position);
+        SmartDashboard.putNumber("Wrist/Wrist Encoder", position);
         return position;
     }
-
-
-    /** Updates Motor Speeds from shuffleboard */
-    public void updateSpeed() {
-        OperatorConstants.WristMotorSpeed = SmartDashboard.getNumber("Arm/Wrist Motor Speed", OperatorConstants.WristMotorSpeed);
-        encoder_goal = SmartDashboard.getNumber("Arm/Wrist Encoder goal", encoder_goal);
-      }
 
     /** Sets all wrist motors to coast, allowing it to be manupilated by hand */
     public void coast() {
         Wrist0.setIdleMode(CANSparkMax.IdleMode.kCoast);
     }
 
-    /**
-    * Stops Motor
-    */
-      public void stop(){
-        Wrist0.set(0.0);
-    }
+    /** Stops Both Motors */
+     public void stop(){
+      Wrist0.set(0.0);
+     }
+     
        
+
+    //TODO: put real values here
+    // TODO: move into Command
+    public Command goToStow(){
+        return goToSoftStop(0);
+    }
+    public Command goToIntake(){
+        return goToSoftStop(3/*Put real value in here*/);
+    }
+    public Command goToShootSpeaker(){
+        return goToSoftStop(2/*Put real value here*/);
+    }
+    public Command goToShootAmp(){
+        return goToSoftStop(4/*Put Real value here*/);
+    }
+
 
  
     /**
-     *  Moves arm to soft-stop using Trapazoidal Profiling
-     * @param kArmOffsetRads Postion to move Arm to in Radians
+     *  Moves Wrist to soft-stop using Trapazoidal Profiling
+     * @param kWristOffsetRads Postion to move Wrist to in Radians
      * @return Command for this function
      */
-    public Command goToSoftStop(double kArmOffsetRads) {
-        //TODO: Goal should be based off kArmOffsetRads, will be function we call
-        return Commands.runOnce(() -> setGoal(encoder_goal), this);
+    public Command goToSoftStop(double kWristOffsetRads) {
+        
+        return Commands.runOnce(() -> setGoal(kWristOffsetRads), this);
     }
 
-//TODO: Implement relative stop
-public Command goToRelativeSoftStop() {
-    
+    /**
+     * Move Arm to softstop to a point relitive to were it is now
+     * @param isPositvie moves arm forward(True) or backwards(False)
+     * by a set amount of Radians in Constants.ArmConstants.ReletiveSoftStopDelta
+      */
+    public Command goToRelativeSoftStop(boolean isPositive) {
+        double position = getPosition();
+            if (isPositive){
+                position = position+2;
+            }
+            else {
+                position = position-2;
+            }
+            return goToSoftStop(position);
+    }
+
+
+
+    /** Make sure we're not hitting the AmpLimit */
+    public void verifyAmpLimit() {
+        double posisiton = getPosition();
+        if (getCurrent() < WristConstants.AmpLimit) {
+            goToSoftStop(posisiton);
+        }
+    }
+
 
 
     /**
@@ -122,12 +182,13 @@ public Command goToRelativeSoftStop() {
      * 
      * Dont Use this for comp
      */
-    public void goToHardStop(double MotorSpeed, double AmpLimit) {
-        while (getCurrent() < AmpLimit) {
+    public void goToHardStop(double MotorSpeed, double CurrentLimit) {
+        while (getCurrent() < CurrentLimit) {
             Wrist0.set(MotorSpeed);
         }
         Wrist0.set(0.0);
     }
+
 
 
     @Override
@@ -141,9 +202,14 @@ public Command goToRelativeSoftStop() {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
+      
+        // Update values on Shufflboard
+        updateConstants();
+        getPosition(); 
         getCurrent();
-        getPosition();
-        updateSpeed();
+
+        // Check to make sure we aren't burning out motors
+        verifyAmpLimit();
 
         // Run the Trapzoidal Subsystem Periodic
         super.periodic();
