@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import frc.robot.Constants.ArmConstants;
-import frc.robot.Constants.OperatorConstants;
 
 public class Arm extends TrapezoidProfileSubsystem{
     // Define Motor can Ids
@@ -53,6 +52,7 @@ public class Arm extends TrapezoidProfileSubsystem{
         Arm0_encoder.setPosition(0.0);
 
         // set PID coefficients
+
         /* 
         Arm0_pidController.setP(0.15);    // kP
         Arm0_pidController.setI(0);      // kI
@@ -60,26 +60,51 @@ public class Arm extends TrapezoidProfileSubsystem{
         Arm0_pidController.setIZone(0); //kIz
         Arm0_pidController.setFF(0);     //kFF
         */
+
+        // NOTE: UpdatePID Does this already, remove to save RAM
+        Arm0_pidController.setP(ArmConstants.P);
+        Arm0_pidController.setI(ArmConstants.I);
+        Arm0_pidController.setD(ArmConstants.D);
+        Arm0_pidController.setIZone(ArmConstants.Iz);
+        Arm0_pidController.setFF(ArmConstants.FF);
+
+        
+
         //TODO: See if we can go from -.5 to .5 vvv
         Arm0_pidController.setOutputRange(0, 0.5); // kMINOutput, kMAXOutput
         
 
         // Shuffleboard!
-        Arm0_pidController.setP(SmartDashboard.getNumber("Arm P", 0.15));
-        Arm0_pidController.setI(SmartDashboard.getNumber("Arm I", 0));
-        Arm0_pidController.setD(SmartDashboard.getNumber("Arm D", 0));
-        Arm0_pidController.setIZone(SmartDashboard.getNumber("Arm IZone", 0));
-        Arm0_pidController.setFF(SmartDashboard.getNumber("Arm FF", 0));
         SmartDashboard.putNumber("Arm/Arm Encoder goal", encoder_goal);
+        SmartDashboard.putNumber("Arm/Reletive SoftStop Delta", ArmConstants.ReletiveSoftStopDelta);
+
+        SmartDashboard.putNumber("Arm/Arm P", ArmConstants.P); //PID
+        SmartDashboard.putNumber("Arm/Arm I", ArmConstants.I);
+        SmartDashboard.putNumber("Arm/Arm D", ArmConstants.D);
+        SmartDashboard.putNumber("Arm/Arm IZone", ArmConstants.Iz);
+        SmartDashboard.putNumber("Arm/Arm FF", ArmConstants.FF);
     }
 
 
     /** Updates Constants from shuffleboard */
-    public void updateSpeed() {
-            OperatorConstants.WristMotorSpeed = SmartDashboard.getNumber("Arm/Wrist Motor Speed", OperatorConstants.WristMotorSpeed);
-            encoder_goal = SmartDashboard.getNumber("Arm/Wrist Encoder goal", encoder_goal);
+    public void updateConstants() {
+            // Function Constants
+            ArmConstants.ReletiveSoftStopDelta = SmartDashboard.getNumber("Arm/Reletive SoftStop Delta", ArmConstants.ReletiveSoftStopDelta);
 
-            Arm0_pidController.setP(SmartDashboard.getNumber("Arm/Arm PID", 0.15));
+            // PID Constants
+            ArmConstants.P = SmartDashboard.getNumber("Arm/Arm P", ArmConstants.P);
+            ArmConstants.I = SmartDashboard.getNumber("Arm/Arm I", ArmConstants.I);
+            ArmConstants.D = SmartDashboard.getNumber("Arm/Arm D", ArmConstants.D);
+            ArmConstants.Iz = SmartDashboard.getNumber("Arm/Arm IZone", ArmConstants.Iz);
+            ArmConstants.FF = SmartDashboard.getNumber("Arm/Arm FF", ArmConstants.FF);
+
+            // ^Update PID Controller
+            Arm0_pidController.setP(ArmConstants.P);
+            Arm0_pidController.setI(ArmConstants.I);
+            Arm0_pidController.setD(ArmConstants.D);
+            Arm0_pidController.setIZone(ArmConstants.Iz);
+            Arm0_pidController.setFF(ArmConstants.FF);
+
     }
     
 
@@ -104,13 +129,12 @@ public class Arm extends TrapezoidProfileSubsystem{
         Arm1.setIdleMode(CANSparkMax.IdleMode.kCoast); 
     }
 
-    /**
-      * Stops Both Motors
-      */
+    /** Stops Both Motors */
      public void stop(){
       Arm0.set(0.0);
      }
      
+
 
  
     /**
@@ -122,17 +146,21 @@ public class Arm extends TrapezoidProfileSubsystem{
         return Commands.runOnce(() -> setGoal(kArmOffsetRads), this);
     }
 
+    /**
+     * Move Arm to softstop to a point relitive to were it is now
+     * @param isPositvie moves arm forward(True) or backwards(False)
+     * by a set amount of Radians in Constants.ArmConstants.ReletiveSoftStopDelta
+      */
     public Command goToRelativeSoftStop(boolean isPositive) {
        double position = getPosition();
         if (isPositive){
-            position = position+2;
+            position = position+ArmConstants.ReletiveSoftStopDelta;
         }
         else {
-            position = position-2;
+            position = position-ArmConstants.ReletiveSoftStopDelta;
         }
         return goToSoftStop(position);
-}
-
+    }
 
     /**
      * Drive motor until it hits a hardstop, provided by the frame
@@ -141,12 +169,23 @@ public class Arm extends TrapezoidProfileSubsystem{
      * 
      * Dont Use this for comp
      */
-    public void goToHardStop(double MotorSpeed) {
-        while (getAverageCurrent() < OperatorConstants.ArmAmpLimit) {
+    public void goToHardStop(double MotorSpeed, double CurrentLimit) {
+        while (getAverageCurrent() < CurrentLimit) {
             Arm0.set(MotorSpeed);
         }
         Arm0.set(0.0);
     }
+
+
+
+    /** Make sure we're not hitting the AmpLimit */
+    public void verifyAmpLimit() {
+        double posisiton = getPosition();
+        if (getAverageCurrent() < ArmConstants.AmpLimit) {
+            goToSoftStop(posisiton);
+        }
+    }
+
 
 
     @Override
@@ -163,11 +202,16 @@ public class Arm extends TrapezoidProfileSubsystem{
  
     @Override
     public void periodic() {
-         // This method will be called once per scheduler run
-        double posisiton = getPosition();
-        if (getAverageCurrent() < OperatorConstants.ArmAmpLimit) {
-            goToSoftStop(posisiton);
-        }
+        // This method will be called once per scheduler run
+
+        // Update values on Shufflboard
+        updateConstants();
+        getPosition(); 
+        getAverageCurrent();
+
+        // Check to make sure we aren't burning out motors
+        verifyAmpLimit();
+
         // Run the Trapzoidal Subsystem Periodic
         super.periodic();
     } 
