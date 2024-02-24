@@ -1,5 +1,6 @@
 package frc.robot.commands.arm;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Arm;
 
@@ -40,8 +41,8 @@ public class ArmCommands extends Command{
     /** Updates Motor Speeds and limits from shuffleboard */
     public void updateConstants() {
         // Encoder Posistions
-        OperatorConstants.AmpPosition = SmartDashboard.getNumber("Operator/Arm [Amp] Enocder Positon", OperatorConstants.AmpPosition);
-        OperatorConstants.SpeakerPosition = SmartDashboard.getNumber("Operator/Arm [Speaker] Enocder Positon", OperatorConstants.SpeakerPosition);
+        OperatorConstants.ArmAmpPosition = SmartDashboard.getNumber("Operator/Arm [Amp] Enocder Positon", OperatorConstants.ArmAmpPosition);
+        OperatorConstants.ArmSpeakerPosition = SmartDashboard.getNumber("Operator/Arm [Speaker] Enocder Positon", OperatorConstants.ArmSpeakerPosition);
     }
 
 
@@ -55,12 +56,12 @@ public class ArmCommands extends Command{
 
     /** Brings the arm all the way Up to the Amp Shooting Position */
     public Command goToAmp() {
-        return arm.goToSoftStop(OperatorConstants.AmpPosition);
+        return arm.goToSoftStop(OperatorConstants.ArmAmpPosition);
     }
 
     /** Brings the arm to the Speaker Shooting Position */
     public Command goToSpeaker() {
-        return arm.goToSoftStop(OperatorConstants.SpeakerPosition);
+        return arm.goToSoftStop(OperatorConstants.ArmSpeakerPosition);
     }
 
 
@@ -69,8 +70,8 @@ public class ArmCommands extends Command{
     @Override
       public void initialize() {
         // Put Constants into Shuffleboard
-        SmartDashboard.putNumber("Operator/Arm [Amp] Enocder Positon", OperatorConstants.AmpPosition);
-        SmartDashboard.putNumber("Operator/Arm [Speaker] Enocder Positon", OperatorConstants.SpeakerPosition);
+        SmartDashboard.putNumber("Operator/Arm [Amp] Enocder Positon", OperatorConstants.ArmAmpPosition);
+        SmartDashboard.putNumber("Operator/Arm [Speaker] Enocder Positon", OperatorConstants.ArmSpeakerPosition);
     }
   
     // Called every time the scheduler runs while the command is scheduled.

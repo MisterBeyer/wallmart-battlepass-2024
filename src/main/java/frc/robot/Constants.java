@@ -121,8 +121,12 @@ public final class Constants
     public static int BackRPM = 0;
 
     // Arm Encoder Positions
-    public static double AmpPosition = 0.0;
-    public static double SpeakerPosition = 0.0;
+    public static double ArmAmpPosition = 0.0;
+    public static double ArmSpeakerPosition = 0.0;
+
+    public static double WristAmpPosition = 0.0;
+    public static double WristSpeakerPosition = 0.0;
+    public static double WristIntakePosition = 0.0;
 
     
     // Joystick Deadband
