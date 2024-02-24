@@ -22,10 +22,14 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
+
 import frc.robot.commands.Helpers.ArmCommands;
+import frc.robot.commands.Helpers.WristCommands;
 import frc.robot.commands.Helpers.IntakeShoot;
+
 import frc.robot.commands.swervedrive.AbsoluteDriveAdv;
 import frc.robot.commands.teleop.FourPos;
+
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Bluetooth;
 import frc.robot.subsystems.Climber;
@@ -56,7 +60,9 @@ public class RobotContainer
   private final Arm arm = new Arm();
   private final Climber climber = new Climber();
   private final Bluetooth bluetooth = new Bluetooth();
+
   private final ArmCommands armCommands = new ArmCommands(arm);
+  private final WristCommands wristCommands = new WristCommands(wrist);
 
   // Define Arm Command
   FourPos arm_control = new FourPos(arm, wrist, intake);
@@ -171,15 +177,20 @@ public class RobotContainer
 
     // Arm/Wrist
     //TODO: Redo all of these to prefered buttons and commands when theyre set
+    /* Main Arm Movement Controls */
     new JoystickButton(operatorXbox,1).onTrue((arm_control.Stow()));
     new JoystickButton(operatorXbox,2).onTrue(arm_control.Intake());
     new JoystickButton(operatorXbox,3).onTrue(arm_control.Amp());
     new JoystickButton(operatorXbox,4).onTrue(arm_control.Speaker());
-    new JoystickButton(operatorXbox,5).onTrue(
-      Commands.startEnd(()->climber.deploy(Constants.ClimberConstants.FullExtensionEncoder), ()->climber.stop(), climber));
-    new JoystickButton(operatorXbox,     new JoystickButton(operatorXbox,0).onTrue(
-        Commands.startEnd(()->wrist.goToHardStop(0.2, 999), ()->wrist.stop(), wrist));
 
+    /* Direct Arm Movement Controls */
+    new JoystickButton(operatorXbox,5).onTrue(armCommands.MoveForward());
+    new JoystickButton(operatorXbox,5).onTrue(armCommands.MoveBackward());
+    new JoystickButton(operatorXbox,5).onTrue(wristCommands.MoveForward());
+    new JoystickButton(operatorXbox,5).onTrue(wristCommands.MoveBackward());
+
+
+    Commands.startEnd(()->climber.deploy(Constants.ClimberConstants.FullExtensionEncoder), ()->climber.stop(), climber);
   }
 
   /**
