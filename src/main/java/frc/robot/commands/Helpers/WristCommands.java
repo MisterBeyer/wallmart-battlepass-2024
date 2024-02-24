@@ -80,6 +80,18 @@ public class WristCommands extends Command{
     }
 
 
+    // Direct Control for Wrist
+
+    /* Move Wrist Forward by ReletiveSoftStopDelta Constant */
+    public Command MoveForward() {
+        return wrist.goToRelativeSoftStop(true);
+    }
+
+    /* Move Wrist Background by ReletiveSoftStopDelta Constant */
+    public Command MoveBackward() {
+        return wrist.goToRelativeSoftStop(false);
+    }
+
 
     // Called when the command is initially scheduled.
     @Override
