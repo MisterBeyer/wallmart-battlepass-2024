@@ -13,7 +13,6 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.WristConstants;
 
 
@@ -139,7 +138,7 @@ public class Wrist extends TrapezoidProfileSubsystem{
      * @param isPositvie moves arm forward(True) or backwards(False)
      * by a set amount of Radians in Constants.WristConstants.ReletiveSoftStopDelta
       */
-    public Command goToRelativeSoftStop(boolean isPositive) {
+    public void goToRelativeSoftStop(boolean isPositive) {
         double position = getPosition();
             if (isPositive){
                 position = position+WristConstants.ReletiveSoftStopDelta;
@@ -147,7 +146,8 @@ public class Wrist extends TrapezoidProfileSubsystem{
             else {
                 position = position-WristConstants.ReletiveSoftStopDelta;
             }
-            return goToSoftStop(position);
+        
+            setGoal(position);
     }
 
     /**

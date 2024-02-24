@@ -142,7 +142,7 @@ public class Arm extends TrapezoidProfileSubsystem{
      * @param isPositvie moves arm forward(True) or backwards(False)
      * by a set amount of Radians in Constants.ArmConstants.ReletiveSoftStopDelta
       */
-    public Command goToRelativeSoftStop(boolean isPositive) {
+    public void goToRelativeSoftStop(boolean isPositive) {
        double position = getPosition();
         if (isPositive) {
             position = position+ArmConstants.ReletiveSoftStopDelta;
@@ -161,7 +161,7 @@ public class Arm extends TrapezoidProfileSubsystem{
      * 
      * Dont Use this for comp
      */
-    public Command goToHardStop(double MotorSpeed, double CurrentLimit) {
+    public void goToHardStop(double MotorSpeed, double CurrentLimit) {
         while (getAverageCurrent() < CurrentLimit) {
             Arm0.set(MotorSpeed);
         }
