@@ -59,23 +59,24 @@ public class WristCommands extends Command{
 
     // The Real Helper Commands
 
-    /** Brings the arm All the way to the Bottom */
+    /** Brings the Wrist into the [Stow] posistion */
     public Command goToStow() {
        return wrist.goToSoftStop(0);
     }
 
-    /** Brings the arm all the way Up to the Amp Shooting Position */
+    /** Brings the wrist to the [Intake] Posistion */
+    public Command goToIntake() {
+        return wrist.goToSoftStop(OperatorConstants.WristIntakePosition);
+    }
+
+    /** Brings the wrist to the [Amp] Shooting Position */
     public Command goToAmp() {
         return wrist.goToSoftStop(OperatorConstants.WristAmpPosition);
     }
 
-    /** Brings the arm to the Speaker Shooting Position */
+    /** Brings the wrist to the [Speaker] Shooting Position */
     public Command goToSpeaker() {
         return wrist.goToSoftStop(OperatorConstants.WristSpeakerPosition);
-    }
-
-    public Command goToIntake() {
-        return wrist.goToSoftStop(OperatorConstants.WristIntakePosition);
     }
 
 
