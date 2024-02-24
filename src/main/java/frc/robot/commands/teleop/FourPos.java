@@ -2,6 +2,7 @@ package frc.robot.commands.teleop;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Helpers.ArmCommands;
 import frc.robot.commands.Helpers.IntakeShoot;
 import frc.robot.commands.Helpers.WristCommands;
@@ -86,5 +87,18 @@ public class FourPos{
 
         );
         return speaker;
+    }
+
+
+
+    /** Update Constants of all Subsystems */
+    public SequentialCommandGroup updateShuffleboard() {
+        SequentialCommandGroup update = new SequentialCommandGroup(
+            new InstantCommand(ArmC::updateConstants),
+            new InstantCommand(WristC::updateConstants),
+            new InstantCommand(intake::updateConstants)
+        );
+
+        return update;
     }
 }

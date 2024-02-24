@@ -9,6 +9,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -16,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 //import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -144,7 +146,7 @@ public class RobotContainer
         () -> driverXbox.getRawAxis(2)); 
 
     //drivebase.setDefaultCommand(
-       //!RobotBase.isSimulation() ? driveFieldOrientedDirectAngle: driveFieldOrientedAnglularVelocity);
+     //  !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle: driveFieldOrientedAnglularVelocity);
     intake.setDefaultCommand(intakeshoot);
 
   }
@@ -162,7 +164,9 @@ public class RobotContainer
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
     // Driver Controller Binds
-    
+    new JoystickButton(driverXbox, 4).onTrue(arm_control.updateShuffleboard());
+    })
+
     new JoystickButton(driverXbox, 1).onTrue((new InstantCommand(drivebase::zeroGyro)));
     new JoystickButton(driverXbox, 3).onTrue(new InstantCommand(drivebase::addFakeVisionReading));
     new JoystickButton(driverXbox,
@@ -178,17 +182,16 @@ public class RobotContainer
     // Arm/Wrist
     //TODO: Redo all of these to prefered buttons and commands when theyre set
     /* Main Arm Movement Controls */
-
-    new JoystickButton(operatorXbox,1).onTrue(arm_control.Amp());
-    new JoystickButton(operatorXbox,2).onTrue((arm_control.Stow()));
-    new JoystickButton(operatorXbox,3).onTrue(arm_control.Intake());
+    new JoystickButton(operatorXbox,1).onTrue((arm_control.Stow()));
+    new JoystickButton(operatorXbox,2).onTrue(arm_control.Intake());
+    new JoystickButton(operatorXbox,3).onTrue(arm_control.Amp());
     new JoystickButton(operatorXbox,4).onTrue(arm_control.Speaker());
 
     /* Direct Arm Movement Controls */
     new JoystickButton(operatorXbox,5).onTrue(armCommands.MoveForward());
-    new JoystickButton(operatorXbox,6).onTrue(armCommands.MoveBackward());
-    new JoystickButton(operatorXbox,7).onTrue(wristCommands.MoveForward());
-    new JoystickButton(operatorXbox,8).onTrue(wristCommands.MoveBackward());
+    new JoystickButton(operatorXbox,5).onTrue(armCommands.MoveBackward());
+    new JoystickButton(operatorXbox,5).onTrue(wristCommands.MoveForward());
+    new JoystickButton(operatorXbox,5).onTrue(wristCommands.MoveBackward());
 
 
     Commands.startEnd(()->climber.deploy(Constants.ClimberConstants.FullExtensionEncoder), ()->climber.stop(), climber);
@@ -223,8 +226,9 @@ public class RobotContainer
 
   public void setDriveMode()
   {
-    //drivebase.setDefaultCommand();
-
+    // Shake the Driver Controller so we don't repeat Block Party
+    driverXbox.setRumble(GenericHID.RumbleType.kBothRumble, 1.0);
+    //drivebase.setDefaultCommand();/..
   }
 
   public void setMotorBrake(boolean brake)
