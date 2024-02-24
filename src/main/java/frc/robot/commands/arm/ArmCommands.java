@@ -49,17 +49,17 @@ public class ArmCommands extends Command{
 
     // The Real Helper Commands
 
-    /** Brings the arm All the way to the Bottom */
+    /** Brings the arm All the way to the [Bottom] */
     public Command goToStow() {
        return arm.goToSoftStop(0);
     }
 
-    /** Brings the arm all the way Up to the Amp Shooting Position */
+    /** Brings the arm all the way Up to the [Amp] Shooting Position */
     public Command goToAmp() {
         return arm.goToSoftStop(OperatorConstants.ArmAmpPosition);
     }
 
-    /** Brings the arm to the Speaker Shooting Position */
+    /** Brings the arm to the [Speaker] Shooting Position */
     public Command goToSpeaker() {
         return arm.goToSoftStop(OperatorConstants.ArmSpeakerPosition);
     }
