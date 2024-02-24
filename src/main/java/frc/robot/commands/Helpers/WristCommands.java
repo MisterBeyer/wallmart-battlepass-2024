@@ -36,7 +36,7 @@ import frc.robot.Constants.OperatorConstants;
 
 // Helper Commands File For Arm
 public class WristCommands extends Command{
-    Wrist wrist;
+    private Wrist wrist;
 
     public WristCommands(Wrist wristprovider) {
         // Assign Control
@@ -48,7 +48,7 @@ public class WristCommands extends Command{
 
 
     /** Updates Motor Speeds and limits from shuffleboard */
-    public void updateConstants() {
+    private void updateConstants() {
         // Encoder Posistions
         OperatorConstants.WristAmpPosition = SmartDashboard.getNumber("Operator/Wrist [Amp] Enocder Positon", OperatorConstants.WristAmpPosition);
         OperatorConstants.WristSpeakerPosition = SmartDashboard.getNumber("Operator/Wrist [Speaker] Enocder Positon", OperatorConstants.WristSpeakerPosition);
@@ -93,6 +93,7 @@ public class WristCommands extends Command{
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        updateConstants();
     }
   
     // Called once the command ends or is interrupted.

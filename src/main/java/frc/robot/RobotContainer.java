@@ -25,6 +25,7 @@ import frc.robot.Constants.*;
 import frc.robot.commands.Helpers.ArmCommands;
 import frc.robot.commands.Helpers.IntakeShoot;
 import frc.robot.commands.swervedrive.AbsoluteDriveAdv;
+import frc.robot.commands.teleop.FourPos;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Bluetooth;
 import frc.robot.subsystems.Climber;
@@ -50,7 +51,7 @@ public class RobotContainer
   // The robot's subsystems and commands are defined here...
   private SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                          "swerve/neo"));
-  private final Intake noteintake = new Intake();
+  private final Intake intake = new Intake();
   private final Wrist wrist = new Wrist();
   private final Arm arm = new Arm();
   private final Climber climber = new Climber();
@@ -58,7 +59,7 @@ public class RobotContainer
   private final ArmCommands armCommands = new ArmCommands(arm);
 
   // Define Arm Command
-  //ThreePos arm_control = new ThreePos(noteintake, arm, wrist);
+  FourPos arm_control = new FourPos(arm, wrist, intake);
 
   // CommandJoystick rotationController = new CommandJoystick(1);
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -84,6 +85,7 @@ public class RobotContainer
     // Configure the trigger bindings
     configureBindings();
 
+    @SuppressWarnings("unused")
     AbsoluteDriveAdv closedAbsoluteDriveAdv = new AbsoluteDriveAdv(drivebase,
                                                                    () -> MathUtil.applyDeadband(driverXbox.getLeftY(),
                                                                                                 OperatorConstants.LEFT_Y_DEADBAND),
@@ -96,6 +98,7 @@ public class RobotContainer
                                                                    driverXbox::getXButtonPressed,
                                                                    driverXbox::getBButtonPressed);
 
+    @SuppressWarnings("unused")
      IntakeShoot intakeshoot = new IntakeShoot(noteintake, 
                                               () -> MathUtil.applyDeadband(operatorXbox.getLeftY(),
                                                                            OperatorConstants.IntakeDeadBand),
@@ -107,6 +110,7 @@ public class RobotContainer
     // controls are front-left positive
     // left stick controls translation
     // right stick controls the desired angle NOT angular rotation
+    @SuppressWarnings("unused")
     Command driveFieldOrientedDirectAngle = drivebase.driveCommand(
         () -> MathUtil.applyDeadband(driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
         () -> MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
@@ -121,11 +125,13 @@ public class RobotContainer
 
     //bofa
     
+    @SuppressWarnings("unused")
     Command driveFieldOrientedAnglularVelocity = drivebase.driveCommand(
         () -> MathUtil.applyDeadband(driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
         () -> MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
         () -> driverXbox.getRawAxis(2));
 
+    @SuppressWarnings("unused")
     Command driveFieldOrientedDirectAngleSim = drivebase.simDriveCommand(
         () -> MathUtil.applyDeadband(driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
         () -> MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
@@ -133,7 +139,7 @@ public class RobotContainer
 
     //drivebase.setDefaultCommand(
      //  !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle: driveFieldOrientedAnglularVelocity);
-      noteintake.setDefaultCommand(intakeshoot);
+    intake.setDefaultCommand(intakeshoot);
 
   }
   
@@ -168,7 +174,12 @@ public class RobotContainer
     new JoystickButton(operatorXbox,2).onTrue(new InstantCommand(climber::retractFully));
     new JoystickButton(operatorXbox,3).onTrue(
       Commands.startEnd(()->climber.deploy(Constants.ClimberConstants.FullExtensionEncoder), ()->climber.stop(), climber));
+
     new JoystickButton(operatorXbox,4).onTrue(new InstantCommand(armCommands::goToStow));
+
+    new JoystickButton(operatorXbox,4).onTrue(arm_control.Stow());
+    new JoystickButton(operatorXbox,5).onTrue(arm_control.Intake());
+
     new JoystickButton(operatorXbox,6).onTrue(new InstantCommand(bluetooth::toogle));
     new JoystickButton(operatorXbox,7).onTrue(new InstantCommand(bluetooth::th5));
     

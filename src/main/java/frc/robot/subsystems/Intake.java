@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkRelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 
@@ -32,7 +31,7 @@ public class Intake extends SubsystemBase{
 
 
     /** Pulls the IntakeSpeed variables from shuffleboard  */
-    public void updateSpeed() {
+    private void updateConstants() {
       OperatorConstants.IntakeSpeed = SmartDashboard.getNumber("Arm/Intake Speed", OperatorConstants.IntakeSpeed);
       OperatorConstants.BackOut = SmartDashboard.getNumber("BackOut", OperatorConstants.BackOut);
       OperatorConstants.FrontOut = SmartDashboard.getNumber("FrontOut", OperatorConstants.FrontOut);
@@ -77,6 +76,6 @@ public class Intake extends SubsystemBase{
     @Override
     public void periodic() { 
       getCurrent();
-      updateSpeed();
+      updateConstants();
     }
 }

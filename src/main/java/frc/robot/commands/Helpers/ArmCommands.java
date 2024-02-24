@@ -27,7 +27,7 @@ import frc.robot.Constants.OperatorConstants;
 
 // Helper Commands File For Arm
 public class ArmCommands extends Command{
-    Arm arm;
+    private Arm arm;
 
     public ArmCommands(Arm armprovider) {
         // Assign Control
@@ -39,7 +39,7 @@ public class ArmCommands extends Command{
 
 
     /** Updates Motor Speeds and limits from shuffleboard */
-    public void updateConstants() {
+    private void updateConstants() {
         // Encoder Posistions
         OperatorConstants.ArmAmpPosition = SmartDashboard.getNumber("Operator/Arm [Amp] Enocder Positon", OperatorConstants.ArmAmpPosition);
         OperatorConstants.ArmSpeakerPosition = SmartDashboard.getNumber("Operator/Arm [Speaker] Enocder Positon", OperatorConstants.ArmSpeakerPosition);
@@ -77,6 +77,7 @@ public class ArmCommands extends Command{
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        updateConstants();
     }
   
     // Called once the command ends or is interrupted.
