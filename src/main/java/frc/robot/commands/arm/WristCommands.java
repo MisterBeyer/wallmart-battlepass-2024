@@ -1,0 +1,104 @@
+package frc.robot.commands.arm;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.Wrist;
+import frc.robot.Constants.OperatorConstants;
+
+/*
+ *⠀⠀⠀⠀⠀⠀⢀⣀⠀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⡔⠉⠀⠀⠀⠙⢄⠀⠀⠀⠀⠀⠀⡠⠊⠁⠀⠀⠉⢢⡀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢀⠎⠀⠀⡴⠒⢢⠀⠀⢣⡀⠀⠀⠀⡜⠁⠀⡠⠒⢦⠀⠀⠱⡀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⡞⠀⠀⡜⠀⠀⠀⢣⠀⠀⢱⠀⠀⡼⠀⠀⣰⠁⠀⠀⢣⠀⠀⢱⠀⠀⠀⠀⠀⠀
+⠀⠀⣀⠔⠁⠀⠀⣇⠀⠀⠀⢈⡄⠀⠀⠑⠒⠃⠀⠀⣇⠀⠀⠀⢨⣆⠀⠀⠣⢄⠀⠀⠀⠀
+⠀⡏⠉⠛⣍⠙⠙⢚⣿⣿⣿⣟⠏⠉⢉⡙⠛⡉⠉⠙⣾⠿⠿⠿⢻⠟⠉⠉⠉⠉⠙⡆⠀⠀
+⢸⠀⠀⠀⠈⠂⠀⠀⠀⠀⠀⠈⠀⢠⠞⠀⠀⠀⠀⠀⠘⠆⠀⣠⠏⠀⠀⠀⠀⠀⠀⢻⠀⠀
+⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡆⠀
+⣸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣇⠀
+⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⠀
+⣇⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢘⡆
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
+⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃
+⢸⣿⣿⣿⣿⠿⠟⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠛⠿⢿⣿⣿⣿⣿⠀
+⢸⣿⣿⣿⣦⣼⠀⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡷⠀⣦⣨⣿⣿⡿⠀
+⠈⣿⣿⣿⣿⣿⣧⡀⠙⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠀⣼⣿⣿⣿⣿⡇⠀
+⠀⣿⣿⣿⣿⣿⣿⣷⣄⠈⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠋⣠⣾⣿⣿⣿⣿⣿⡇⠀
+⠀⣿⡻⠿⠟⠏⠽⢿⢿⣷⣄⡀⠙⠛⠿⠿⣿⠿⠿⠿⠟⠋⢁⣠⣾⣿⣿⣿⣿⣿⣿⣿⡇⠀
+⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠩⠙⠓⠶⠦⠤⠤⠤⠤⠴⠶⠚⡛⠿⠉⠙⠙⠉⠙⠛⠻⣿⠀⠀
+⠀⢹⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⠃⠀
+⠀⣼⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀
+⠀⢻⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀
+⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣀⣀⣀⣀⡀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡟⠀⠀
+⠀⠈⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠃⠀⠀⠀
+ */
+
+
+// Helper Commands File For Arm
+public class WristCommands extends Command{
+    Wrist wrist;
+
+    public WristCommands(Wrist wristprovider) {
+        // Assign Control
+        this.wrist = wristprovider;
+
+        // Add requirements
+        addRequirements(this.wrist);
+    } 
+
+
+    /** Updates Motor Speeds and limits from shuffleboard */
+    public void updateConstants() {
+        // Encoder Posistions
+        OperatorConstants.WristAmpPosition = SmartDashboard.getNumber("Operator/Wrist [Amp] Enocder Positon", OperatorConstants.WristAmpPosition);
+        OperatorConstants.WristSpeakerPosition = SmartDashboard.getNumber("Operator/Wrist [Speaker] Enocder Positon", OperatorConstants.WristSpeakerPosition);
+        OperatorConstants.WristIntakePosition = SmartDashboard.getNumber("Operator/Wrist [Intake] Enocder Positon", OperatorConstants.WristIntakePosition);
+    }
+
+
+
+    // The Real Helper Commands
+
+    /** Brings the arm All the way to the Bottom */
+    public Command goToStow() {
+       return wrist.goToSoftStop(0);
+    }
+
+    /** Brings the arm all the way Up to the Amp Shooting Position */
+    public Command goToAmp() {
+        return wrist.goToSoftStop(OperatorConstants.WristAmpPosition);
+    }
+
+    /** Brings the arm to the Speaker Shooting Position */
+    public Command goToSpeaker() {
+        return wrist.goToSoftStop(OperatorConstants.WristSpeakerPosition);
+    }
+
+
+
+    // Called when the command is initially scheduled.
+    @Override
+      public void initialize() {
+        // Put Constants into Shuffleboard
+        SmartDashboard.putNumber("Operator/Wrist [Amp] Enocder Positon", OperatorConstants.WristAmpPosition);
+        SmartDashboard.putNumber("Operator/Wrist [Speaker] Enocder Positon", OperatorConstants.WristSpeakerPosition);
+        SmartDashboard.putNumber("Operator/Wrist [Intake] Enocder Positon", OperatorConstants.WristIntakePosition);
+    }
+  
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+    }
+  
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+    }
+  
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
+
+}
