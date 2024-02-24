@@ -99,7 +99,7 @@ public class RobotContainer
                                                                    driverXbox::getBButtonPressed);
 
     @SuppressWarnings("unused")
-     IntakeShoot intakeshoot = new IntakeShoot(noteintake, 
+     IntakeShoot intakeshoot = new IntakeShoot(intake, 
                                               () -> MathUtil.applyDeadband(operatorXbox.getLeftY(),
                                                                            OperatorConstants.IntakeDeadBand),
                                               () -> MathUtil.applyDeadband(operatorXbox.getRightY(),
@@ -199,6 +199,20 @@ public class RobotContainer
     // An example command will be run in autonomous
     return autoChooser.getSelected();
 
+  }
+
+  /**
+   * Called when Robot Set to Test Mode in Driverstation
+   * Makes Robot go "limp" allowing it to be manipulated easily by hang
+   */
+  public void TestMode() {
+    // Stop Intake Just in case
+    intake.stop();
+
+    // Set All Modules to Coast
+    drivebase.setMotorBrake(false);
+    arm.coast();
+    wrist.coast();
   }
 
   public void setDriveMode()
