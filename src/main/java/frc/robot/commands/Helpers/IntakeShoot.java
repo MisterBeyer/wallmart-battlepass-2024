@@ -13,12 +13,6 @@ public class IntakeShoot extends Command {
     private DoubleSupplier left;
     private DoubleSupplier right;
 
-        private enum ShooterState {STOP,SHOOT,SHOOTBACK,SHOOTFRONT,INTAKE};
-        private ShooterState shooterState = ShooterState.STOP;
-        public void setshooterState(ShooterState inshooterState){
-            shooterState = inshooterState;
-        }
-
     /**
      *  Command providing Basic Intake Control by Operator Controller
      * @param module module to use as note intake
@@ -95,12 +89,13 @@ intake.setSpeed(frontSpeed, -backspeed);
 
     @Override
     public void execute() {
-        if(shooterState == ShooterState.SHOOT) { Shoot(); }
-        else if(shooterState == ShooterState.INTAKE) { Intake(); }
-        else if (shooterState == ShooterState.SHOOTBACK) { ShootBack(); }
-        else if (shooterState == ShooterState.SHOOTFRONT) { ShootFront(); }
-        else (shooterState == ShooterState.STOP)  {rollerState = 0;} { Stop(); } } 
-    }
+        if (right.getAsDouble() < 0) { Shoot(); }
+        else if(left.getAsDouble() < 0) { Intake(); }
+        else if (left.getAsDouble() > 0) { ShootBack(); }
+        else if (right.getAsDouble() > 0) { ShootFront(); }
+        else rollerState = 0; Stop();
+    } 
+    
 
     // Called once the command ends or is interrupted.
     @Override
