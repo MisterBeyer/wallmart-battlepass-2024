@@ -40,7 +40,7 @@ public class IntakeShoot extends Command {
      * @Constants.OutakeSpeed provides max achievable speed
      */ 
     int rollerState = 0;
-    public void Shoot() {
+    public Command Shoot() {
         Double frontSpeed = OperatorConstants.FrontOut;
         Double backSpeed = OperatorConstants.BackOut;
 
@@ -55,6 +55,8 @@ public class IntakeShoot extends Command {
     if(rollerState == 1){
         intake.setSpeed(frontSpeed, -backSpeed);
     }
+    //TODO: switched to a command, if it breaks everything return to void
+    return null;
 }
 public void ShootBack(){
     double frontSpeed = OperatorConstants.FrontOut;
@@ -99,8 +101,9 @@ intake.setSpeed(frontSpeed, -backspeed);
         else if(shooterState == ShooterState.INTAKE) { Intake(); }
         else if (shooterState == ShooterState.SHOOTBACK) { ShootBack(); }
         else if (shooterState == ShooterState.SHOOTFRONT) { ShootFront(); }
-        else (shooterState == ShooterState.STOP)  {rollerState = 0;} { Stop(); } } 
-    }
+        else {rollerState = 0;} { Stop(); } 
+    } 
+    
 
     // Called once the command ends or is interrupted.
     @Override
