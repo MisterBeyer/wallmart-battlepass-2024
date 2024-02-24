@@ -65,6 +65,19 @@ public class ArmCommands extends Command{
     }
 
 
+    // Direct Control for Arm
+
+    /* Move Arm Forward by ReletiveSoftStopDelta Constant */
+    public Command MoveForward() {
+        return arm.goToRelativeSoftStop(true);
+    }
+
+    /* Move Arm Background by ReletiveSoftStopDelta Constant */
+    public Command MoveBackward() {
+        return arm.goToRelativeSoftStop(false);
+    }
+
+
 
     // Called when the command is initially scheduled.
     @Override
