@@ -12,7 +12,7 @@ public class autoShoot extends Command{
     private IntakeShoot intake;
 
     public void initialize() {
-    intake.Shoot(1);
+    intake.Shoot();
     }
     public void execute(){
     Timer.delay(1);
