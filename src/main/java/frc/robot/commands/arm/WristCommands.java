@@ -74,6 +74,10 @@ public class WristCommands extends Command{
         return wrist.goToSoftStop(OperatorConstants.WristSpeakerPosition);
     }
 
+    public Command goToIntake() {
+        return wrist.goToSoftStop(OperatorConstants.WristIntakePosition);
+    }
+
 
 
     // Called when the command is initially scheduled.
