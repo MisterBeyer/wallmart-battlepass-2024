@@ -47,10 +47,10 @@ public final class Constants
   public static final class ArmConstants 
   {
     // Amp Limits
-    public static double AmpLimit = 10;
+    public static int AmpLimit = 40;
 
     // Rate of change to use when Changing position by ReletiveSoftStop
-    public static double ReletiveSoftStopDelta = 2; // radians
+    public static double ReletiveSoftStopDelta = 2.0; // radians
 
 
     // Trapazoidal Profile Constants
@@ -65,7 +65,7 @@ public final class Constants
     public static double kAVoltSecondSquaredPerRad = 0.15;
 
     // PID Values
-    public static double P = 0.15;
+    public static double P = 1.0;
     public static double I = 0.0;
     public static double D = 0.0;
     public static double Iz = 0.0;
@@ -75,10 +75,10 @@ public final class Constants
   public static final class WristConstants 
   {
     // Amp Limits
-    public static double AmpLimit = 10;
+    public static double AmpLimit = 30;
 
     // Rate of change to use when Changing position by ReletiveSoftStop
-    public static double ReletiveSoftStopDelta = 2; // radians
+    public static double ReletiveSoftStopDelta = 2.0; // radians
   
 
     // Trapazoidal Profile Constants
@@ -93,7 +93,7 @@ public final class Constants
     public static double kAVoltSecondSquaredPerRad = 0.15;
 
     // PID Values
-    public static double P = 0.15;
+    public static double P = 1.0;
     public static double I = 0.0;
     public static double D = 0.0;
     public static double Iz = 0.0;

@@ -2,6 +2,7 @@ package frc.robot.commands.Helpers;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.Arm;
 
 import frc.robot.Constants.OperatorConstants;
@@ -35,6 +36,10 @@ public class ArmCommands extends Command{
 
         // Add requirements
         addRequirements(this.arm);
+
+        // ShuffleBoard!
+        SmartDashboard.putNumber("Operator/Arm [Amp] Enocder Positon", OperatorConstants.ArmAmpPosition);
+        SmartDashboard.putNumber("Operator/Arm [Speaker] Enocder Positon", OperatorConstants.ArmSpeakerPosition);
     } 
 
 
@@ -72,12 +77,12 @@ public class ArmCommands extends Command{
 
     /* Move Arm Forward by ReletiveSoftStopDelta Constant */
     public Command MoveForward() {
-        return arm.goToRelativeSoftStop(true);
+          return Commands.runOnce(() -> arm.goToRelativeSoftStop(true), arm);
     }
 
     /* Move Arm Background by ReletiveSoftStopDelta Constant */
     public Command MoveBackward() {
-        return arm.goToRelativeSoftStop(false);
+        return Commands.runOnce(() -> arm.goToRelativeSoftStop(false), arm);
     }
 
 

@@ -13,6 +13,7 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.WristConstants;
 
 
@@ -44,6 +45,9 @@ public class Wrist extends TrapezoidProfileSubsystem{
         // kBrake Mode
         Wrist0.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
+        //Set Amp Limits
+        Wrist0.setSmartCurrentLimit(ArmConstants.AmpLimit);
+
         // Reset encoder
         Wrist0_encoder.setPosition(0.0);
 
@@ -55,9 +59,8 @@ public class Wrist extends TrapezoidProfileSubsystem{
         Wrist0_pidController.setIZone(WristConstants.Iz);
         Wrist0_pidController.setFF(WristConstants.FF);
 
-        
-        //TODO: See if we can go from -.5 to .5 vvv
-        Wrist0_pidController.setOutputRange(0, 0.5); // kMINOutput, kMAXOutput
+
+        Wrist0_pidController.setOutputRange(-0.5, 0.5); // kMINOutput, kMAXOutput
         
 
         // Shuffleboard!
@@ -190,7 +193,6 @@ public class Wrist extends TrapezoidProfileSubsystem{
         // Moved to Helper Commands to be called on buttonpress
 
         // Check to make sure we aren't burning out motors
-        verifyAmpLimit();
 
         // Run the Trapzoidal Subsystem Periodic
         super.periodic();
