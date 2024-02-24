@@ -13,7 +13,6 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-
 import frc.robot.Constants.WristConstants;
 
 
@@ -62,6 +61,8 @@ public class Wrist extends TrapezoidProfileSubsystem{
         
 
         // Shuffleboard!
+        SmartDashboard.putNumber("Wrist/Reletive SoftStop Delta", WristConstants.ReletiveSoftStopDelta);
+
         SmartDashboard.putNumber("Wrist/Wrist P", WristConstants.P); //PID
         SmartDashboard.putNumber("Wrist/Wrist I", WristConstants.I);
         SmartDashboard.putNumber("Wrist/Wrist D", WristConstants.D);
@@ -72,9 +73,9 @@ public class Wrist extends TrapezoidProfileSubsystem{
 
 
     /** Updates Constants from shuffleboard */
-    public void updateConstants() {
+    private void updateConstants() {
         // Function Constants
-        // None so far
+        WristConstants.ReletiveSoftStopDelta = SmartDashboard.getNumber("Wrist/Reletive SoftStop Delta", WristConstants.ReletiveSoftStopDelta);
 
         // PID Constants
         WristConstants.P = SmartDashboard.getNumber("Wrist/Wrist P", WristConstants.P);
@@ -120,22 +121,6 @@ public class Wrist extends TrapezoidProfileSubsystem{
      
        
 
-    //TODO: put real values here
-    // TODO: move into Command
-    public Command goToStow(){
-        return goToSoftStop(0);
-    }
-    public Command goToIntake(){
-        return goToSoftStop(3/*Put real value in here*/);
-    }
-    public Command goToShootSpeaker(){
-        return goToSoftStop(2/*Put real value here*/);
-    }
-    public Command goToShootAmp(){
-        return goToSoftStop(4/*Put Real value here*/);
-    }
-
-
  
     /**
      *  Moves Wrist to soft-stop using Trapazoidal Profiling
@@ -150,30 +135,18 @@ public class Wrist extends TrapezoidProfileSubsystem{
     /**
      * Move Arm to softstop to a point relitive to were it is now
      * @param isPositvie moves arm forward(True) or backwards(False)
-     * by a set amount of Radians in Constants.ArmConstants.ReletiveSoftStopDelta
+     * by a set amount of Radians in Constants.WristConstants.ReletiveSoftStopDelta
       */
     public Command goToRelativeSoftStop(boolean isPositive) {
         double position = getPosition();
             if (isPositive){
-                position = position+2;
+                position = position+WristConstants.ReletiveSoftStopDelta;
             }
             else {
-                position = position-2;
+                position = position-WristConstants.ReletiveSoftStopDelta;
             }
             return goToSoftStop(position);
     }
-
-
-
-    /** Make sure we're not hitting the AmpLimit */
-    public void verifyAmpLimit() {
-        double posisiton = getPosition();
-        if (getCurrent() < WristConstants.AmpLimit) {
-            goToSoftStop(posisiton);
-        }
-    }
-
-
 
     /**
      * Drive motor until it hits a hardstop, provided by the frame
@@ -187,6 +160,16 @@ public class Wrist extends TrapezoidProfileSubsystem{
             Wrist0.set(MotorSpeed);
         }
         Wrist0.set(0.0);
+    }
+
+
+
+    /** Make sure we're not hitting the AmpLimit */
+    private void verifyAmpLimit() {
+        double posisiton = getPosition();
+        if (getCurrent() < WristConstants.AmpLimit) {
+            goToSoftStop(posisiton);
+        }
     }
 
 
