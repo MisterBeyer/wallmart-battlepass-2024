@@ -37,6 +37,7 @@ import frc.robot.subsystems.Bluetooth;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LeanProtection;
+import frc.robot.subsystems.Rumble;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.Wrist;
 
@@ -66,8 +67,9 @@ public class RobotContainer
   private final ArmCommands armCommands = new ArmCommands(arm);
   private final WristCommands wristCommands = new WristCommands(wrist);
 
-  // Define Arm Command
+  // Define Commands
   FourPos arm_control = new FourPos(arm, wrist, intake);
+
 
   // CommandJoystick rotationController = new CommandJoystick(1);
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -76,6 +78,9 @@ public class RobotContainer
   // CommandJoystick driverController   = new CommandJoystick(3);//(OperatorConstants.DRIVER_CONTROLLER_PORT);
   XboxController driverXbox = new XboxController(0);
   XboxController operatorXbox = new XboxController(1);
+
+  // Define Rumble Commands
+  Rumble rumble = new Rumble(driverXbox, operatorXbox);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -227,8 +232,8 @@ public class RobotContainer
   public void setDriveMode()
   {
     // Shake the Driver Controller so we don't repeat Block Party
-    driverXbox.setRumble(GenericHID.RumbleType.kBothRumble, 1.0);
-    //drivebase.setDefaultCommand();
+    rumble.driver();
+    //drivebase.setDefaultCommand();/..
   }
 
   public void setMotorBrake(boolean brake)
