@@ -107,10 +107,10 @@ public class RobotContainer
                                                                    driverXbox::getBButtonPressed);
 
     @SuppressWarnings("unused")
-     IntakeShoot intakeshoot = new IntakeShoot(intake, 
-                                              () -> MathUtil.applyDeadband(operatorXbox.getLeftY(),
+    IntakeShoot intakeshoot = new IntakeShoot(intake, 
+                                              () -> MathUtil.applyDeadband(operatorXbox.getRawAxis(3),
                                                                            OperatorConstants.IntakeDeadBand),
-                                              () -> MathUtil.applyDeadband(operatorXbox.getRightY(),
+                                              () -> MathUtil.applyDeadband(operatorXbox.getRawAxis(1),
                                                                            OperatorConstants.IntakeDeadBand));
 
     // Applies deadbands and inverts controls because joysticks
@@ -120,8 +120,8 @@ public class RobotContainer
     // right stick controls the desired angle NOT angular rotation
     @SuppressWarnings("unused")
     Command driveFieldOrientedDirectAngle = drivebase.driveCommand(
-        () -> MathUtil.applyDeadband(driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
-        () -> MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
+        () -> -MathUtil.applyDeadband(driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
+        () -> -MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
         () -> driverXbox.getRightX(),
         () -> driverXbox.getRightY());
 
@@ -146,8 +146,8 @@ public class RobotContainer
         () -> driverXbox.getRawAxis(2)); 
 
     //drivebase.setDefaultCommand(
-     //  !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle: driveFieldOrientedAnglularVelocity);
-    //intake.setDefaultCommand(intakeshoot);
+       //!RobotBase.isSimulation() ? driveFieldOrientedDirectAngle: driveFieldOrientedAnglularVelocity);
+    intake.setDefaultCommand(intakeshoot);
 
   }
   
@@ -162,8 +162,6 @@ public class RobotContainer
   {
     
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-
-    System.out.println("Button");
 
     // Driver Controller Binds
     new JoystickButton(driverXbox, 4).onTrue(arm_control.updateShuffleboard());
@@ -230,7 +228,7 @@ public class RobotContainer
   {
     // Shake the Driver Controller so we don't repeat Block Party
     driverXbox.setRumble(GenericHID.RumbleType.kBothRumble, 1.0);
-    //drivebase.setDefaultCommand();/..
+    //drivebase.setDefaultCommand();
   }
 
   public void setMotorBrake(boolean brake)

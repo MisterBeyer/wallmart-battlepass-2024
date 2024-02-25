@@ -120,7 +120,7 @@ public final class Constants
     public static double IntakeSpeed = 0.1; 
     public static double BackOut = 0.8;
     public static double FrontOut = 0.8;
-    public static double FrontRPM = 4000;
+    public static double FrontRPM = 4500;
     public static int BackRPM = 0;
 
     // Arm Encoder Positions
@@ -137,7 +137,7 @@ public final class Constants
     public static final double LEFT_Y_DEADBAND = 0.05;
     public static final double RIGHT_X_DEADBAND = 0.05;
     public static final double TURN_CONSTANT = 0.75;
-    public static final double IntakeDeadBand = 0.5;
+    public static final double IntakeDeadBand = 0.05;
 
   }
 }
