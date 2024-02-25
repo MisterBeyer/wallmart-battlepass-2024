@@ -2,6 +2,7 @@ package frc.robot.commands.Helpers;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.Wrist;
 import frc.robot.Constants.OperatorConstants;
 
@@ -92,14 +93,13 @@ public class WristCommands extends Command{
 
     /* Move Wrist Forward by ReletiveSoftStopDelta Constant */
     public Command MoveForward() {
-        return wrist.goToRelativeSoftStop(true);
+        return Commands.runOnce(() -> wrist.goToRelativeSoftStop(true), wrist);
     }
 
     /* Move Wrist Background by ReletiveSoftStopDelta Constant */
     public Command MoveBackward() {
-        return wrist.goToRelativeSoftStop(false);
+        return Commands.runOnce(() -> wrist.goToRelativeSoftStop(false), wrist);
     }
-
 
     // Called when the command is initially scheduled.
     @Override

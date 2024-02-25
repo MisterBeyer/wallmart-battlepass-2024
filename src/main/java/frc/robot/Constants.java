@@ -75,7 +75,7 @@ public final class Constants
   public static final class WristConstants 
   {
     // Amp Limits
-    public static double AmpLimit = 30;
+    public static int AmpLimit = 30;
 
     // Rate of change to use when Changing position by ReletiveSoftStop
     public static double ReletiveSoftStopDelta = 2.0; // radians
@@ -138,6 +138,9 @@ public final class Constants
     public static final double RIGHT_X_DEADBAND = 0.05;
     public static final double TURN_CONSTANT = 0.75;
     public static final double IntakeDeadBand = 0.05;
+
+    // Joystick Rumble Stength
+    public static final double RumbleStrength = 1.0;
 
   }
 }
