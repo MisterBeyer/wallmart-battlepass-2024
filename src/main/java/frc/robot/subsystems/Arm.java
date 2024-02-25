@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.TrapezoidProfileSubsystem;
 
 import com.revrobotics.CANSparkMax;
@@ -56,16 +55,6 @@ public class Arm extends TrapezoidProfileSubsystem{
         Arm0_encoder.setPosition(0.0);
 
         // set PID coefficients
-
-        /* 
-        Arm0_pidController.setP(0.15);    // kP
-        Arm0_pidController.setI(0);      // kI
-        Arm0_pidController.setD(0);      // kD
-        Arm0_pidController.setIZone(0); //kIz
-        Arm0_pidController.setFF(0);     //kFF
-        */
-
-        // NOTE: UpdatePID Does this already, remove to save RAM
         Arm0_pidController.setP(ArmConstants.P);
         Arm0_pidController.setI(ArmConstants.I);
         Arm0_pidController.setD(ArmConstants.D);
@@ -212,8 +201,6 @@ public class Arm extends TrapezoidProfileSubsystem{
         getPosition();
         getAverageCurrent();
 
-
-        // Check to make sure we aren't burning out motors
 
         // Run the Trapzoidal Subsystem Periodic
         super.periodic();

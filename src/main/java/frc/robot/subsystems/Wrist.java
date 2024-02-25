@@ -13,7 +13,6 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.WristConstants;
 
 
@@ -46,13 +45,12 @@ public class Wrist extends TrapezoidProfileSubsystem{
         Wrist0.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
         //Set Amp Limits
-        Wrist0.setSmartCurrentLimit(ArmConstants.AmpLimit);
+        Wrist0.setSmartCurrentLimit(WristConstants.AmpLimit);
 
         // Reset encoder
         Wrist0_encoder.setPosition(0.0);
 
         // set PID coefficients
-        // NOTE: UpdatePID Does this already, remove to save RAM
         Wrist0_pidController.setP(WristConstants.P);
         Wrist0_pidController.setI(WristConstants.I);
         Wrist0_pidController.setD(WristConstants.D);
@@ -140,7 +138,7 @@ public class Wrist extends TrapezoidProfileSubsystem{
      * @param isPositvie moves arm forward(True) or backwards(False)
      * by a set amount of Radians in Constants.WristConstants.ReletiveSoftStopDelta
       */
-    public Command goToRelativeSoftStop(boolean isPositive) {
+    public void goToRelativeSoftStop(boolean isPositive) {
         double position = getPosition();
             if (isPositive){
                 position = position+WristConstants.ReletiveSoftStopDelta;
@@ -148,7 +146,8 @@ public class Wrist extends TrapezoidProfileSubsystem{
             else {
                 position = position-WristConstants.ReletiveSoftStopDelta;
             }
-            return goToSoftStop(position);
+        
+            setGoal(position);
     }
 
     /**
@@ -193,8 +192,6 @@ public class Wrist extends TrapezoidProfileSubsystem{
         // Moved to Helper Commands to be called on buttonpress
         getPosition();
         getCurrent();
-
-        // Check to make sure we aren't burning out motors
 
         // Run the Trapzoidal Subsystem Periodic
         super.periodic();
