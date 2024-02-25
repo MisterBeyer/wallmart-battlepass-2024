@@ -35,8 +35,8 @@ public class IntakeShoot extends Command {
      */ 
     int rollerState = 0;
     public void Shoot() {
-        Double frontSpeed = OperatorConstants.FrontOut;
-        Double backSpeed = OperatorConstants.BackOut;
+        double frontSpeed = OperatorConstants.FrontOut;
+        double backSpeed = OperatorConstants.BackOut;
 
        //mhm yup boom
 
@@ -52,13 +52,16 @@ public class IntakeShoot extends Command {
 }
 public void ShootBack(){
     double frontSpeed = OperatorConstants.FrontOut;
-    Double backspeed = OperatorConstants.BackOut;
+    double backspeed = OperatorConstants.BackOut;
     intake.setSpeed(-frontSpeed, backspeed);
 }
 public void ShootFront(){
-double frontSpeed = OperatorConstants.FrontOut;
-double backspeed = OperatorConstants.BackOut;
-intake.setSpeed(frontSpeed, -backspeed);
+ double setSpeed = OperatorConstants.IntakeSpeed;
+    intake.setSpeed(setSpeed, -setSpeed);
+    
+//double frontSpeed = OperatorConstants.FrontOut;
+//double backspeed = OperatorConstants.BackOut;
+//intake.setSpeed(frontSpeed, -backspeed);
 }
     /**
      * Intakes note
@@ -67,8 +70,8 @@ intake.setSpeed(frontSpeed, -backspeed);
      * @Constants.IntakeSpeed provides max achievable speed
      */ 
     public void Intake() {
-        Double setSpeed = OperatorConstants.IntakeSpeed;
-        intake.setSpeed(-setSpeed, 0);
+        double setSpeed = OperatorConstants.IntakeSpeed;
+        intake.setSpeed(-setSpeed, setSpeed);
     }
 
 
@@ -93,7 +96,10 @@ intake.setSpeed(frontSpeed, -backspeed);
         else if(left.getAsDouble() < 0) { Intake(); }
         else if (left.getAsDouble() > 0) { ShootBack(); }
         else if (right.getAsDouble() > 0) { ShootFront(); }
-        else rollerState = 0; Stop();
+        else {
+            rollerState = 0; 
+            Stop();
+        }
     } 
     
 
