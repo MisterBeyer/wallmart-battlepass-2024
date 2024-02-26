@@ -27,7 +27,7 @@ public class auto extends SequentialCommandGroup {
     this.intakeShoot = inintakeShoot;
     this.wristCommands = inwristCommands;
       addCommands(new ParallelCommandGroup(armCommands.goToSpeaker(), wristCommands.goToSpeaker()));
-      addCommands(new InstantCommand(intakeShoot::Shoot));
+      //addCommands(new InstantCommand(intakeShoot::Shoot));
       addCommands(new ParallelCommandGroup(armCommands.goToStow(), wristCommands.goToStow()));
       addCommands(new PathPlannerAuto("CHS Roblox Exam"));
 
