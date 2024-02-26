@@ -16,12 +16,9 @@ import frc.robot.Constants.OperatorConstants;;
 public class Intake extends SubsystemBase{
     private final CANSparkMax Intake0 = new CANSparkMax(30, MotorType.kBrushless);
     private final CANSparkMax Intake1 = new CANSparkMax(31, MotorType.kBrushless);
-    private final RelativeEncoder Intake0enc = Intake0.getEncoder();
-    private final RelativeEncoder Intake1enc = Intake1.getEncoder();
+    private final RelativeEncoder Intake0_enc = Intake0.getEncoder();
+    private final RelativeEncoder Intake1_enc = Intake1.getEncoder();
 
-    public double getFrontRPM(){
-      return Intake1enc.getVelocity();
-    }
 
 
     public Intake() {
@@ -29,6 +26,16 @@ public class Intake extends SubsystemBase{
       Intake1.setIdleMode(CANSparkMax.IdleMode.kCoast);
     }
 
+
+    /** @return RPM of the Front Intake Motor as double */
+    public double getFrontRPM(){
+      return Intake1_enc.getVelocity();
+    }
+
+    /** @return RPM of the Rear Intake Motor as double*/
+    public double getRearRPM(){
+      return Intake0_enc.getVelocity();
+    }
 
     /** Pulls the IntakeSpeed variables from shuffleboard  */
     public void updateConstants() {
