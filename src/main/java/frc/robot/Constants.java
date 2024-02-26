@@ -54,8 +54,8 @@ public final class Constants
 
 
     // Trapazoidal Profile Constants
-    public static double kMaxVelocityRadPerSecond = 3; 
-    public static double kMaxAccelerationRadPerSecSquared = 3;
+    public static double kMaxVelocityRadPerSecond = 15; 
+    public static double kMaxAccelerationRadPerSecSquared = 15;
     public static double kArmOffsetRads = 0.0;
 
     // Arm Feedforward Constants
@@ -82,8 +82,8 @@ public final class Constants
   
 
     // Trapazoidal Profile Constants
-    public static double kMaxVelocityRadPerSecond = 3; 
-    public static double kMaxAccelerationRadPerSecSquared = 3;
+    public static double kMaxVelocityRadPerSecond = 10; 
+    public static double kMaxAccelerationRadPerSecSquared = 10;
     public static double kWristOffsetRads = 0.0;
 
     // Arm Feedforward Constants
@@ -117,19 +117,19 @@ public final class Constants
   public static class OperatorConstants
   {
     // Intake/Outake Speed
-    public static double IntakeSpeed = 0.1; 
+    public static double IntakeSpeed = 0.6; 
     public static double BackOut = 0.8;
     public static double FrontOut = 0.8;
-    public static double FrontRPM = 4500;
+    public static double FrontRPM = 1;
     public static int BackRPM = 0;
 
     // Arm Encoder Positions
-    public static double ArmAmpPosition = 0.0;
-    public static double ArmSpeakerPosition = 0.0;
+    public static double ArmAmpPosition = -43.8;
+    public static double ArmSpeakerPosition = -35.0;
 
-    public static double WristAmpPosition = 0.0;
-    public static double WristSpeakerPosition = 0.0;
-    public static double WristIntakePosition = 0.0;
+    public static double WristAmpPosition = -12.5;
+    public static double WristSpeakerPosition = -11.5;
+    public static double WristIntakePosition = -14;
 
     
     // Joystick Deadband
