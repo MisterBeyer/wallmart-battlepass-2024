@@ -167,12 +167,13 @@ public class Wrist extends TrapezoidProfileSubsystem{
 
 
     /** Make sure we're not hitting the AmpLimit */
-    private void verifyAmpLimit() {
+    // Obsolete
+    /*private void verifyAmpLimit() {
         double posisiton = getPosition();
         if (getCurrent() < WristConstants.AmpLimit) {
             goToSoftStop(posisiton);
         }
-    }
+    } */
 
 
 
