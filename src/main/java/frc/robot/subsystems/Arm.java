@@ -150,7 +150,7 @@ public class Arm extends TrapezoidProfileSubsystem{
         else {
             position = position-ArmConstants.ReletiveSoftStopDelta;
         }
-
+        System.out.print("calling set goal" + position);
         setGoal(position);
     }
 
