@@ -37,9 +37,14 @@ public class IntakeShoot extends Command {
     public void Shoot() {
         double frontSpeed = OperatorConstants.FrontOut;
         double backSpeed = OperatorConstants.BackOut;
+        double setSpeed = OperatorConstants.IntakeSpeed;
+    //intake.setSpeed(setSpeed, 0);
+    //if (left.getAsDouble() > 0) {
+    //    intake.setSpeed(setSpeed, -setSpeed);
 
+    
        //mhm yup boom
-
+ 
     if(intake.getFrontRPM() > OperatorConstants.FrontRPM){
         rollerState = 1;
     }
@@ -49,15 +54,18 @@ public class IntakeShoot extends Command {
     if(rollerState == 1){
         intake.setSpeed(frontSpeed, -backSpeed);
     }
-}
+}    
+
+
 public void ShootBack(){
     double frontSpeed = OperatorConstants.FrontOut;
     double backspeed = OperatorConstants.BackOut;
-    intake.setSpeed(-frontSpeed, backspeed);
+    //intake.setBackSpeed(backspeed);
 }
+
 public void ShootFront(){
  double setSpeed = OperatorConstants.IntakeSpeed;
-    intake.setSpeed(setSpeed, -setSpeed);
+    intake.setSpeed(setSpeed, 0);
     
 //double frontSpeed = OperatorConstants.FrontOut;
 //double backspeed = OperatorConstants.BackOut;
@@ -71,11 +79,11 @@ public void ShootFront(){
      */ 
     public void Intake() {
         double setSpeed = OperatorConstants.IntakeSpeed;
-        intake.setSpeed(-setSpeed, setSpeed);
+        intake.setSpeed(-setSpeed, 0);
     }
 
 
-    /**
+        /**
      * Stops and resets the Intake's status when called
      */
     //TODO: make into command
@@ -93,9 +101,9 @@ public void ShootFront(){
     @Override
     public void execute() {
         if (right.getAsDouble() < 0) { Shoot(); }
-        else if(left.getAsDouble() < 0) { Intake(); }
-        else if (left.getAsDouble() > 0) { ShootBack(); }
-        else if (right.getAsDouble() > 0) { ShootFront(); }
+        //if(left.getAsDouble() > 0) { Intake(); }
+         else if (left.getAsDouble() < 0) { ShootBack(); }
+         else if (right.getAsDouble() < 0) { ShootFront(); }
         else {
             rollerState = 0; 
             Stop();
