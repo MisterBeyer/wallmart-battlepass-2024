@@ -69,6 +69,7 @@ public class ArmCommands extends Command{
 
     /** Brings the arm to the [Speaker] Shooting Position */
     public Command goToSpeaker() {
+        System.out.print("go to speaker works N:" + OperatorConstants.ArmSpeakerPosition);
         return arm.goToSoftStop(OperatorConstants.ArmSpeakerPosition);
     }
 
