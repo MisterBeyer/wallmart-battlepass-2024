@@ -171,12 +171,13 @@ public class Arm extends TrapezoidProfileSubsystem{
 
 
     /** Make sure we're not hitting the AmpLimit */
-    private void verifyAmpLimit() {
+    // Obsolete
+    /* private void verifyAmpLimit() {
         double position = getPosition();
         if (getAverageCurrent() < ArmConstants.AmpLimit) {
             goToSoftStop(position);
         }
-    }
+    } */
 
 
 
