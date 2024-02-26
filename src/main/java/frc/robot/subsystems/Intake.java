@@ -12,7 +12,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import frc.robot.Constants.OperatorConstants;;
 
 
-
+// Intake 1 is the front rollers
 public class Intake extends SubsystemBase{
     private final CANSparkMax Intake0 = new CANSparkMax(30, MotorType.kBrushless);
     private final CANSparkMax Intake1 = new CANSparkMax(31, MotorType.kBrushless);
@@ -39,16 +39,22 @@ public class Intake extends SubsystemBase{
 
     /** Pulls the IntakeSpeed variables from shuffleboard  */
     public void updateConstants() {
-      OperatorConstants.IntakeSpeed = SmartDashboard.getNumber("Arm/Intake Speed", OperatorConstants.IntakeSpeed);
-      OperatorConstants.BackOut = SmartDashboard.getNumber("BackOut", OperatorConstants.BackOut);
-      OperatorConstants.FrontOut = SmartDashboard.getNumber("FrontOut", OperatorConstants.FrontOut);
-      SmartDashboard.putNumber("FrontRPM", getFrontRPM());
+      OperatorConstants.IntakeSpeed = SmartDashboard.getNumber("Intake/Intake Speed", OperatorConstants.IntakeSpeed);
+      OperatorConstants.BackOut = SmartDashboard.getNumber("Intake/BackOut", OperatorConstants.BackOut);
+      OperatorConstants.FrontOut = SmartDashboard.getNumber("Intake/FrontOut", OperatorConstants.FrontOut);
      }
+
+    /** @return RPM of front Motor */
+    public double getFrontRPM(){
+      double velocity = Intake1enc.getVelocity();
+      SmartDashboard.putNumber("Intake/FrontRPM", velocity);
+      return velocity;
+    }
 
     /** @return Average of Intake motor's Output Amperage */
     public double getCurrent() {
       double current = (Intake0.getOutputCurrent() + Intake1.getOutputCurrent())/2;
-      SmartDashboard.putNumber("Arm/Intake Amps", current);
+      SmartDashboard.putNumber("Intake/Intake Amps", current);
       return current;
     }
 
@@ -63,6 +69,13 @@ public class Intake extends SubsystemBase{
         Intake1.set(speedFront);
         //I might be done guys
         //He might not be either
+     }
+
+
+     public void setBackSpeed (double backspeed) {
+      Intake0.set(backspeed);
+
+
      }
 
      
@@ -83,6 +96,6 @@ public class Intake extends SubsystemBase{
     @Override
     public void periodic() { 
       getCurrent();
-      updateConstants();
+      getFrontRPM();
     }
 }

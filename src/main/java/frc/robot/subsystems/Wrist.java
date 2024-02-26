@@ -191,6 +191,8 @@ public class Wrist extends TrapezoidProfileSubsystem{
       
         // Update values on Shufflboard
         // Moved to Helper Commands to be called on buttonpress
+        getPosition();
+        getCurrent();
 
         // Run the Trapzoidal Subsystem Periodic
         super.periodic();
