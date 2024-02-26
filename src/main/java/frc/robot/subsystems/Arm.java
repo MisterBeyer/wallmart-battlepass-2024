@@ -199,6 +199,9 @@ public class Arm extends TrapezoidProfileSubsystem{
 
         // Update values on Shufflboard
         // Moved to Helper Commands to be called on buttonpress
+        getPosition();
+        getAverageCurrent();
+
 
         // Run the Trapzoidal Subsystem Periodic
         super.periodic();
