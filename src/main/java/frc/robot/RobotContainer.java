@@ -88,6 +88,7 @@ public class RobotContainer
 
     // Register Named Auto Commands
     NamedCommands.registerCommand("ArmToStow", arm_control.Stow());
+    NamedCommands.registerCommand("ArmToIntake", arm_control.Intake());
     NamedCommands.registerCommand("ArmToAmp", arm_control.Amp());
     NamedCommands.registerCommand("ArmToSpeaker", arm_control.Speaker());
 
