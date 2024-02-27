@@ -12,39 +12,123 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "StartToSpeaker"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "StartToSpeaker"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ArmToSpeaker"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "SpeakerToNote"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "SpeakerToNote"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ArmToIntake"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "NoteToSpeaker"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "NoteToSpeaker"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ArmToSpeaker"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "SpeakertoNote2"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "SpeakertoNote2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ArmToIntake"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Note2ToSpeaker"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Note2ToSpeaker"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ArmToSpeaker"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "SpeakerToOut"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "SpeakerToOut"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ArmToStow"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ArmToIntake"
           }
         }
       ]

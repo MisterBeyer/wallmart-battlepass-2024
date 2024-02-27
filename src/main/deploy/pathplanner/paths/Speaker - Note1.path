@@ -8,27 +8,33 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.5692462518720183,
-        "y": 5.497056214673858
+        "x": 1.5903362575955933,
+        "y": 5.515621031242063
       },
       "isLocked": false,
       "linkedName": "Speaker"
     },
     {
       "anchor": {
-        "x": 2.1922197690549243,
+        "x": 2.419159453703524,
         "y": 5.515621031242063
       },
       "prevControl": {
-        "x": 1.9652800844063243,
-        "y": 5.505754088431254
+        "x": 2.419159453703524,
+        "y": 5.515621031242063
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "Note2"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -39,11 +45,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 180.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Middle Auto",
+  "folder": null,
   "previewStartingState": null,
   "useDefaultConstraints": false
 }
