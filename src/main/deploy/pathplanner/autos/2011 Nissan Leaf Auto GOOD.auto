@@ -3,7 +3,7 @@
   "startingPose": {
     "position": {
       "x": 1.3337957445145674,
-      "y": 5.515621031242063
+      "y": 7.005529395674177
     },
     "rotation": 180.0
   },
@@ -12,28 +12,39 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "StartToSpeaker"
+            "name": "ArmToSpeaker"
           }
         },
         {
-          "type": "parallel",
+          "type": "wait",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "SpeakerToNote"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ArmToIntake"
-                }
-              }
-            ]
+            "waitTime": 0.75
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeShoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.75
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ArmToStow"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "SpeakerToNote"
           }
         },
         {
@@ -67,22 +78,9 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "NoteToSpeaker"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ArmToSpeaker"
-                }
-              }
-            ]
+            "pathName": "NoteToSpeaker"
           }
         },
         {
@@ -122,22 +120,9 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "SpeakertoNote2"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ArmToIntake"
-                }
-              }
-            ]
+            "pathName": "SpeakertoNote2"
           }
         },
         {
@@ -171,28 +156,51 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Note2ToSpeaker"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ArmToSpeaker"
-                }
-              }
-            ]
+            "pathName": "Note2ToSpeaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ArmToSpeaker"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.75
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeShoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.75
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeStop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ArmToStow"
           }
         },
         {
           "type": "path",
           "data": {
-            "name": "ArmToIntake"
+            "pathName": "SpeakerToOut"
           }
         }
       ]
