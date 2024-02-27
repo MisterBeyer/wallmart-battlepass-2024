@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.CvSink;
+import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -92,6 +95,16 @@ public class RobotContainer
     autoChooser = AutoBuilder.buildAutoChooser("Skibbidi Auto");
     SmartDashboard.putData("Auto Chooser", autoChooser);
   
+
+    // Creates a UsbCamera and MjpegServer [1] and connects them
+    CameraServer.startAutomaticCapture(0);
+
+    // Creates the CvSink and connects it to the UsbCamera
+    //CvSink cvSink = CameraServer.getVideo();
+
+    // Creates the CvSource and MjpegServer [2] and connects them
+    //CvSource outputStream = CameraServer.putVideo("Blur", 640, 480);
+
 
     // Configure the trigger bindings
     configureBindings();
