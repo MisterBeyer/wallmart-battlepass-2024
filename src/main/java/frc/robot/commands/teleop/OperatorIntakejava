@@ -24,7 +24,7 @@ public class OperatorIntake extends Command{
         this.intake = module;
         this.left = operator_left;
         this.right = operator_right;
-    
+    }
 
     
     // Called when the command is initially scheduled.
@@ -58,3 +58,4 @@ public class OperatorIntake extends Command{
     public boolean isFinished() {
         return false;
     }
+}
