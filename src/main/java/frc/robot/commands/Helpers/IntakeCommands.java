@@ -65,7 +65,7 @@ public class IntakeCommands{
      */ 
     public Command Intake() {
         return Commands.startEnd(() -> intake.IntakeMode(true), 
-                                 () -> intake.ShootMode(false),
+                                 () -> intake.IntakeMode(false),
                                  intake);
     }
 
