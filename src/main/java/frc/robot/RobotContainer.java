@@ -5,14 +5,11 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.CvSink;
-import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Filesystem;
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -20,16 +17,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 //import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 
 import frc.robot.commands.Helpers.*;
-import frc.robot.commands.auto.auto;
 import frc.robot.commands.swervedrive.AbsoluteDriveAdv;
 import frc.robot.commands.teleop.FourPos;
 
@@ -87,9 +81,15 @@ public class RobotContainer
     LeanProtection.LeanProtectEnable();
 
     // Register Named Auto Commands
-    NamedCommands.registerCommand("ArmToStow", arm_control.Stow());
+    NamedCommands.registerCommand("ArmToStow", arm_control.Stow());           // Arm/Wrist
+    NamedCommands.registerCommand("ArmToIntake", arm_control.Intake());
     NamedCommands.registerCommand("ArmToAmp", arm_control.Amp());
     NamedCommands.registerCommand("ArmToSpeaker", arm_control.Speaker());
+
+    NamedCommands.registerCommand("IntakeOut", intakeCommands.MoveForward()); // Intake
+    NamedCommands.registerCommand("IntakeIn", intakeCommands.MoveBackward());
+    NamedCommands.registerCommand("IntakeShoot", intakeCommands.ShootForward());
+    NamedCommands.registerCommand("IntakeStop", intakeCommands.Stop());
 
     // Build an auto chooser. This will use "Skibbidi Auto" as the default option.
     autoChooser = AutoBuilder.buildAutoChooser("Skibbidi Auto");
@@ -176,24 +176,26 @@ public class RobotContainer
    */
   private void configureBindings()
   {
-    
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
     // Driver Controller Binds
-    new JoystickButton(driverXbox, 4).onTrue(arm_control.updateShuffleboard());
+    new JoystickButton(driverXbox,  XboxController.Button.kY.value).onTrue(arm_control.updateShuffleboard());  // Update Shuffleboard
+    new JoystickButton(driverXbox, XboxController.Button.kX.value).onTrue(intakeCommands.MoveForward());       // Outake 
 
-
-    new JoystickButton(driverXbox, 1).onTrue((new InstantCommand(drivebase::zeroGyro)));
-    new JoystickButton(driverXbox, 3).onTrue(new InstantCommand(drivebase::addFakeVisionReading));
+    new JoystickButton(driverXbox,  XboxController.Button.kA.value).onTrue((new InstantCommand(drivebase::zeroGyro))); // Reset Heading
+    new JoystickButton(driverXbox,  XboxController.Button.kB.value).onTrue(new InstantCommand(drivebase::addFakeVisionReading));
     new JoystickButton(driverXbox,
                        2).whileTrue(
         Commands.deferredProxy(() -> drivebase.driveToPose(
                                    new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
                               ));
-    //   new JoystickButton(driverXbox, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
+    //new JoystickButton(driverXbox, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
 
 
     //   Operator Controller Binds
+
+
+    // TODO: AutoStow, one button in
 
     // Arm/Wrist
     //TODO: Redo all of these to prefered buttons and commands when theyre set
