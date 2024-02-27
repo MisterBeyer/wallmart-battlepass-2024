@@ -8,7 +8,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.Intake;
 
 //dont unplug the ethernet
-public class IntakeCommands extends Command{
+public class IntakeCommands{
     private Intake intake;
 
     /** Helper Commands For Intake
@@ -18,10 +18,28 @@ public class IntakeCommands extends Command{
         // Assign Control
         this.intake = module;
 
-        // Add requirements
-        addRequirements(this.intake);
+        // ShuffleBoard!
+        SmartDashboard.putNumber("Intake/Front Motor Speed", OperatorConstants.FrontOut);
+        SmartDashboard.putNumber("Intake/Rear Motor Speed", OperatorConstants.BackOut);
+        SmartDashboard.putNumber("Operator/Intake [Front] Goal RPM", OperatorConstants.FrontRPM); 
+        //SmartDashboard.putNumber("Operator/Intake [Back] Goal RPM", OperatorConstants.BackRPM);
     }
 
+
+
+    /** Updates Motor Speeds and limits from shuffleboard */
+    public void updateConstants() {
+        // Motor Speed Posistions
+        OperatorConstants.FrontOut = SmartDashboard.getNumber("Intake/Front Motor Speed", OperatorConstants.FrontOut);
+        OperatorConstants.BackOut  = SmartDashboard.getNumber("Intake/Rear Motor Speed", OperatorConstants.BackOut);
+
+        // RPM Goals
+        OperatorConstants.FrontRPM = SmartDashboard.getNumber("Operator/Intake [Front] Goal RPM", OperatorConstants.FrontRPM); 
+        //OperatorConstants.BackRPM  = SmartDashboard.getNumber("Operator/Intake [Back] Goal RPM", OperatorConstants.BackRPM); 
+
+        // Update Constants of Subsystems
+        intake.updateConstants();
+    }
 
 
      /**
@@ -91,29 +109,4 @@ public class IntakeCommands extends Command{
       while(intake.getFrontRPM() < OperatorConstants.FrontRPM) intake.setSpeed(OperatorConstants.FrontOut, 0);
       intake.setSpeed(OperatorConstants.FrontOut, -OperatorConstants.BackOut);
     }
-
-
-
-    // Called when the command is initially scheduled.
-    @Override
-      public void initialize() {
-        // Put Constants into Shuffleboard
-    }
-  
-    // Called every time the scheduler runs while the command is scheduled.
-    @Override
-    public void execute() {
-    }
-  
-    // Called once the command ends or is interrupted.
-    @Override
-    public void end(boolean interrupted) {
-    }
-  
-    // Returns true when the command should end.
-    @Override
-    public boolean isFinished() {
-        return false;
-    }
-
 }
