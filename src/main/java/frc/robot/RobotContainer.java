@@ -11,7 +11,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,12 +18,10 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 //import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 
 import frc.robot.commands.Helpers.*;
-import frc.robot.commands.swervedrive.AbsoluteDriveAdv;
 import frc.robot.commands.teleop.FourPos;
 
 import frc.robot.subsystems.*;
@@ -51,7 +48,7 @@ public class RobotContainer
   private final Wrist wrist = new Wrist();
   private final Arm arm = new Arm();
   private final Climber climber = new Climber();
-  private final Bluetooth bluetooth = new Bluetooth();
+  //private final Bluetooth bluetooth = new Bluetooth();
 
   private final ArmCommands armCommands = new ArmCommands(arm);
   private final WristCommands wristCommands = new WristCommands(wrist);
@@ -66,11 +63,11 @@ public class RobotContainer
   //CommandJoystick driverController = new CommandJoystick(1);
 
   // CommandJoystick driverController   = new CommandJoystick(3);//(OperatorConstants.DRIVER_CONTROLLER_PORT);
-  XboxController driverXbox = new XboxController(0);
-  XboxController operatorXbox = new XboxController(1);
+  CommandXboxController driverXbox = new CommandXboxController(0);
+  CommandXboxController operatorXbox = new CommandXboxController(1);
 
   // Define Rumble Commands
-  private Rumble rumble = new Rumble(driverXbox, operatorXbox);
+  private Rumble rumble = new Rumble(0, 1);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -86,8 +83,8 @@ public class RobotContainer
     NamedCommands.registerCommand("ArmToAmp", arm_control.Amp());
     NamedCommands.registerCommand("ArmToSpeaker", arm_control.Speaker());
 
-    NamedCommands.registerCommand("IntakeOut", intakeCommands.MoveForward()); // Intake
-    NamedCommands.registerCommand("IntakeIn", intakeCommands.MoveBackward());
+    NamedCommands.registerCommand("IntakeOut", intakeCommands.EjectForward()); // Intake
+    NamedCommands.registerCommand("IntakeIn", intakeCommands.EjectBackward());
     NamedCommands.registerCommand("IntakeShoot", intakeCommands.ShootForward());
     NamedCommands.registerCommand("IntakeStop", intakeCommands.Stop());
 
@@ -109,6 +106,7 @@ public class RobotContainer
     // Configure the trigger bindings
     configureBindings();
 
+    /* Code Broken due to CommandXboxController Switch
     @SuppressWarnings("unused")
     AbsoluteDriveAdv closedAbsoluteDriveAdv = new AbsoluteDriveAdv(drivebase,
                                                                    () -> MathUtil.applyDeadband(driverXbox.getLeftY(),
@@ -120,7 +118,7 @@ public class RobotContainer
                                                                    driverXbox::getYButtonPressed,
                                                                    driverXbox::getAButtonPressed,
                                                                    driverXbox::getXButtonPressed,
-                                                                   driverXbox::getBButtonPressed);
+                                                                   driverXbox::getBButtonPressed); */
 
     // @SuppressWarnings("unused")
     /* intakeCommandsommands intakeshoot = new intakeCommandsommands(intake, 
@@ -163,8 +161,6 @@ public class RobotContainer
 
     drivebase.setDefaultCommand(
        !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle: driveFieldOrientedAnglularVelocity);
-    // intake.setDefaultCommand(intakeshoot);
-
   }
   
   /**
@@ -179,18 +175,22 @@ public class RobotContainer
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
     // Driver Controller Binds
-    new JoystickButton(driverXbox,  XboxController.Button.kY.value).onTrue(arm_control.updateShuffleboard());  // Update Shuffleboard
-    new JoystickButton(driverXbox, XboxController.Button.kX.value).onTrue(intakeCommands.MoveForward());       // Outake 
+    /* Special */
+    driverXbox.start().onTrue(rumble.driver());               // Rumble Driver Controller
+    driverXbox.y().onTrue(arm_control.updateShuffleboard());  // Update Shuffleboard
 
-    new JoystickButton(driverXbox,  XboxController.Button.kA.value).onTrue((new InstantCommand(drivebase::zeroGyro))); // Reset Heading
-    new JoystickButton(driverXbox,  XboxController.Button.kB.value).onTrue(new InstantCommand(drivebase::addFakeVisionReading));
-    new JoystickButton(driverXbox,
-                       2).whileTrue(
+
+    /* Other Subsystems */
+    driverXbox.x().onTrue(intakeCommands.EjectForward());     // Outake 
+
+    /* Drivebase */
+    driverXbox.a().onTrue((new InstantCommand(drivebase::zeroGyro))); // Reset Heading
+    driverXbox.b().onTrue(new InstantCommand(drivebase::addFakeVisionReading));
+    driverXbox.back().whileTrue(
         Commands.deferredProxy(() -> drivebase.driveToPose(
                                    new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
                               ));
     //new JoystickButton(driverXbox, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
-
 
     //   Operator Controller Binds
 
@@ -198,21 +198,28 @@ public class RobotContainer
     // TODO: AutoStow, one button in
 
     // Arm/Wrist
+    operatorXbox.start().onTrue(rumble.operator());  // Rumble Driver Controller
+
     //TODO: Redo all of these to prefered buttons and commands when theyre set
     /* Main Arm Movement Controls */
-    new JoystickButton(operatorXbox,1).onTrue((arm_control.Stow()));
-    new JoystickButton(operatorXbox,2).onTrue(arm_control.Intake());
-    new JoystickButton(operatorXbox,3).onTrue(arm_control.Amp());
-    new JoystickButton(operatorXbox,4).onTrue(arm_control.Speaker());
+    operatorXbox.x().onTrue((arm_control.Stow())); // Arm Positions
+    operatorXbox.b().onTrue(arm_control.Intake());
+    operatorXbox.a().onTrue(arm_control.Amp());
+    operatorXbox.y().onTrue(arm_control.Speaker());
 
-    /* Direct Arm Movement Controls */
-    new JoystickButton(operatorXbox,5).onTrue(armCommands.MoveForward());
-    new JoystickButton(operatorXbox,6).onTrue(armCommands.MoveBackward());
-    new JoystickButton(operatorXbox,7).onTrue(wristCommands.MoveForward());
-    new JoystickButton(operatorXbox,8).onTrue(wristCommands.MoveBackward());
+    operatorXbox.leftTrigger().whileTrue(intakeCommands.IntakeNote());
+    operatorXbox.rightTrigger().whileTrue(intakeCommands.ShootForward());
+    operatorXbox.rightBumper().whileTrue(intakeCommands.EjectForward());
+    operatorXbox.leftBumper().whileTrue(intakeCommands.EjectBackward());
+
+    /* Direct Arm Movement Controls */ // Removed to streamline operator controller
+    /* new JoystickButton(operatorXbox,XboxController.Button.kB.value).onTrue(armCommands.MoveForward());
+    new JoystickButton(operatorXbox,XboxController.Button.kB.value).onTrue(armCommands.MoveBackward());
+    new JoystickButton(operatorXbox,XboxController.Button.kB.value).onTrue(wristCommands.MoveForward());
+    new JoystickButton(operatorXbox,XboxController.Button.kB.value).onTrue(wristCommands.MoveBackward()); */
 
 
-    Commands.startEnd(()->climber.deploy(Constants.ClimberConstants.FullExtensionEncoder), ()->climber.stop(), climber);
+    //Commands.startEnd(()->climber.deploy(Constants.ClimberConstants.FullExtensionEncoder), ()->climber.stop(), climber);
   }
 
   /**
@@ -224,7 +231,7 @@ public class RobotContainer
   {
     drivebase.zeroGyro();
     // An example command will be run in autonomous
-    return /* new auto(armCommands, wristCommands, intakeCommands); */ autoChooser.getSelected();
+    return autoChooser.getSelected();
   }
 
   /**
