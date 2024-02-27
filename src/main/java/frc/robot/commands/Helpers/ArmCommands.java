@@ -26,13 +26,16 @@ import frc.robot.Constants.OperatorConstants;
  */
 
 
-// Helper Commands File For Arm
+
 public class ArmCommands extends Command{
     private Arm arm;
 
-    public ArmCommands(Arm armprovider) {
+    /** Helper Commands For Arm
+     * @param module module to use as arm
+     */
+    public ArmCommands(Arm module) {
         // Assign Control
-        this.arm = armprovider;
+        this.arm = module;
 
         // Add requirements
         addRequirements(this.arm);
