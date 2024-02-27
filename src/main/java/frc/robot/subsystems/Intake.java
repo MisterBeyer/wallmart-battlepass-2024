@@ -125,6 +125,9 @@ public class Intake extends SubsystemBase{
      
     /** Stops Both Motors */
      public void stop(){
+      isShooting = false;
+      isIntaking = false;
+      
       IntakeR.set(0.0);
       IntakeF.set(0.0);
      }
