@@ -35,6 +35,7 @@ import frc.robot.subsystems.*;
 import java.io.File;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -59,9 +60,9 @@ public class RobotContainer
   private final WristCommands wristCommands = new WristCommands(wrist);
   private final IntakeCommands intakeCommands = new IntakeCommands(intake);
 
-  // Define Commands
+  // Define Command Helpers
   FourPos arm_control = new FourPos(arm, wrist, intake);
-
+  // OperatorIntake intake_control = new OperatorIntake(intake);
 
   // CommandJoystick rotationController = new CommandJoystick(1);
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -81,6 +82,11 @@ public class RobotContainer
   {
     // Enable Lean Protection
     LeanProtection.LeanProtectEnable();
+
+    // Register Named Auto Commands
+    NamedCommands.registerCommand("ArmToStow", arm_control.Stow());
+    NamedCommands.registerCommand("ArmToAmp", arm_control.Amp());
+    NamedCommands.registerCommand("ArmToSpeaker", arm_control.Speaker());
 
     // Build an auto chooser. This will use "Skibbidi Auto" as the default option.
     autoChooser = AutoBuilder.buildAutoChooser("Skibbidi Auto");
@@ -203,7 +209,7 @@ public class RobotContainer
   {
     drivebase.zeroGyro();
     // An example command will be run in autonomous
-    return new auto(armCommands, wristCommands, intakeCommands);// autoChooser.getSelected();
+    return /* new auto(armCommands, wristCommands, intakeCommands); */ autoChooser.getSelected();
   }
 
   /**
