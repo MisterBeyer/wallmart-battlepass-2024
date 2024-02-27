@@ -37,9 +37,6 @@ public class ArmCommands extends Command{
         // Assign Control
         this.arm = module;
 
-        // Add requirements
-        addRequirements(this.arm);
-
         // ShuffleBoard!
         SmartDashboard.putNumber("Operator/Arm [Amp] Enocder Positon", OperatorConstants.ArmAmpPosition);
         SmartDashboard.putNumber("Operator/Arm [Speaker] Enocder Positon", OperatorConstants.ArmSpeakerPosition);
@@ -87,31 +84,4 @@ public class ArmCommands extends Command{
     public Command MoveBackward() {
         return Commands.runOnce(() -> arm.goToRelativeSoftStop(false), arm);
     }
-
-
-
-    // Called when the command is initially scheduled.
-    @Override
-      public void initialize() {
-        // Put Constants into Shuffleboard
-        SmartDashboard.putNumber("Operator/Arm [Amp] Enocder Positon", OperatorConstants.ArmAmpPosition);
-        SmartDashboard.putNumber("Operator/Arm [Speaker] Enocder Positon", OperatorConstants.ArmSpeakerPosition);
-    }
-  
-    // Called every time the scheduler runs while the command is scheduled.
-    @Override
-    public void execute() {
-    }
-  
-    // Called once the command ends or is interrupted.
-    @Override
-    public void end(boolean interrupted) {
-    }
-  
-    // Returns true when the command should end.
-    @Override
-    public boolean isFinished() {
-        return false;
-    }
-
 }

@@ -27,7 +27,7 @@ public class FourPos{
     // Define Helpers
     private ArmCommands ArmC;
     private WristCommands WristC;
-    private IntakeCommands IntakeC;//TODO: Speak to oliver about adding intake Commands
+    private IntakeCommands IntakeC;
 
 
     public FourPos(Arm armprovider, Wrist wristprovider, Intake intakeProvider) {
@@ -38,7 +38,7 @@ public class FourPos{
         // Setup Helper Commands
         ArmC = new ArmCommands(this.arm);
         WristC = new WristCommands(this.wrist);
-        IntakeC = new IntakeCommands(this.intake, null, null);
+        IntakeC = new IntakeCommands(this.intake);
     }
 
 
@@ -46,7 +46,7 @@ public class FourPos{
     /** Brings the Robot into the Stow Position */
     public ParallelCommandGroup Stow() {
         ParallelCommandGroup stow = new ParallelCommandGroup(
-            new InstantCommand(intake::stop),    
+            IntakeC.Stop(),    
         
             ArmC.goToStow(),
             WristC.goToStow()
@@ -57,7 +57,7 @@ public class FourPos{
     /** Brings the Robot's Intake out */
     public ParallelCommandGroup Intake() {
         ParallelCommandGroup ground = new ParallelCommandGroup(
-            new InstantCommand(intake::stop),    // TODO: Idle intake? 
+            IntakeC.Stop(),
         
             ArmC.goToStow(),
             WristC.goToIntake()
@@ -69,8 +69,8 @@ public class FourPos{
     /** Brings the Robot into Position to Shoot into Amp */
     public ParallelCommandGroup Amp() {
         ParallelCommandGroup amp = new ParallelCommandGroup(
-            new InstantCommand(intake::stop),    
-        
+            IntakeC.Stop(),
+
             ArmC.goToAmp(),
             WristC.goToAmp()
         );
@@ -80,7 +80,7 @@ public class FourPos{
     /** Brings the Robot into Position to Shoot into Speaker */
     public ParallelCommandGroup Speaker() {
         ParallelCommandGroup speaker = new ParallelCommandGroup(
-            new InstantCommand(intake::stop),    
+            IntakeC.Stop(), 
         
             ArmC.goToSpeaker(),
             WristC.goToSpeaker()

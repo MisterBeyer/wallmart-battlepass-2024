@@ -36,7 +36,7 @@ import frc.robot.Constants.OperatorConstants;
 
 
 // Helper Commands File For Arm
-public class WristCommands extends Command{
+public class WristCommands{
     private Wrist wrist;
 
 
@@ -46,9 +46,6 @@ public class WristCommands extends Command{
     public WristCommands(Wrist module) {
         // Assign Control
         this.wrist = module;
-
-        // Add requirements
-        addRequirements(this.wrist);
 
         // ShuffleBoard!
         SmartDashboard.putNumber("Operator/Wrist [Amp] Enocder Positon", OperatorConstants.WristAmpPosition);
@@ -104,30 +101,4 @@ public class WristCommands extends Command{
     public Command MoveBackward() {
         return Commands.runOnce(() -> wrist.goToRelativeSoftStop(false), wrist);
     }
-
-    // Called when the command is initially scheduled.
-    @Override
-      public void initialize() {
-        // Put Constants into Shuffleboard
-        SmartDashboard.putNumber("Operator/Wrist [Amp] Enocder Positon", OperatorConstants.WristAmpPosition);
-        SmartDashboard.putNumber("Operator/Wrist [Speaker] Enocder Positon", OperatorConstants.WristSpeakerPosition);
-        SmartDashboard.putNumber("Operator/Wrist [Intake] Enocder Positon", OperatorConstants.WristIntakePosition);
-    }
-  
-    // Called every time the scheduler runs while the command is scheduled.
-    @Override
-    public void execute() {
-    }
-  
-    // Called once the command ends or is interrupted.
-    @Override
-    public void end(boolean interrupted) {
-    }
-  
-    // Returns true when the command should end.
-    @Override
-    public boolean isFinished() {
-        return false;
-    }
-
 }

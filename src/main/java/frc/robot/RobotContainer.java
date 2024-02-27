@@ -27,6 +27,7 @@ import frc.robot.Constants.*;
 
 import frc.robot.commands.Helpers.ArmCommands;
 import frc.robot.commands.Helpers.WristCommands;
+import frc.robot.commands.auto.auto;
 import frc.robot.commands.Helpers.IntakeCommands;
 
 import frc.robot.commands.swervedrive.AbsoluteDriveAdv;
@@ -64,8 +65,9 @@ public class RobotContainer
   private final Climber climber = new Climber();
   private final Bluetooth bluetooth = new Bluetooth();
 
-  private final ArmCommands armCommands = new ArmCommands(arm);
-  private final WristCommands wristCommands = new WristCommands(wrist);
+  private final ArmCommands armC = new ArmCommands(arm);
+  private final WristCommands wristC = new WristCommands(wrist);
+  private final IntakeCommands intakeC = new IntakeCommands(intake);
 
   // Define Commands
   FourPos arm_control = new FourPos(arm, wrist, intake);
@@ -111,12 +113,12 @@ public class RobotContainer
                                                                    driverXbox::getXButtonPressed,
                                                                    driverXbox::getBButtonPressed);
 
-    @SuppressWarnings("unused")
-    IntakeCommands intakeshoot = new IntakeCommands(intake, 
+    // @SuppressWarnings("unused")
+    /* IntakeCommands intakeshoot = new IntakeCommands(intake, 
                                               () -> MathUtil.applyDeadband(operatorXbox.getRawAxis(3),
                                                                            OperatorConstants.IntakeDeadBand),
                                               () -> MathUtil.applyDeadband(operatorXbox.getRawAxis(1),
-                                                                           OperatorConstants.IntakeDeadBand));
+                                                                           OperatorConstants.IntakeDeadBand)); */
 
     // Applies deadbands and inverts controls because joysticks
     // are back-right positive while robot
@@ -152,7 +154,7 @@ public class RobotContainer
 
     drivebase.setDefaultCommand(
        !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle: driveFieldOrientedAnglularVelocity);
-    intake.setDefaultCommand(intakeshoot);
+    // intake.setDefaultCommand(intakeshoot);
 
   }
   
@@ -193,10 +195,10 @@ public class RobotContainer
     new JoystickButton(operatorXbox,4).onTrue(arm_control.Speaker());
 
     /* Direct Arm Movement Controls */
-    new JoystickButton(operatorXbox,5).onTrue(armCommands.MoveForward());
-    new JoystickButton(operatorXbox,6).onTrue(armCommands.MoveBackward());
-    new JoystickButton(operatorXbox,7).onTrue(wristCommands.MoveForward());
-    new JoystickButton(operatorXbox,8).onTrue(wristCommands.MoveBackward());
+    new JoystickButton(operatorXbox,5).onTrue(armC.MoveForward());
+    new JoystickButton(operatorXbox,6).onTrue(armC.MoveBackward());
+    new JoystickButton(operatorXbox,7).onTrue(wristC.MoveForward());
+    new JoystickButton(operatorXbox,8).onTrue(wristC.MoveBackward());
 
 
     Commands.startEnd(()->climber.deploy(Constants.ClimberConstants.FullExtensionEncoder), ()->climber.stop(), climber);
@@ -211,7 +213,7 @@ public class RobotContainer
   {
     drivebase.zeroGyro();
     // An example command will be run in autonomous
-    return autoChooser.getSelected();
+    return new auto(armC, wristC, intakeC);// autoChooser.getSelected();
 
   }
 
