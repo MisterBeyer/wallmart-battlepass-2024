@@ -49,7 +49,7 @@ public class IntakeCommands{
      * Then Shoots the Note out of the Front of the intake
      * @return Command
      */ 
-    public Command ShootForward() {
+    public Command ShootForward() { // TODO: Roll note slightly back before rampup
         return Commands.startEnd(() -> RampUp(),
                                  () -> Stop(), 
                                  intake);
@@ -61,7 +61,7 @@ public class IntakeCommands{
      * 
      * @return Command
     */
-    public Command MoveBackward(){
+    public Command EjectBackward(){
         return Commands.startEnd(() -> intake.setSpeed(OperatorConstants.FrontOut, 0),
                                  () -> Stop(),
                                  intake);
@@ -73,7 +73,7 @@ public class IntakeCommands{
      * 
      * @return Command
     */
-    public Command MoveForward(){
+    public Command EjectForward(){
     double setSpeed = OperatorConstants.IntakeSpeed;
         return Commands.startEnd(() -> intake.setSpeed(setSpeed, 0), 
                                 () -> Stop(), 
@@ -109,4 +109,6 @@ public class IntakeCommands{
       while(intake.getFrontRPM() < OperatorConstants.FrontRPM) intake.setSpeed(OperatorConstants.FrontOut, 0);
       intake.setSpeed(OperatorConstants.FrontOut, -OperatorConstants.BackOut);
     }
+
+    // TODO: Implement stop intake on note, class in wpilib does something like this
 }
