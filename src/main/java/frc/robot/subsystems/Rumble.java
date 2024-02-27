@@ -14,10 +14,10 @@ public class Rumble extends SubsystemBase{
 
     private double time = 1; // seconds
     
-    public Rumble(XboxController driverXbox, XboxController operatorXbox) {
+    public Rumble(int driverXbox, int operatorXbox) {
         // Define Xbox Controllers
-        this.driver = driverXbox;
-        this.operator = operatorXbox;
+        this.driver = new XboxController(driverXbox);
+        this.operator = new XboxController(operatorXbox);
 
         
     }

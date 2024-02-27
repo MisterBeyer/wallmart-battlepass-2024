@@ -9,24 +9,21 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 
-import frc.robot.Constants.OperatorConstants;;
-
-
 // Bofa Intake System
 
 public class Intake extends SubsystemBase{
-    private final CANSparkMax Intake0 = new CANSparkMax(30, MotorType.kBrushless); // Rear
-    private final CANSparkMax Intake1 = new CANSparkMax(31, MotorType.kBrushless); // Front
-    private final RelativeEncoder Intake0_enc = Intake0.getEncoder();
-    private final RelativeEncoder Intake1_enc = Intake1.getEncoder();
+    private final CANSparkMax IntakeR = new CANSparkMax(30, MotorType.kBrushless); // Rear
+    private final CANSparkMax IntakeF = new CANSparkMax(31, MotorType.kBrushless); // Front
+    private final RelativeEncoder IntakeR_enc = IntakeR.getEncoder();
+    private final RelativeEncoder IntakeF_enc = IntakeF.getEncoder();
 
 
     private boolean isLocked;
 
 
     public Intake() {
-      Intake0.setIdleMode(CANSparkMax.IdleMode.kCoast);
-      Intake1.setIdleMode(CANSparkMax.IdleMode.kCoast);
+      IntakeR.setIdleMode(CANSparkMax.IdleMode.kCoast);
+      IntakeF.setIdleMode(CANSparkMax.IdleMode.kCoast);
 
       isLocked = false;
     }
@@ -39,39 +36,38 @@ public class Intake extends SubsystemBase{
 
     /** @return RPM of the Front Intake Motor as double */
     public double getFrontRPM() {
-      return Intake1_enc.getVelocity();
+      return IntakeF_enc.getVelocity();
     }
 
     /** @return RPM of the Rear Intake Motor as double*/
     public double getRearRPM(){
-      return Intake0_enc.getVelocity();
+      return IntakeR_enc.getVelocity();
     }
 
     /** @return Output Current of the Front Intake Motor as double */
     public double getFrontCurrent() {
-      return Intake1.getOutputCurrent();
+      return IntakeF.getOutputCurrent();
     }
     
     /** @return Output Current of the Rear Intake Motor as double*/
     public double getRearCurrent(){
-        return Intake0.getOutputCurrent();
+        return IntakeR.getOutputCurrent();
     }
 
 
     /** @return Average of Intake motor's Output Amperage */
     public double getAverageCurrent() {
-      double current = (Intake0.getOutputCurrent() + Intake1.getOutputCurrent())/2;
-      SmartDashboard.putNumber("Intake/Intake Amps", current);
+      double current = (IntakeR.getOutputCurrent() + IntakeF.getOutputCurrent())/2;
+      SmartDashboard.putNumber("Intake/Front Intake Amps", IntakeF.getOutputCurrent());
+      SmartDashboard.putNumber("Intake/Rear Intake Amps", IntakeR.getOutputCurrent());
       return current;
     }
 
 
     /** Pulls the IntakeSpeed variables from shuffleboard  */
     public void updateConstants() {
-      OperatorConstants.IntakeSpeed = SmartDashboard.getNumber("Intake/Intake Speed", OperatorConstants.IntakeSpeed);
-      OperatorConstants.BackOut = SmartDashboard.getNumber("Intake/BackOut", OperatorConstants.BackOut);
-      OperatorConstants.FrontOut = SmartDashboard.getNumber("Intake/FrontOut", OperatorConstants.FrontOut);
-     }
+      // Nothing so far
+    }
 
 
 
@@ -83,10 +79,9 @@ public class Intake extends SubsystemBase{
      */
     public void setSpeed(double speedFront, double backSpeed){
       if(!isLocked) {
-        Intake0.set(backSpeed);
-        Intake1.set(speedFront);
+        IntakeR.set(backSpeed);
+        IntakeF.set(speedFront);
       }
-      else stop();
         //I might be done guys
         //He might not be either
      }
@@ -98,16 +93,15 @@ public class Intake extends SubsystemBase{
       */
      public void setIndividualspeed (double speed, boolean isRear) {
         if(!isLocked) {
-          if(isRear) Intake0.set(speed);
-          else Intake1.set(speed);
+          if(isRear) IntakeR.set(speed);
+          else IntakeF.set(speed);
         }
-        else stop();
      }
      
     /** Stops Both Motors */
      public void stop(){
-      Intake0.set(0.0);
-      Intake1.set(0.0);
+      IntakeR.set(0.0);
+      IntakeF.set(0.0);
      }
 
     /** Sets the Status of Intake lock 
@@ -115,6 +109,7 @@ public class Intake extends SubsystemBase{
     */
     public void setLock(boolean enable) {
       isLocked = enable;
+      stop();
      }
      
 
