@@ -12,7 +12,6 @@ import frc.robot.commands.Helpers.ArmCommands;
 import frc.robot.commands.Helpers.IntakeCommands;
 import frc.robot.commands.Helpers.WristCommands;
 import frc.robot.subsystems.Intake;
-import com.pathplanner.lib.*;
 
 
 public class auto extends SequentialCommandGroup {
@@ -26,10 +25,11 @@ public class auto extends SequentialCommandGroup {
     this.armCommands =  inarmCommands;
     this.intakeShoot = inintakeShoot;
     this.wristCommands = inwristCommands;
-      addCommands(new ParallelCommandGroup(armCommands.goToSpeaker(), wristCommands.goToSpeaker()));
-      //addCommands(new InstantCommand(intakeShoot::Shoot));
-      addCommands(new ParallelCommandGroup(armCommands.goToStow(), wristCommands.goToStow()));
-      addCommands(new PathPlannerAuto("CHS Roblox Exam"));
+      //addCommands(new ParallelCommandGroup(armCommands.goToSpeaker(), wristCommands.goToSpeaker()));
+      addCommands(armCommands.goToSpeaker(), armCommands.goToStow(), new PathPlannerAuto("CHS Robox exam"));
+      //addCommands(armCommands.goToStow()),
+      //addCommands(new ParallelCommandGroup(armCommands.goToStow(), wristCommands.goToStow()));
+      //addCommands(new PathPlannerAuto("CHS Robox exam"));
 
 
     }
