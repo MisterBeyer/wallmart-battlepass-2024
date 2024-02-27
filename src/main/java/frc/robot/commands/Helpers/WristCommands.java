@@ -39,9 +39,13 @@ import frc.robot.Constants.OperatorConstants;
 public class WristCommands extends Command{
     private Wrist wrist;
 
-    public WristCommands(Wrist wristprovider) {
+
+    /** Helper Commands For Wrist
+     *  @param module module to use as wrist
+     */
+    public WristCommands(Wrist module) {
         // Assign Control
-        this.wrist = wristprovider;
+        this.wrist = module;
 
         // Add requirements
         addRequirements(this.wrist);

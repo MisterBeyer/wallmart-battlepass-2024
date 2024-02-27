@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Helpers.ArmCommands;
-import frc.robot.commands.Helpers.IntakeShoot;
+import frc.robot.commands.Helpers.IntakeCommands;
 import frc.robot.commands.Helpers.WristCommands;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Wrist;
@@ -27,7 +27,7 @@ public class FourPos{
     // Define Helpers
     private ArmCommands ArmC;
     private WristCommands WristC;
-    private IntakeShoot IntakeC;//TODO: Speak to oliver about adding intake Commands
+    private IntakeCommands IntakeC;//TODO: Speak to oliver about adding intake Commands
 
 
     public FourPos(Arm armprovider, Wrist wristprovider, Intake intakeProvider) {
@@ -38,7 +38,7 @@ public class FourPos{
         // Setup Helper Commands
         ArmC = new ArmCommands(this.arm);
         WristC = new WristCommands(this.wrist);
-        IntakeC = new IntakeShoot(this.intake, null, null);
+        IntakeC = new IntakeCommands(this.intake, null, null);
     }
 
 
