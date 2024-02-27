@@ -25,22 +25,12 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 
-import frc.robot.commands.Helpers.ArmCommands;
-import frc.robot.commands.Helpers.WristCommands;
+import frc.robot.commands.Helpers.*;
 import frc.robot.commands.auto.auto;
-import frc.robot.commands.Helpers.IntakeCommands;
-
 import frc.robot.commands.swervedrive.AbsoluteDriveAdv;
 import frc.robot.commands.teleop.FourPos;
 
-import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.Bluetooth;
-import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.LeanProtection;
-import frc.robot.subsystems.Rumble;
-import frc.robot.subsystems.SwerveSubsystem;
-import frc.robot.subsystems.Wrist;
+import frc.robot.subsystems.*;
 
 import java.io.File;
 
@@ -65,9 +55,9 @@ public class RobotContainer
   private final Climber climber = new Climber();
   private final Bluetooth bluetooth = new Bluetooth();
 
-  private final ArmCommands armC = new ArmCommands(arm);
-  private final WristCommands wristC = new WristCommands(wrist);
-  private final IntakeCommands intakeC = new IntakeCommands(intake);
+  private final ArmCommands armCommands = new ArmCommands(arm);
+  private final WristCommands wristCommands = new WristCommands(wrist);
+  private final IntakeCommands intakeCommands = new IntakeCommands(intake);
 
   // Define Commands
   FourPos arm_control = new FourPos(arm, wrist, intake);
@@ -114,7 +104,7 @@ public class RobotContainer
                                                                    driverXbox::getBButtonPressed);
 
     // @SuppressWarnings("unused")
-    /* IntakeCommands intakeshoot = new IntakeCommands(intake, 
+    /* intakeCommandsommands intakeshoot = new intakeCommandsommands(intake, 
                                               () -> MathUtil.applyDeadband(operatorXbox.getRawAxis(3),
                                                                            OperatorConstants.IntakeDeadBand),
                                               () -> MathUtil.applyDeadband(operatorXbox.getRawAxis(1),
@@ -195,10 +185,10 @@ public class RobotContainer
     new JoystickButton(operatorXbox,4).onTrue(arm_control.Speaker());
 
     /* Direct Arm Movement Controls */
-    new JoystickButton(operatorXbox,5).onTrue(armC.MoveForward());
-    new JoystickButton(operatorXbox,6).onTrue(armC.MoveBackward());
-    new JoystickButton(operatorXbox,7).onTrue(wristC.MoveForward());
-    new JoystickButton(operatorXbox,8).onTrue(wristC.MoveBackward());
+    new JoystickButton(operatorXbox,5).onTrue(armCommands.MoveForward());
+    new JoystickButton(operatorXbox,6).onTrue(armCommands.MoveBackward());
+    new JoystickButton(operatorXbox,7).onTrue(wristCommands.MoveForward());
+    new JoystickButton(operatorXbox,8).onTrue(wristCommands.MoveBackward());
 
 
     Commands.startEnd(()->climber.deploy(Constants.ClimberConstants.FullExtensionEncoder), ()->climber.stop(), climber);
@@ -213,8 +203,7 @@ public class RobotContainer
   {
     drivebase.zeroGyro();
     // An example command will be run in autonomous
-    return new auto(armC, wristC, intakeC);// autoChooser.getSelected();
-
+    return new auto(armCommands, wristCommands, intakeCommands);// autoChooser.getSelected();
   }
 
   /**
