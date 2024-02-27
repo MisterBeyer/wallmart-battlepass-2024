@@ -53,7 +53,7 @@ public class IntakeCommands{
      */ 
     public Command ShootForward() { // TODO: Roll note slightly back before rampup
         return Commands.startEnd(() -> intake.ShootMode(true),
-                                 () -> intake.ShootMode(false), 
+                                 () -> intake.stop(), 
                                  intake);
     }    
 
@@ -65,7 +65,7 @@ public class IntakeCommands{
      */ 
     public Command Intake() {
         return Commands.startEnd(() -> intake.IntakeMode(true), 
-                                 () -> intake.IntakeMode(false),
+                                 () -> intake.stop(),
                                  intake);
     }
 
