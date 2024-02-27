@@ -61,7 +61,7 @@ public class RobotContainer
   private final IntakeCommands intakeCommands = new IntakeCommands(intake);
 
   // Define Command Helpers
-  FourPos arm_control = new FourPos(arm, wrist, intake);
+  private FourPos arm_control = new FourPos(arm, wrist, intake);
   // OperatorIntake intake_control = new OperatorIntake(intake);
 
   // CommandJoystick rotationController = new CommandJoystick(1);
@@ -73,7 +73,7 @@ public class RobotContainer
   XboxController operatorXbox = new XboxController(1);
 
   // Define Rumble Commands
-  Rumble rumble = new Rumble(driverXbox, operatorXbox);
+  private Rumble rumble = new Rumble(driverXbox, operatorXbox);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
