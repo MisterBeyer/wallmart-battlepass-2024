@@ -27,7 +27,7 @@ import frc.robot.Constants.*;
 
 import frc.robot.commands.Helpers.ArmCommands;
 import frc.robot.commands.Helpers.WristCommands;
-import frc.robot.commands.Helpers.IntakeShoot;
+import frc.robot.commands.Helpers.IntakeCommands;
 
 import frc.robot.commands.swervedrive.AbsoluteDriveAdv;
 import frc.robot.commands.teleop.FourPos;
@@ -112,7 +112,7 @@ public class RobotContainer
                                                                    driverXbox::getBButtonPressed);
 
     @SuppressWarnings("unused")
-    IntakeShoot intakeshoot = new IntakeShoot(intake, 
+    IntakeCommands intakeshoot = new IntakeCommands(intake, 
                                               () -> MathUtil.applyDeadband(operatorXbox.getRawAxis(3),
                                                                            OperatorConstants.IntakeDeadBand),
                                               () -> MathUtil.applyDeadband(operatorXbox.getRawAxis(1),
