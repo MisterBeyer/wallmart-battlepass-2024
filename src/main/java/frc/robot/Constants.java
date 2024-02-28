@@ -121,7 +121,7 @@ public final class Constants
     public static double BackOut = 0.8;
     public static double FrontOut = 0.8;
     public static double FrontRPM = 1;
-    public static int BackRPM = 0;
+    public static double IntakeNoteBackRPM = 0.1;
 
     // Arm Encoder Positions
     public static double ArmAmpPosition = -43.8;
@@ -141,6 +141,5 @@ public final class Constants
 
     // Joystick Rumble Stength
     public static final double RumbleStrength = 1.0;
-
   }
 }

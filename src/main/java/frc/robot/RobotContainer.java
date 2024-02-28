@@ -47,7 +47,7 @@ public class RobotContainer
   private final Intake intake = new Intake();
   private final Wrist wrist = new Wrist();
   private final Arm arm = new Arm();
-  private final Climber climber = new Climber();
+  //private final Climber climber = new Climber();
   //private final Bluetooth bluetooth = new Bluetooth();
 
   private final ArmCommands armCommands = new ArmCommands(arm);
@@ -83,8 +83,9 @@ public class RobotContainer
     NamedCommands.registerCommand("ArmToAmp", arm_control.Amp());
     NamedCommands.registerCommand("ArmToSpeaker", arm_control.Speaker());
 
-    NamedCommands.registerCommand("IntakeOut", intakeCommands.EjectForward()); // Intake
-    NamedCommands.registerCommand("IntakeIn", intakeCommands.EjectBackward());
+    NamedCommands.registerCommand("IntakeEjectF", intakeCommands.EjectForward()); // Intake
+    NamedCommands.registerCommand("IntakeEjectB", intakeCommands.EjectBackward());
+    NamedCommands.registerCommand("IntakeIn", intakeCommands.Intake());
     NamedCommands.registerCommand("IntakeShoot", intakeCommands.ShootForward());
     NamedCommands.registerCommand("IntakeStop", intakeCommands.Stop());
 
@@ -193,21 +194,19 @@ public class RobotContainer
     //new JoystickButton(driverXbox, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
 
     //   Operator Controller Binds
-
-
     // TODO: AutoStow, one button in
 
-    // Arm/Wrist
+    /* Specail */
     operatorXbox.start().onTrue(rumble.operator());  // Rumble Driver Controller
 
-    //TODO: Redo all of these to prefered buttons and commands when theyre set
     /* Main Arm Movement Controls */
     operatorXbox.x().onTrue((arm_control.Stow())); // Arm Positions
     operatorXbox.b().onTrue(arm_control.Intake());
     operatorXbox.a().onTrue(arm_control.Amp());
     operatorXbox.y().onTrue(arm_control.Speaker());
 
-    operatorXbox.leftTrigger().whileTrue(intakeCommands.IntakeNote());
+    /* Intake Controls */
+    operatorXbox.leftTrigger().whileTrue(intakeCommands.Intake());
     operatorXbox.rightTrigger().whileTrue(intakeCommands.ShootForward());
     operatorXbox.rightBumper().whileTrue(intakeCommands.EjectForward());
     operatorXbox.leftBumper().whileTrue(intakeCommands.EjectBackward());
