@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Helpers.ArmCommands;
-import frc.robot.commands.Helpers.IntakeCommands;
 import frc.robot.commands.Helpers.WristCommands;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Wrist;
