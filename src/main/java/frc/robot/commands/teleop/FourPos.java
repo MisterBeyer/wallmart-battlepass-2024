@@ -82,7 +82,7 @@ public class FourPos{
     public SequentialCommandGroup updateShuffleboard() {
         SequentialCommandGroup update = new SequentialCommandGroup(
             new InstantCommand(ArmC::updateConstants),
-            new InstantCommand(WristC::updateConstants),
+            new InstantCommand(WristC::updateConstants)
         );
 
         return update;
