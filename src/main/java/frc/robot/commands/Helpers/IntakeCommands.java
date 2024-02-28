@@ -9,6 +9,7 @@ import frc.robot.subsystems.Intake;
 
 //dont unplug the ethernet
 public class IntakeCommands{
+    
     private Intake intake;
 
     /** Helper Commands For Intake
