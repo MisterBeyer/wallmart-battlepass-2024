@@ -75,7 +75,7 @@ public class IntakeCommands{
      * @return Command
     */
     public Command EjectBackward(){
-        return Commands.startEnd(() -> intake.setSpeed(OperatorConstants.FrontOut, 0),
+        return Commands.startEnd(() -> intake.setSpeed(OperatorConstants.FrontOut, -OperatorConstants.FrontOut),
                                  () -> intake.stop(),
                                  intake);
     }
@@ -88,7 +88,7 @@ public class IntakeCommands{
     */
     public Command EjectForward(){
     double setSpeed = OperatorConstants.IntakeSpeed;
-        return Commands.startEnd(() -> intake.setSpeed(setSpeed, 0), 
+        return Commands.startEnd(() -> intake.setSpeed(-setSpeed, setSpeed), 
                                 () -> intake.stop(), 
                                 intake);
     }
@@ -107,8 +107,8 @@ public class IntakeCommands{
     */
     private void RampUp() {
       //mhm yup boom
-      while(intake.getFrontRPM() < OperatorConstants.FrontRPM) intake.setSpeed(OperatorConstants.FrontOut, 0);
-      intake.setSpeed(OperatorConstants.FrontOut, -OperatorConstants.BackOut);
+      while(intake.getFrontRPM() < OperatorConstants.FrontRPM) intake.setSpeed(OperatorConstants.FrontEject, 0);
+      intake.setSpeed(-OperatorConstants.FrontEject, OperatorConstants.BackEject);
     }
 
     /** Runs intake Util Note Hits Rear Roller
@@ -116,7 +116,7 @@ public class IntakeCommands{
      */
     private void IntakeNote() {
         // TODO:  class in wpilib does something like this
-        while(intake.getRearRPM() < OperatorConstants.IntakeNoteBackRPM) intake.setSpeed(-OperatorConstants.FrontOut, 0);
+        while(-intake.getRearRPM() < OperatorConstants.IntakeNoteBackRPM) intake.setSpeed(OperatorConstants.FrontOut, 0);
         intake.stop();
     }
 

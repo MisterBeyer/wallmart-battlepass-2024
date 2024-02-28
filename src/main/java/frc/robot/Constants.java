@@ -54,8 +54,8 @@ public final class Constants
 
 
     // Trapazoidal Profile Constants
-    public static double kMaxVelocityRadPerSecond = 35; 
-    public static double kMaxAccelerationRadPerSecSquared = 35;
+    public static double kMaxVelocityRadPerSecond = 45; 
+    public static double kMaxAccelerationRadPerSecSquared = 45;
     public static double kArmOffsetRads = 0.0;
 
     // Arm Feedforward Constants
@@ -82,8 +82,8 @@ public final class Constants
   
 
     // Trapazoidal Profile Constants
-    public static double kMaxVelocityRadPerSecond = 10; 
-    public static double kMaxAccelerationRadPerSecSquared = 10;
+    public static double kMaxVelocityRadPerSecond = 35; 
+    public static double kMaxAccelerationRadPerSecSquared = 35;
     public static double kWristOffsetRads = 0.0;
 
     // Arm Feedforward Constants
@@ -118,9 +118,11 @@ public final class Constants
   {
     // Intake/Outake Speed
     public static double IntakeSpeed = 0.6; 
-    public static double BackOut = 0.8;
-    public static double FrontOut = 0.8;
-    public static double FrontRPM = 1;
+    public static double BackOut = 0.5;
+    public static double FrontOut = 0.5; //TODO: add more constants for other commands
+    public static double FrontRPM = 4500;
+    public static double FrontEject = 0.8;
+    public static double BackEject = 0.8;
     public static double IntakeNoteBackRPM = 0.1;
 
     // Arm Encoder Positions
