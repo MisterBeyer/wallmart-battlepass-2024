@@ -59,7 +59,7 @@ public class RobotContainer
   private final IntakeCommands intakeCommands = new IntakeCommands(intake);
 
   // Define Command Helpers
-  private FourPos arm_control = new FourPos(arm, wrist, intake);
+  private FourPos arm_control = new FourPos(arm, wrist);
   // OperatorIntake intake_control = new OperatorIntake(intake);
 
   // CommandJoystick rotationController = new CommandJoystick(1);
