@@ -27,6 +27,7 @@ import frc.robot.commands.teleop.FourPos;
 import frc.robot.subsystems.*;
 
 import java.io.File;
+import java.sql.DriverPropertyInfo;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -38,6 +39,9 @@ import com.pathplanner.lib.auto.NamedCommands;
  */
 public class RobotContainer
 {
+  private final int DriverControllerPort = 0;
+  private final int OperatorControllerPort = 1;
+
   // Create and auto chooser for use with SmartDashboard
   private final SendableChooser<Command> autoChooser;
 
@@ -63,11 +67,11 @@ public class RobotContainer
   //CommandJoystick driverController = new CommandJoystick(1);
 
   // CommandJoystick driverController   = new CommandJoystick(3);//(OperatorConstants.DRIVER_CONTROLLER_PORT);
-  CommandXboxController driverXbox = new CommandXboxController(0);
-  CommandXboxController operatorXbox = new CommandXboxController(1);
+  CommandXboxController driverXbox = new CommandXboxController(DriverControllerPort);
+  CommandXboxController operatorXbox = new CommandXboxController(OperatorControllerPort);
 
   // Define Rumble Commands
-  private Rumble rumble = new Rumble(0, 1);
+  private Rumble rumble = new Rumble(DriverControllerPort, OperatorControllerPort);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.

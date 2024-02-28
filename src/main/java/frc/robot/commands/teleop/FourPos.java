@@ -8,7 +8,6 @@ import frc.robot.commands.Helpers.IntakeCommands;
 import frc.robot.commands.Helpers.WristCommands;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Wrist;
-import frc.robot.subsystems.Intake;
 
 
 /* Adds four commands to be used by operator to control the arm/wrist/intake module
@@ -22,23 +21,19 @@ public class FourPos{
     // Define Subsystems
     private Arm arm;
     private Wrist wrist;
-    private Intake intake;
 
     // Define Helpers
     private ArmCommands ArmC;
     private WristCommands WristC;
-    private IntakeCommands IntakeC;
 
 
-    public FourPos(Arm armprovider, Wrist wristprovider, Intake intakeProvider) {
+    public FourPos(Arm armprovider, Wrist wristprovider) {
         this.arm = armprovider;
         this.wrist = wristprovider;
-        this.intake = intakeProvider;
 
         // Setup Helper Commands
         ArmC = new ArmCommands(this.arm);
         WristC = new WristCommands(this.wrist);
-        IntakeC = new IntakeCommands(this.intake);
     }
 
 
@@ -46,8 +41,6 @@ public class FourPos{
     /** Brings the Robot into the Stow Position */
     public ParallelCommandGroup Stow() {
         ParallelCommandGroup stow = new ParallelCommandGroup(
-            IntakeC.Stop(),    
-        
             ArmC.goToStow(),
             WristC.goToStow()
         );
@@ -57,8 +50,6 @@ public class FourPos{
     /** Brings the Robot's Intake out */
     public ParallelCommandGroup Intake() {
         ParallelCommandGroup ground = new ParallelCommandGroup(
-            IntakeC.Stop(),
-        
             ArmC.goToStow(),
             WristC.goToIntake()
 
@@ -69,8 +60,6 @@ public class FourPos{
     /** Brings the Robot into Position to Shoot into Amp */
     public ParallelCommandGroup Amp() {
         ParallelCommandGroup amp = new ParallelCommandGroup(
-            IntakeC.Stop(),
-
             ArmC.goToAmp(),
             WristC.goToAmp()
         );
@@ -79,9 +68,7 @@ public class FourPos{
 
     /** Brings the Robot into Position to Shoot into Speaker */
     public ParallelCommandGroup Speaker() {
-        ParallelCommandGroup speaker = new ParallelCommandGroup(
-            IntakeC.Stop(), 
-        
+        ParallelCommandGroup speaker = new ParallelCommandGroup(     
             ArmC.goToSpeaker(),
             WristC.goToSpeaker()
 
@@ -96,7 +83,6 @@ public class FourPos{
         SequentialCommandGroup update = new SequentialCommandGroup(
             new InstantCommand(ArmC::updateConstants),
             new InstantCommand(WristC::updateConstants),
-            new InstantCommand(intake::updateConstants)
         );
 
         return update;
