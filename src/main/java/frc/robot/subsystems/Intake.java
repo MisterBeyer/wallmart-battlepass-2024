@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.OperatorConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -19,8 +18,6 @@ public class Intake extends SubsystemBase{
 
 
     private boolean isLocked;
-    private boolean isShooting;
-    private boolean isIntaking;
 
 
     public Intake() {
@@ -28,8 +25,6 @@ public class Intake extends SubsystemBase{
       IntakeF.setIdleMode(CANSparkMax.IdleMode.kCoast);
 
       isLocked = false;
-      isShooting = false;
-      isIntaking = false;
     }
 
 
@@ -82,20 +77,6 @@ public class Intake extends SubsystemBase{
 
 
 
-    /** Intake Mode set */
-    public boolean IntakeMode(boolean enable) {
-      isIntaking = enable;
-      return isIntaking;
-    }
-
-    /** Shooting Mode set */
-    public boolean ShootMode(boolean enable) {
-      isShooting = enable;
-      return isShooting;
-    }
-
-
-
     /**
      * Sets speed of both intake motors
      * Will not work if intake lock is true
@@ -125,9 +106,6 @@ public class Intake extends SubsystemBase{
      
     /** Stops Both Motors */
      public void stop(){
-      isShooting = false;
-      isIntaking = false;
-      
       IntakeR.set(0.0);
       IntakeF.set(0.0);
      }
@@ -157,19 +135,6 @@ public class Intake extends SubsystemBase{
     @Override
     public void periodic() { 
       putData();
-
-
-      if(isShooting) {
-        if(getFrontRPM() < OperatorConstants.FrontRPM) {
-        setSpeed(OperatorConstants.FrontOut, 0);
-        }
-        else setSpeed(-OperatorConstants.FrontEject, -OperatorConstants.BackEject);
-      }
-      if(isIntaking) { 
-        if(-getRearRPM() < OperatorConstants.IntakeNoteBackRPM) {
-          setSpeed(OperatorConstants.FrontOut, 0); 
-        }
-       }
 
       // Make sure we're not running intake when we're not supposed to
       //verifyLock();
