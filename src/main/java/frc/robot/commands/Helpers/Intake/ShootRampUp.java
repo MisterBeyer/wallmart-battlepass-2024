@@ -1,6 +1,7 @@
 package frc.robot.commands.Helpers.Intake;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.Intake;
 
@@ -17,6 +18,10 @@ public class ShootRampUp extends Command {
     @Override
     public void initialize() {
         state = 0;
+
+        intake.setIndividualspeed(0.1,true);
+        new WaitCommand(1);
+        intake.stop();
     }
 
     @Override
