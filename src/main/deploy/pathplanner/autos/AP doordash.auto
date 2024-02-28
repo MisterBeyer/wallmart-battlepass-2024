@@ -12,9 +12,81 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "ArmToSpeaker"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.75
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeShoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeStop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ArmToStow"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Speaker - Note"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ArmToIntake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeIn"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeStop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": null
           }
         },
         {
@@ -26,43 +98,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Speaker - Note1"
+            "pathName": "SpeakertoNote2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Note1 to Speaker"
+            "pathName": "Note2 - Speaker"
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "SpeakerToNote"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "top note - amp"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Amp - Out of Wing Note"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Out of wing note - Amp"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "amp - top note"
           }
         },
         {
