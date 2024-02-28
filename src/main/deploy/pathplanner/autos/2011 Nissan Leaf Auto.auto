@@ -158,13 +158,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Note2ToSpeaker"
+            "pathName": "Note2ToAmp"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "ArmToSpeaker"
+            "name": "ArmToAmp"
           }
         },
         {
@@ -176,7 +176,7 @@
         {
           "type": "named",
           "data": {
-            "name": "IntakeShoot"
+            "name": "IntakeIn"
           }
         },
         {
@@ -200,7 +200,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SpeakerToOut"
+            "pathName": "Amp - Out of Wing Note"
           }
         }
       ]
