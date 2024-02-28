@@ -21,8 +21,8 @@ public class IntakeCommands{
         // ShuffleBoard!
         SmartDashboard.putNumber("Intake/Front Motor Speed", OperatorConstants.FrontOut);
         SmartDashboard.putNumber("Intake/Rear Motor Speed", OperatorConstants.BackOut);
-        SmartDashboard.putNumber("Operator/Intake [Front] Goal RPM", OperatorConstants.FrontRPM); 
-        //SmartDashboard.putNumber("Operator/Intake [Back] Goal RPM", OperatorConstants.BackRPM);
+        SmartDashboard.putNumber("Operator/Shoot [Front] Goal RPM", OperatorConstants.FrontRPM); 
+        SmartDashboard.putNumber("Operator/Intake [Back] Goal RPM", OperatorConstants.IntakeNoteBackRPM);
     }
 
 
@@ -34,8 +34,8 @@ public class IntakeCommands{
         OperatorConstants.BackOut  = SmartDashboard.getNumber("Intake/Rear Motor Speed", OperatorConstants.BackOut);
 
         // RPM Goals
-        OperatorConstants.FrontRPM = SmartDashboard.getNumber("Operator/Intake [Front] Goal RPM", OperatorConstants.FrontRPM); 
-        //OperatorConstants.BackRPM  = SmartDashboard.getNumber("Operator/Intake [Back] Goal RPM", OperatorConstants.BackRPM); 
+        OperatorConstants.FrontRPM = SmartDashboard.getNumber("Operator/Shoot [Front] Goal RPM", OperatorConstants.FrontRPM); 
+        OperatorConstants.IntakeNoteBackRPM = SmartDashboard.getNumber("Operator/Intake [Back] Goal RPM", OperatorConstants.IntakeNoteBackRPM); 
 
         // Update Constants of Subsystems
         intake.updateConstants();
@@ -51,9 +51,21 @@ public class IntakeCommands{
      */ 
     public Command ShootForward() { // TODO: Roll note slightly back before rampup
         return Commands.startEnd(() -> RampUp(),
-                                 () -> Stop(), 
+                                 () -> intake.stop(), 
                                  intake);
     }    
+
+    /**
+     * Intakes note
+     * Sets intake Speed to OperatorConstants.FrontOut
+     * 
+     * @return Command
+     */ 
+    public Command Intake() {
+        return Commands.startEnd(() -> IntakeNote(), 
+                                 () -> intake.stop(),
+                                 intake);
+    }
 
     /** 
      * Runs intake Backward
@@ -63,7 +75,7 @@ public class IntakeCommands{
     */
     public Command EjectBackward(){
         return Commands.startEnd(() -> intake.setSpeed(OperatorConstants.FrontOut, 0),
-                                 () -> Stop(),
+                                 () -> intake.stop(),
                                  intake);
     }
 
@@ -76,20 +88,8 @@ public class IntakeCommands{
     public Command EjectForward(){
     double setSpeed = OperatorConstants.IntakeSpeed;
         return Commands.startEnd(() -> intake.setSpeed(setSpeed, 0), 
-                                () -> Stop(), 
+                                () -> intake.stop(), 
                                 intake);
-    }
-
-    /**
-     * Intakes note
-     * Sets intake Speed to OperatorConstants.FrontOut
-     * 
-     * @return Command
-     */ 
-    public Command IntakeNote() {
-        return Commands.startEnd(() -> intake.setSpeed(-OperatorConstants.FrontOut, 0), 
-                                 () -> Stop(),
-                                 intake);
     }
 
     /** Stops the Intake when called 
@@ -110,5 +110,13 @@ public class IntakeCommands{
       intake.setSpeed(OperatorConstants.FrontOut, -OperatorConstants.BackOut);
     }
 
-    // TODO: Implement stop intake on note, class in wpilib does something like this
+    /** Runs intake Util Note Hits Rear Roller
+     *  Uses amp limit set for rear roller in operatorConstants to detect note
+     */
+    private void IntakeNote() {
+        // TODO:  class in wpilib does something like this
+        while(intake.getRearRPM() < OperatorConstants.IntakeNoteBackRPM) intake.setSpeed(-OperatorConstants.FrontOut, 0);
+        intake.stop();
+    }
+
 }
