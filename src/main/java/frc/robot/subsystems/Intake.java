@@ -12,8 +12,8 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 // Bofa Intake System
 
 public class Intake extends SubsystemBase{
-    private final CANSparkMax IntakeR = new CANSparkMax(30, MotorType.kBrushless); // Rear
-    private final CANSparkMax IntakeF = new CANSparkMax(31, MotorType.kBrushless); // Front
+    private final CANSparkMax IntakeR = new CANSparkMax(30, MotorType.kBrushless);
+    private final CANSparkMax IntakeF = new CANSparkMax(31, MotorType.kBrushless);
     private final RelativeEncoder IntakeR_enc = IntakeR.getEncoder();
     private final RelativeEncoder IntakeF_enc = IntakeF.getEncoder();
 
@@ -58,11 +58,18 @@ public class Intake extends SubsystemBase{
     /** @return Average of Intake motor's Output Amperage */
     public double getAverageCurrent() {
       double current = (IntakeR.getOutputCurrent() + IntakeF.getOutputCurrent())/2;
-      SmartDashboard.putNumber("Intake/Front Intake Amps", IntakeF.getOutputCurrent());
-      SmartDashboard.putNumber("Intake/Rear Intake Amps", IntakeR.getOutputCurrent());
       return current;
     }
 
+
+
+    /** Puts data onto Shuffleboard */
+    public void putData() {
+      SmartDashboard.putNumber("Intake/Front Intake Amps", getFrontCurrent());
+      SmartDashboard.putNumber("Intake/Rear Intake Amps", getRearCurrent());
+      SmartDashboard.putNumber("Intake/Front Intake RPM", getFrontRPM());
+      SmartDashboard.putNumber("Intake/Rear Intake RPM", getRearRPM());
+    }
 
     /** Pulls the IntakeSpeed variables from shuffleboard  */
     public void updateConstants() {
@@ -122,6 +129,6 @@ public class Intake extends SubsystemBase{
     // This method will be called once per scheduler run
     @Override
     public void periodic() { 
-      getAverageCurrent();
+      putData();
     }
 }
