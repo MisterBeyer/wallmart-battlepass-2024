@@ -1,4 +1,5 @@
-package frc.robot.commands.Helpers;
+package frc.robot.commands.H
+elpers;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -11,6 +12,9 @@ import frc.robot.subsystems.Intake;
 public class IntakeCommands{
     
     private Intake intake;
+
+    // Variables
+    private boolean commandcancel;
 
     /** Helper Commands For Intake
      *  @param module module to use as intake
@@ -38,6 +42,9 @@ public class IntakeCommands{
         OperatorConstants.FrontRPM = SmartDashboard.getNumber("Operator/Shoot [Front] Goal RPM", OperatorConstants.FrontRPM); 
         OperatorConstants.IntakeNoteBackRPM = SmartDashboard.getNumber("Operator/Intake [Back] Goal RPM", OperatorConstants.IntakeNoteBackRPM); 
 
+        // Variables
+        commandcancel = false;
+
         // Update Constants of Subsystems
         intake.updateConstants();
     }
@@ -52,7 +59,7 @@ public class IntakeCommands{
      */ 
     public Command ShootForward() { // TODO: Roll note slightly back before rampup
         return Commands.startEnd(() -> RampUp(),
-                                 () -> intake.stop(), 
+                                 () -> commandcancel = true, 
                                  intake);
     }    
 
@@ -64,7 +71,7 @@ public class IntakeCommands{
      */ 
     public Command Intake() {
         return Commands.startEnd(() -> IntakeNote(), 
-                                 () -> intake.stop(),
+                                 () -> commandcancel = true,
                                  intake);
     }
 
@@ -107,8 +114,11 @@ public class IntakeCommands{
     */
     private void RampUp() {
       //mhm yup boom
-      while(intake.getFrontRPM() < OperatorConstants.FrontRPM) intake.setSpeed(OperatorConstants.FrontEject, 0);
-      intake.setSpeed(-OperatorConstants.FrontEject, OperatorConstants.BackEject);
+
+      while(intake.getFrontRPM() < OperatorConstants.FrontRPM || commandcancel) intake.setSpeed(OperatorConstants.FrontEject, 0);
+      intake.setSpeed(-OperatorConstants.FrontEject, -OperatorConstants.BackEject);
+
+      commandcancel = false;
     }
 
     /** Runs intake Util Note Hits Rear Roller
@@ -116,8 +126,10 @@ public class IntakeCommands{
      */
     private void IntakeNote() {
         // TODO:  class in wpilib does something like this
-        while(-intake.getRearRPM() < OperatorConstants.IntakeNoteBackRPM) intake.setSpeed(OperatorConstants.FrontOut, 0);
+        while(-intake.getRearRPM() < OperatorConstants.IntakeNoteBackRPM || commandcancel) intake.setSpeed(OperatorConstants.FrontOut, 0);
         intake.stop();
+
+        commandcancel = false;
     }
 
 }
