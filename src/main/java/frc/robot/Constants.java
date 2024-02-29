@@ -120,9 +120,9 @@ public final class Constants
     public static double IntakeSpeed = 0.6; 
     public static double BackOut = 0.7;
     public static double FrontOut = 0.7; //TODO: add more constants for other commands
-    public static double FrontRPM = 4500;
-    public static double FrontEject = 0.8;
-    public static double BackEject = 0.8;
+    public static double FrontRPM = 3500;
+    public static double FrontEject = 0.9;
+    public static double BackEject = 0.9;
     public static double IntakeNoteBackRPM = 0.1;
 
     // Arm Encoder Positions
