@@ -52,6 +52,8 @@ public class RobotContainer
   private final Intake intake = new Intake();
   private final Wrist wrist = new Wrist();
   private final Arm arm = new Arm();
+
+  private final Climber climber = new Climber();
   //private final Climber climber = new Climber();
   //private final Bluetooth bluetooth = new Bluetooth();
 
@@ -206,10 +208,16 @@ public class RobotContainer
     operatorXbox.start().onTrue(rumble.operator());  // Rumble Driver Controller
 
     /* Main Arm Movement Controls */
-    operatorXbox.x().onTrue((arm_control.Stow())); // Arm Positions
+    operatorXbox.x().onTrue(arm_control.Stow()); // Arm Positions
     operatorXbox.b().onTrue(arm_control.Intake());
     operatorXbox.a().onTrue(arm_control.Amp());
     operatorXbox.y().onTrue(arm_control.Speaker());
+
+    /* Climber Controls */
+    operatorXbox.start().whileTrue(climber.retractLeft());
+    operatorXbox.back().whileTrue(climber.retractRight());
+    operatorXbox.leftStick().whileTrue(climber.Extend());
+
 
     /* Intake Controls */
     operatorXbox.leftTrigger().whileTrue(autoOP.Intake());
