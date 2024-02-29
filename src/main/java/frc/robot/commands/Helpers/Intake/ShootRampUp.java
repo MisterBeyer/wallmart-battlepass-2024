@@ -1,7 +1,7 @@
 package frc.robot.commands.Helpers.Intake;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.Intake;
 
