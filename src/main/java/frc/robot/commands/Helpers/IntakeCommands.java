@@ -4,7 +4,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.Constants.OperatorConstants;
-
+import frc.robot.commands.Helpers.Intake.IntakeNote;
+import frc.robot.commands.Helpers.Intake.ShootRampUp;
 import frc.robot.subsystems.Intake;
 
 //dont unplug the ethernet
@@ -52,9 +53,7 @@ public class IntakeCommands{
      * @return Command
      */ 
     public Command ShootForward() { // TODO: Roll note slightly back before rampup
-        return Commands.startEnd(() -> intake.ShootMode(true),
-                                 () -> intake.stop(), 
-                                 intake);
+        return new ShootRampUp(intake);
     }    
 
     /**
@@ -64,9 +63,7 @@ public class IntakeCommands{
      * @return Command
      */ 
     public Command Intake() {
-        return Commands.startEnd(() -> intake.IntakeMode(true), 
-                                 () -> intake.stop(),
-                                 intake);
+        return new IntakeNote(intake);
     }
 
     /** 
@@ -100,28 +97,4 @@ public class IntakeCommands{
     public Command Stop() {
         return Commands.runOnce(() -> intake.stop(), intake);
     }
-
-
-
-    /** Ramps up Front motor of intake, until it reaches the speed defined
-    *   in operatorconstants.FrontRPM
-    */
-    private void RampUp() {
-      //mhm yup boom
-
-      while(intake.getFrontRPM() < OperatorConstants.FrontRPM) intake.setSpeed(OperatorConstants.FrontEject, 0);
-      intake.setSpeed(-OperatorConstants.FrontEject, -OperatorConstants.BackEject);
-    }
-
-    /** Runs intake Util Note Hits Rear Roller
-     *  Uses amp limit set for rear roller in operatorConstants to detect note
-     */
-    private void IntakeNote() {
-        // TODO:  class in wpilib does something like this
-        while(-intake.getRearRPM() < OperatorConstants.IntakeNoteBackRPM) {
-            intake.setSpeed(OperatorConstants.FrontOut, 0);
-        }
-        intake.stop();
-    }
-
 }
