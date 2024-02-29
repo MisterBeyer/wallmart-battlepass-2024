@@ -24,6 +24,10 @@ public class Climber extends SubsystemBase{
       Motor1.setIdleMode(CANSparkMax.IdleMode.kBrake);
       Motor1.setInverted(true);
 
+      // Save settings in case of brownout
+      Motor0.burnFlash();
+      Motor1.burnFlash();
+
       // Reset Encoder values
       Motor0_encoder.setPosition(0.0);
 
