@@ -34,7 +34,7 @@ public class ShootRampUp extends Command {
         }
         else if (state == 1) {
             if(true) { //TODO: Find when note has left the intake
-                intake.setSpeed(-OperatorConstants.FrontEject, OperatorConstants.BackEject);
+                intake.setSpeed(-OperatorConstants.FrontEject, -OperatorConstants.BackEject);
             }
             else state = 2;
         }
