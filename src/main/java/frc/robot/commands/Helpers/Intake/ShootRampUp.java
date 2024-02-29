@@ -27,14 +27,14 @@ public class ShootRampUp extends Command {
     @Override
     public void execute() {
         if (state == 0) {
-            if(intake.getFrontRPM() > OperatorConstants.FrontRPM) {
+            if(Math.abs(intake.getFrontRPM()) < OperatorConstants.FrontRPM) {
                 intake.setSpeed(OperatorConstants.FrontEject, 0);
             }
             else state = 1;
         }
         else if (state == 1) {
             if(true) { //TODO: Find when note has left the intake
-                intake.setSpeed(-OperatorConstants.FrontEject, -OperatorConstants.BackEject);
+                intake.setSpeed(-OperatorConstants.FrontEject, OperatorConstants.BackEject);
             }
             else state = 2;
         }
