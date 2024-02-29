@@ -24,6 +24,10 @@ public class Intake extends SubsystemBase{
       IntakeR.setIdleMode(CANSparkMax.IdleMode.kCoast);
       IntakeF.setIdleMode(CANSparkMax.IdleMode.kCoast);
 
+      // Save settings in case of brownout
+      IntakeR.burnFlash();
+      IntakeF.burnFlash();
+
       isLocked = false;
     }
 
