@@ -59,6 +59,9 @@ public class Wrist extends TrapezoidProfileSubsystem{
 
 
         Wrist0_pidController.setOutputRange(-0.8, 0.8); // kMINOutput, kMAXOutput
+
+        // Save settings in case of brownout
+        Wrist0.burnFlash();
         
 
         // Shuffleboard!

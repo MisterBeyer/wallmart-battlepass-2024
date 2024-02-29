@@ -26,9 +26,9 @@ import frc.robot.commands.teleop.AutoOperator;
 import frc.robot.commands.teleop.FourPos;
 
 import frc.robot.subsystems.*;
-
 import java.io.File;
-import java.sql.DriverPropertyInfo;
+/*  Not sure how this got hre
+import java.sql.DriverPropertyInfo; */
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
