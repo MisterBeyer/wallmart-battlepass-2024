@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
 
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkMax;
@@ -17,7 +19,10 @@ public class Climber extends SubsystemBase{
     private final CANSparkMax Motor1 = new CANSparkMax(46, MotorType.kBrushless);
 
     private RelativeEncoder Motor0_encoder = Motor0.getEncoder();  // Encoder used to find max retraction distance
+    private RelativeEncoder Motor1_encoder = Motor1.getEncoder();  // Encoder used to find max retraction distance
 
+    private boolean ExtendingL;
+    private boolean ExtendingR;
 
     public Climber() {
       Motor0.setIdleMode(CANSparkMax.IdleMode.kBrake);
@@ -30,8 +35,12 @@ public class Climber extends SubsystemBase{
 
       // Reset Encoder values
       Motor0_encoder.setPosition(0.0);
+      Motor1_encoder.setPosition(0.0);
 
       // Have Motors follow each other
+
+      ExtendingL = false;
+      ExtendingR = false;
     }
 
 
@@ -85,6 +94,31 @@ public class Climber extends SubsystemBase{
     }
 
 
+    public Command retractLeft() {
+      return Commands.startEnd(() -> Motor0.set(-ClimberConstants.MaxSpeed),
+                               () -> Motor0.set(0),
+                               this);
+    }
+
+    public Command retractRight() {
+      return Commands.startEnd(() -> Motor1.set(-ClimberConstants.MaxSpeed),
+                               () -> Motor1.set(0),
+                               this);
+    }
+
+    public Command Extend() {
+      return Commands.startEnd(() -> {
+                                        ExtendingL = true;
+                                        ExtendingR = true;  
+                                     },
+                               () -> {
+                                        ExtendingL = false;
+                                        ExtendingR = false;  
+                                      },
+                               this);
+    }
+
+
      /**
       * Stops Both Motors
       */
@@ -103,5 +137,14 @@ public class Climber extends SubsystemBase{
     public void periodic() { 
       getCurrent();
       updateConstants();
+
+      if(Motor0_encoder.getPosition() < ClimberConstants.FullExtensionEncoder) {
+        if(ExtendingL) Motor0.set(ClimberConstants.MaxSpeed);
+        else ExtendingL = false;
+      }
+      if(Motor1_encoder.getPosition() < ClimberConstants.FullExtensionEncoder) {
+        if(ExtendingR) Motor1.set(ClimberConstants.MaxSpeed);
+        else ExtendingR = false;
+      }
     }
 }
