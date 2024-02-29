@@ -62,7 +62,7 @@ public class Arm extends TrapezoidProfileSubsystem{
         Arm0_pidController.setFF(ArmConstants.FF);
 
     
-        Arm0_pidController.setOutputRange(-0.5, 0.5); // kMINOutput, kMAXOutput
+        Arm0_pidController.setOutputRange(-0.8, 0.8); // kMINOutput, kMAXOutput
         
 
         // Shuffleboard!
