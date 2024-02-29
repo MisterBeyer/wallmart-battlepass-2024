@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 
 import frc.robot.commands.Helpers.*;
-import frc.robot.commands.teleop.AutoStow;
+import frc.robot.commands.teleop.AutoOperator;
 import frc.robot.commands.teleop.FourPos;
 
 import frc.robot.subsystems.*;
@@ -61,7 +61,7 @@ public class RobotContainer
 
   // Define Command Helpers
   private FourPos arm_control = new FourPos(arm, wrist);
-  private AutoStow autostow = new AutoStow(arm, wrist, intake);
+  private AutoOperator autoOP = new AutoOperator(arm, wrist, intake);
   // OperatorIntake intake_control = new OperatorIntake(intake);
 
   // CommandJoystick rotationController = new CommandJoystick(1);
@@ -212,7 +212,7 @@ public class RobotContainer
     operatorXbox.y().onTrue(arm_control.Speaker());
 
     /* Intake Controls */
-    operatorXbox.leftTrigger().whileTrue(autostow);
+    operatorXbox.leftTrigger().whileTrue(autoOP.Intake());
     operatorXbox.rightTrigger().whileTrue(intakeCommands.ShootForward());
     operatorXbox.rightStick().whileTrue(intakeCommands.EjectForward());
     operatorXbox.leftBumper().whileTrue(intakeCommands.EjectBackward());
