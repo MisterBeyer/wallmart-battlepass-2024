@@ -54,8 +54,8 @@ public final class Constants
 
 
     // Trapazoidal Profile Constants
-    public static double kMaxVelocityRadPerSecond = 45; 
-    public static double kMaxAccelerationRadPerSecSquared = 45;
+    public static double kMaxVelocityRadPerSecond = 75; 
+    public static double kMaxAccelerationRadPerSecSquared = 75;
     public static double kArmOffsetRads = 0.0;
 
     // Arm Feedforward Constants
@@ -117,27 +117,28 @@ public final class Constants
   public static class OperatorConstants
   {
     // Intake/Outake Speed
-    public static double IntakeSpeed = 0.6; 
     public static double BackOut = 0.7;
-    public static double FrontOut = 0.7; //TODO: add more constants for other commands
-    public static double FrontRPM = 3500;
-    public static double FrontEject = 0.9;
-    public static double BackEject = 0.9;
-    public static double IntakeNoteBackRPM = 0.1;
+    public static double FrontOut = 0.7;
+    public static double FrontIn = 0.7;
+    public static double BackSlow = 0.7;
+    public static double FrontSlow = 0.7;
+    public static double FrontRPM = 3200;
+    public static double IntakeNoteBackRPM = 2;
+    public static double NoteLeftFrontAmps = 30.0;
 
     // Arm Encoder Positions
     public static double ArmAmpPosition = -43.8;
     public static double ArmSpeakerPosition = -35.0;
 
     public static double WristAmpPosition = -12.5;
-    public static double WristSpeakerPosition = -11.5;
+    public static double WristSpeakerPosition = -11;
     public static double WristIntakePosition = -14;
 
     
     // Joystick Deadband
     public static final double LEFT_X_DEADBAND = 0.05;
     public static final double LEFT_Y_DEADBAND = 0.05;
-    public static final double RIGHT_X_DEADBAND = 0.05;
+    public static final double RIGHT_X_DEADBAND = 0.6;
     public static final double TURN_CONSTANT = 0.75;
     public static final double IntakeDeadBand = 0.05;
 
