@@ -73,7 +73,7 @@ public class IntakeCommands{
      * @return Command
     */
     public Command EjectBackward(){
-        return Commands.startEnd(() -> intake.setSpeed(OperatorConstants.FrontOut, -OperatorConstants.FrontOut),
+        return Commands.startEnd(() -> intake.setSpeed(OperatorConstants.FrontOut, -OperatorConstants.BackOut),
                                  () -> intake.stop(),
                                  intake);
     }
@@ -85,8 +85,7 @@ public class IntakeCommands{
      * @return Command
     */
     public Command EjectForward(){
-    double setSpeed = OperatorConstants.IntakeSpeed;
-        return Commands.startEnd(() -> intake.setSpeed(-setSpeed, setSpeed), 
+        return Commands.startEnd(() -> intake.setSpeed(-OperatorConstants.FrontOut, OperatorConstants.FrontOut), 
                                 () -> intake.stop(), 
                                 intake);
     }

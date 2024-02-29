@@ -18,26 +18,35 @@ public class ShootRampUp extends Command {
     @Override
     public void initialize() {
         state = 0;
-
-        intake.setIndividualspeed(0.1,true);
-        new WaitCommand(1);
-        intake.stop();
     }
 
     @Override
     public void execute() {
-        if (state == 0) {
-            if(Math.abs(intake.getFrontRPM()) < OperatorConstants.FrontRPM) {
-                intake.setSpeed(OperatorConstants.FrontEject, 0);
+        if (state == 0) { // Spin-up Front Roller
+            if(intake.getFrontCurrent() < OperatorConstants.NoteLeftFrontAmps) {
+                intake.setSpeed(OperatorConstants.FrontSlow, 0);
             }
             else state = 1;
         }
-        else if (state == 1) {
-            if(true) { //TODO: Find when note has left the intake
-                intake.setSpeed(-OperatorConstants.FrontEject, -OperatorConstants.BackEject);
+        else if (state == 1) { // Move Note to Back Roller
+            if(intake.getFrontCurrent() > OperatorConstants.NoteLeftFrontAmps) {
+                intake.setSpeed(OperatorConstants.FrontSlow, 0);
             }
             else state = 2;
         }
+        else if (state == 2) { // Ramp up front roller
+            if(Math.abs(intake.getFrontRPM()) < OperatorConstants.FrontRPM) {
+                //System.out.println(intake.getFrontRPM());
+                intake.setSpeed(-OperatorConstants.FrontOut, 0);
+            }
+            else state = 3;
+        }
+        else if (state == 3) { // Shoot Note
+            if(true) { //TODO: Find when note has left the intake
+                intake.setSpeed(-OperatorConstants.FrontOut, OperatorConstants.BackOut);
+            }
+            else state = 4;
+        } 
 
     }
 
@@ -49,6 +58,6 @@ public class ShootRampUp extends Command {
 
     @Override 
     public boolean isFinished() {
-        return state == 2;
+        return state == 4;
     }
 }

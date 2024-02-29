@@ -118,13 +118,6 @@ public class Intake extends SubsystemBase{
       stop();
      }
 
-    /** Verifies Lock Status */
-    private void verifyLock() {
-      if(getLock()) stop();
-     }
-     
-
-
 
     // My code is perfect 
     // I wish
@@ -135,8 +128,5 @@ public class Intake extends SubsystemBase{
     @Override
     public void periodic() { 
       putData();
-
-      // Make sure we're not running intake when we're not supposed to
-      //verifyLock();
     }
 }

@@ -14,7 +14,7 @@ public class IntakeNote extends Command {
 
     @Override
     public void initialize() {
-         intake.setSpeed(OperatorConstants.FrontOut, 0);
+        intake.setSpeed(OperatorConstants.FrontIn, 0);
     }
 
     @Override
@@ -28,7 +28,8 @@ public class IntakeNote extends Command {
 
     @Override 
     public boolean isFinished() {
-        if(-intake.getRearRPM() < OperatorConstants.IntakeNoteBackRPM) return true;
+        //if(Math.abs(intake.getRearRPM()) > OperatorConstants.IntakeNoteBackRPM) return true;
+        if(intake.getFrontCurrent() > 90) return true;
         else return false;
     }
 }

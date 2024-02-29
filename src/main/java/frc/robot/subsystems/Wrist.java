@@ -58,7 +58,7 @@ public class Wrist extends TrapezoidProfileSubsystem{
         Wrist0_pidController.setFF(WristConstants.FF);
 
 
-        Wrist0_pidController.setOutputRange(-0.5, 0.5); // kMINOutput, kMAXOutput
+        Wrist0_pidController.setOutputRange(-0.8, 0.8); // kMINOutput, kMAXOutput
         
 
         // Shuffleboard!
