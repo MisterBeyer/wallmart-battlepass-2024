@@ -1,0 +1,246 @@
+{
+  "tabPane": [
+    {
+      "title": "Comp",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {
+          "4,0": {
+            "size": [
+              5,
+              4
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://USB Camera 0",
+              "_title": "USB Camera 0",
+              "_glyph": 590,
+              "_showGlyph": true,
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": 0,
+              "imageHeight": 0
+            }
+          },
+          "3,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Wrist/Wrist Amps",
+              "_title": "SmartDashboard/Wrist/Wrist Amps",
+              "_glyph": 73,
+              "_showGlyph": true
+            }
+          },
+          "4,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake/Rear Intake Amps",
+              "_title": "SmartDashboard/Intake/Rear Intake Amps",
+              "_glyph": 23,
+              "_showGlyph": true
+            }
+          },
+          "6,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake/Front Intake Amps",
+              "_title": "SmartDashboard/Intake/Front Intake Amps",
+              "_glyph": 26,
+              "_showGlyph": true
+            }
+          },
+          "9,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake/Front Intake RPM",
+              "_title": "SmartDashboard/Intake/Front Intake RPM",
+              "_glyph": 407,
+              "_showGlyph": true
+            }
+          },
+          "9,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Auto Chooser",
+              "_title": "SmartDashboard/Auto Chooser",
+              "_glyph": 8,
+              "_showGlyph": true
+            }
+          },
+          "2,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Arm/L Arm Amps",
+              "_title": "SmartDashboard/Arm/L Arm Amps",
+              "_glyph": 22,
+              "_showGlyph": true
+            }
+          },
+          "3,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Arm/R Arm Amps",
+              "_title": "SmartDashboard/Arm/R Arm Amps",
+              "_glyph": 27,
+              "_showGlyph": true
+            }
+          },
+          "9,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Arm/Arm Encoder",
+              "_title": "SmartDashboard/Arm/Arm Encoder",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "9,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Wrist/Wrist Encoder",
+              "_title": "SmartDashboard/Wrist/Wrist Encoder",
+              "_glyph": 139,
+              "_showGlyph": false
+            }
+          },
+          "0,3": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Gyro",
+              "_source0": "network_table:///SmartDashboard/Adjusted IMU Yaw",
+              "_title": "SmartDashboard/Adjusted IMU Yaw",
+              "_glyph": 318,
+              "_showGlyph": true,
+              "Visuals/Major tick spacing": 45.0,
+              "Visuals/Starting angle": 180.0,
+              "Visuals/Show tick mark ring": true,
+              "Visuals/Counter clockwise": false
+            }
+          },
+          "3,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/swerve/maxSpeed",
+              "_title": "SmartDashboard/swerve/maxSpeed",
+              "_glyph": 100,
+              "_showGlyph": true
+            }
+          },
+          "0,0": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Basic FMS Info",
+              "_source0": "network_table:///FMSInfo",
+              "_title": "FMSInfo",
+              "_glyph": 2,
+              "_showGlyph": true
+            }
+          },
+          "0,1": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
+              "_type": "Field",
+              "_title": "Field",
+              "_glyph": 330,
+              "_showGlyph": true,
+              "Game/Game": "k2024Crescendo",
+              "Visuals/Robot Icon Size": 50.0,
+              "Visuals/Show Outside Circles": false
+            }
+          },
+          "8,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Climber Amps",
+              "_title": "SmartDashboard/Climber Amps",
+              "_glyph": 13,
+              "_showGlyph": true
+            }
+          },
+          "2,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Pigeon 2 (v6) [5]/Value",
+              "_title": "SmartDashboard/Pigeon 2 (v6) [5]/Value",
+              "_glyph": 318,
+              "_showGlyph": true
+            }
+          }
+        }
+      }
+    }
+  ],
+  "windowGeometry": {
+    "x": -7.333333492279053,
+    "y": -7.333333492279053,
+    "width": 1518.6666259765625,
+    "height": 969.3333129882812
+  }
+}
