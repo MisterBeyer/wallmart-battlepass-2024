@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3337957445145674,
-      "y": 5.515621031242063
+      "x": 1.2788871226815193,
+      "y": 5.445538993788401
     },
-    "rotation": 180.0
+    "rotation": 178.95837332399
   },
   "command": {
     "type": "sequential",
@@ -14,31 +14,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ArmToSpeaker"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.75
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeShoot"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.75
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ArmToStow"
+            "name": "AutoSpeaker"
           }
         },
         {
@@ -50,31 +26,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ArmToIntake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeIn"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeStop"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ArmToStow"
+            "name": "AutoIntake"
           }
         },
         {
@@ -86,37 +38,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ArmToSpeaker"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.75
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeShoot"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeStop"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ArmToStow"
+            "name": "AutoSpeaker"
           }
         },
         {
@@ -128,31 +50,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ArmToIntake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeIn"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeStop"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ArmToStow"
+            "name": "AutoIntake"
           }
         },
         {
@@ -164,37 +62,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ArmToSpeaker"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.75
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeShoot"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.75
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeStop"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ArmToStow"
+            "name": "AutoSpeaker"
           }
         },
         {
@@ -206,25 +74,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ArmToIntake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeIn"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeStop"
+            "name": "AutoIntake"
           }
         },
         {
@@ -236,31 +86,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ArmToSpeaker"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeShoot"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.25
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ArmToStow"
+            "name": "AutoSpeaker"
           }
         }
       ]
