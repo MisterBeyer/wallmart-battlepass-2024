@@ -63,6 +63,10 @@ public class Arm extends TrapezoidProfileSubsystem{
 
     
         Arm0_pidController.setOutputRange(-0.8, 0.8); // kMINOutput, kMAXOutput
+
+        // Save settings in case of brownout
+        Arm0.burnFlash();
+        Arm1.burnFlash();
         
 
         // Shuffleboard!

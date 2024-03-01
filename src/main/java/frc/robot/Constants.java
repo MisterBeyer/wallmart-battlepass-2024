@@ -75,7 +75,7 @@ public final class Constants
   public static final class WristConstants 
   {
     // Amp Limits
-    public static int AmpLimit = 30;
+    public static int AmpLimit = 45;
 
     // Rate of change to use when Changing position by ReletiveSoftStop
     public static double ReletiveSoftStopDelta = 2.0; // radians
@@ -117,8 +117,8 @@ public final class Constants
   public static class OperatorConstants
   {
     // Intake/Outake Speed
-    public static double BackOut = 0.7;
-    public static double FrontOut = 0.7;
+    public static double BackOut = 0.8;
+    public static double FrontOut = 0.8;
     public static double FrontIn = 0.7;
     public static double BackSlow = 0.7;
     public static double FrontSlow = 0.7;
@@ -131,7 +131,7 @@ public final class Constants
     public static double ArmSpeakerPosition = -35.0;
 
     public static double WristAmpPosition = -12.5;
-    public static double WristSpeakerPosition = -11;
+    public static double WristSpeakerPosition = -13;
     public static double WristIntakePosition = -14;
 
     
