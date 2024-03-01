@@ -104,7 +104,7 @@ public class IntakeCommands{
      * Then Shoots the Note out of the Front of the intake
      * @return Command
      */ 
-    public Command ShootForward() { // TODO: Roll note slightly back before rampup
+    public Command ShootForward() {
         return new ShootRampUp(intake);
     }    
 
