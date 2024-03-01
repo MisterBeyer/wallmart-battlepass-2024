@@ -1,5 +1,6 @@
 package frc.robot.commands.teleop;
 
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.Helpers.IntakeCommands;
@@ -46,7 +47,8 @@ public class AutoOperator{
     public SequentialCommandGroup Speaker() {
         return new SequentialCommandGroup(
             arm_control.Speaker(),
-            new ShootRampUp(intake),
+            new ParallelRaceGroup(new ShootRampUp(intake),  
+                                  new WaitCommand(3)),
             arm_control.Stow()
         );
     }
