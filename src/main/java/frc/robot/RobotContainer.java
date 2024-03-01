@@ -86,6 +86,8 @@ public class RobotContainer
     LeanProtection.LeanProtectEnable();
 
     // Register Named Auto Commands
+
+    /* Manual Controls for Auto - Only for certain edge cases, use Automated controls for most autos */
     NamedCommands.registerCommand("ArmToStow", arm_control.Stow());               // Arm/Wrist
     NamedCommands.registerCommand("ArmToIntake", arm_control.Intake());
     NamedCommands.registerCommand("ArmToAmp", arm_control.Amp());
@@ -97,6 +99,7 @@ public class RobotContainer
     NamedCommands.registerCommand("IntakeShoot", intakeCommands.ShootForward());
     NamedCommands.registerCommand("IntakeStop", intakeCommands.Stop());
 
+    /* Automated Controls for Auto */
     NamedCommands.registerCommand("AutoIntake", autoOP.Intake());                 // AutoOP
     NamedCommands.registerCommand("AutoAmp", autoOP.Amp());
     NamedCommands.registerCommand("AutoSpeaker", autoOP.Speaker());
@@ -219,9 +222,9 @@ public class RobotContainer
     operatorXbox.y().onTrue(arm_control.Speaker());
 
     /* Climber Controls */
-    operatorXbox.start().whileTrue(climber.retractLeft());
-    operatorXbox.back().whileTrue(climber.retractRight());
-    operatorXbox.leftStick().whileTrue(climber.Extend());
+    operatorXbox.start().whileTrue(climber.Extend());
+    operatorXbox.back().whileTrue(climber.retractLeft()); // We only have one climber for glacier peak
+    //operatorXbox.leftStick().whileTrue(climber.Extend());
 
 
     /* Intake Controls */
