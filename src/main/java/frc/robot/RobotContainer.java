@@ -141,7 +141,7 @@ public class RobotContainer
     // controls are front-left positive
     // left stick controls translation
     // right stick controls the desired angle NOT angular rotation
-    @SuppressWarnings("unused")
+   @SuppressWarnings("unused")
     Command driveFieldOrientedDirectAngle = drivebase.driveCommand(
         () -> -MathUtil.applyDeadband(driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
         () -> -MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
@@ -202,7 +202,6 @@ public class RobotContainer
     //new JoystickButton(driverXbox, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
 
     //   Operator Controller Binds
-    // TODO: AutoStow, one button in
 
     /* Specail */
     operatorXbox.start().onTrue(rumble.operator());  // Rumble Driver Controller
