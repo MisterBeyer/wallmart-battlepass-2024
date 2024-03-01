@@ -14,37 +14,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ArmToSpeaker"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.75
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeShoot"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeStop"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ArmToStow"
+            "name": "AutoSpeaker"
           }
         },
         {
@@ -56,37 +26,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ArmToIntake"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeIn"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeStop"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ArmToStow"
+            "name": "AutoIntake"
           }
         },
         {
@@ -96,9 +36,21 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "AutoSpeaker"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "SpeakertoNote2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoIntake"
           }
         },
         {
@@ -108,15 +60,33 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "AutoSpeaker"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "SpeakerToNote"
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "AutoIntake"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "top note - amp"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoAmp"
           }
         }
       ]
