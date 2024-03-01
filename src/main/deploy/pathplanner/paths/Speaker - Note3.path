@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3337957445145685,
-        "y": 5.015621031242063
+        "x": 1.5311346007307416,
+        "y": 5.199878861296185
       },
       "isLocked": false,
       "linkedName": "Speaker"
@@ -20,8 +20,8 @@
         "y": 4.1046482092964185
       },
       "prevControl": {
-        "x": 2.05075613997382,
-        "y": 5.604648209296404
+        "x": 1.442332115433463,
+        "y": 4.045446552431566
       },
       "nextControl": null,
       "isLocked": false,
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Left Auto",
+  "folder": null,
   "previewStartingState": null,
   "useDefaultConstraints": false
 }
