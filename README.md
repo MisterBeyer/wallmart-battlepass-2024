@@ -2,7 +2,7 @@
 <br/>
 <br/>
 <h2>7627 Bearcat Robotnics</h2>
-<h4>Wallmart BattlePass</h4>
+<h4><b>Wallmart BattlePass</b> 2024</h4>
 <br/>
 
 
