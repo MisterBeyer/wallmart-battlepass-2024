@@ -96,26 +96,26 @@ public class Climber extends SubsystemBase{
 
     public Command retractLeft() {
       return Commands.startEnd(() -> Motor0.set(-ClimberConstants.MaxSpeed),
-                               () -> Motor0.set(0),
-                               this);
+      () -> Motor0.set(0),
+      this);
     }
 
     public Command retractRight() {
       return Commands.startEnd(() -> Motor1.set(-ClimberConstants.MaxSpeed),
-                               () -> Motor1.set(0),
-                               this);
+      () -> Motor1.set(0),
+      this);
     }
 
     public Command Extend() {
       return Commands.startEnd(() -> {
-                                        ExtendingL = true;
-                                        ExtendingR = true;  
-                                     },
-                               () -> {
-                                        ExtendingL = false;
-                                        ExtendingR = false;  
-                                      },
-                               this);
+      ExtendingL = true;
+      ExtendingR = true;  
+        },
+      () -> {
+      ExtendingL = false;
+      ExtendingR = false;  
+        },
+      this);
     }
 
 
