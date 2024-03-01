@@ -86,7 +86,7 @@ public class RobotContainer
     LeanProtection.LeanProtectEnable();
 
     // Register Named Auto Commands
-    NamedCommands.registerCommand("ArmToStow", arm_control.Stow());           // Arm/Wrist
+    NamedCommands.registerCommand("ArmToStow", arm_control.Stow());               // Arm/Wrist
     NamedCommands.registerCommand("ArmToIntake", arm_control.Intake());
     NamedCommands.registerCommand("ArmToAmp", arm_control.Amp());
     NamedCommands.registerCommand("ArmToSpeaker", arm_control.Speaker());
@@ -96,6 +96,12 @@ public class RobotContainer
     NamedCommands.registerCommand("IntakeIn", intakeCommands.Intake());
     NamedCommands.registerCommand("IntakeShoot", intakeCommands.ShootForward());
     NamedCommands.registerCommand("IntakeStop", intakeCommands.Stop());
+
+    NamedCommands.registerCommand("AutoIntake", autoOP.Intake());                 // AutoOP
+    NamedCommands.registerCommand("AutoAmp", autoOP.Amp());
+    NamedCommands.registerCommand("AutoSpeaker", autoOP.Speaker());
+
+
 
     // Build an auto chooser. This will use "Skibbidi Auto" as the default option.
     autoChooser = AutoBuilder.buildAutoChooser("Skibbidi Auto");
@@ -141,7 +147,7 @@ public class RobotContainer
     // controls are front-left positive
     // left stick controls translation
     // right stick controls the desired angle NOT angular rotation
-    @SuppressWarnings("unused")
+   @SuppressWarnings("unused")
     Command driveFieldOrientedDirectAngle = drivebase.driveCommand(
         () -> -MathUtil.applyDeadband(driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
         () -> -MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
@@ -202,7 +208,6 @@ public class RobotContainer
     //new JoystickButton(driverXbox, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
 
     //   Operator Controller Binds
-    // TODO: AutoStow, one button in
 
     /* Specail */
     operatorXbox.start().onTrue(rumble.operator());  // Rumble Driver Controller
