@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3337957445145674,
-      "y": 5.515621031242063
+      "x": 0.7167669684840067,
+      "y": 6.604911811820771
     },
-    "rotation": 180.0
+    "rotation": -124.85445556610367
   },
   "command": {
     "type": "sequential",
@@ -195,12 +195,6 @@
           "type": "named",
           "data": {
             "name": "ArmToStow"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Amp - Out of Wing Note"
           }
         }
       ]
