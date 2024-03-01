@@ -25,7 +25,7 @@ public class IntakeCommands{
         SmartDashboard.putNumber("Intake/Front Motor Speed", OperatorConstants.FrontOut);
         SmartDashboard.putNumber("Intake/Rear Motor Speed", OperatorConstants.BackOut);
         SmartDashboard.putNumber("Operator/Shoot [Front] Goal RPM", OperatorConstants.FrontRPM); 
-        SmartDashboard.putNumber("Operator/Intake [Back] Goal RPM", OperatorConstants.IntakeNoteBackRPM);
+        SmartDashboard.putNumber("Operator/Intake [Back] Goal RPM", OperatorConstants.IntakeNoteAmps);
     }
 
 
@@ -38,7 +38,7 @@ public class IntakeCommands{
 
         // RPM Goals
         OperatorConstants.FrontRPM = SmartDashboard.getNumber("Operator/Shoot [Front] Goal RPM", OperatorConstants.FrontRPM); 
-        OperatorConstants.IntakeNoteBackRPM = SmartDashboard.getNumber("Operator/Intake [Back] Goal RPM", OperatorConstants.IntakeNoteBackRPM); 
+        OperatorConstants.IntakeNoteAmps = SmartDashboard.getNumber("Operator/Intake [Back] Goal RPM", OperatorConstants.IntakeNoteAmps); 
 
         // Update Constants of Subsystems
         intake.updateConstants();
