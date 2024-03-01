@@ -122,8 +122,8 @@ public final class Constants
     public static double FrontIn = 0.7;
     public static double BackSlow = 0.7;
     public static double FrontSlow = 0.7;
-    public static double FrontRPM = 3200;
-    public static double IntakeNoteBackRPM = 2;
+    public static double FrontRPM = 3500;
+    public static double IntakeNoteAmps = 110;
     public static double NoteLeftFrontAmps = 30.0;
 
     // Arm Encoder Positions
@@ -131,7 +131,7 @@ public final class Constants
     public static double ArmSpeakerPosition = -35.0;
 
     public static double WristAmpPosition = -12.5;
-    public static double WristSpeakerPosition = -13;
+    public static double WristSpeakerPosition = -12.2;
     public static double WristIntakePosition = -14;
 
     
