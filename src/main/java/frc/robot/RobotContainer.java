@@ -169,7 +169,7 @@ public class RobotContainer
         () -> driverXbox.getRawAxis(2)); 
 
     drivebase.setDefaultCommand(
-       !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle: driveFieldOrientedAnglularVelocity);
+       !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle: driveFieldOrientedDirectAngle);
   }
   
   /**
