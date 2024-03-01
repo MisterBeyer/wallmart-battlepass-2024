@@ -1,6 +1,7 @@
 package frc.robot.commands.Helpers.Intake;
 
 import edu.wpi.first.wpilibj2.command.Command;
+
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.Intake;
 
@@ -29,7 +30,7 @@ public class IntakeNote extends Command {
     @Override 
     public boolean isFinished() {
         //if(Math.abs(intake.getRearRPM()) > OperatorConstants.IntakeNoteBackRPM) return true;
-        if(intake.getFrontCurrent() > 90) return true;
+        if(intake.getFrontCurrent() > 110) return true;
         else return false;
     }
 }
