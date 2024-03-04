@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
@@ -193,8 +194,13 @@ public class RobotContainer
 
     // Driver Controller Binds
     /* Special */
-    driverXbox.start().onTrue(rumble.driver());               // Rumble Driver Controller
-    driverXbox.y().onTrue(arm_control.updateShuffleboard());  // Update Shuffleboard
+    //driverXbox.start().onTrue(rumble.driver());               // Rumble Driver Controller
+    driverXbox.y().onTrue(new SequentialCommandGroup(
+                            new InstantCommand(armCommands::updateConstants),
+                            new InstantCommand(wristCommands::updateConstants),
+                            new InstantCommand(intakeCommands::updateConstants),
+                            new InstantCommand(climber::updateConstants)
+    ));  // Update Shuffleboard
 
 
     /* Other Subsystems */
@@ -202,17 +208,17 @@ public class RobotContainer
 
     /* Drivebase */
     driverXbox.a().onTrue((new InstantCommand(drivebase::zeroGyro))); // Reset Heading
-    driverXbox.b().onTrue(new InstantCommand(drivebase::addFakeVisionReading));
-    driverXbox.back().whileTrue(
-        Commands.deferredProxy(() -> drivebase.driveToPose(
-                                   new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
-                              ));
+    //driverXbox.b().onTrue(new InstantCommand(drivebase::addFakeVisionReading));
+    //driverXbox.back().whileTrue(
+    //    Commands.deferredProxy(() -> drivebase.driveToPose(
+    //                               new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
+     //                         ));
     //new JoystickButton(driverXbox, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
 
     //   Operator Controller Binds
 
     /* Specail */
-    operatorXbox.start().onTrue(rumble.operator());  // Rumble Driver Controller
+    //operatorXbox.start().onTrue(rumble.operator());  // Rumble Driver Controller
 
     /* Main Arm Movement Controls */
     operatorXbox.x().onTrue(arm_control.Stow()); // Arm Positions
@@ -221,22 +227,26 @@ public class RobotContainer
     operatorXbox.y().onTrue(arm_control.Speaker());
 
     /* Climber Controls */
-    operatorXbox.start().whileTrue(climber.Extend());
-    operatorXbox.back().whileTrue(climber.retractLeft()); // We only have one climber for glacier peak
+    operatorXbox.leftStick().whileTrue(climber.Extend());
+    operatorXbox.start().whileTrue(climber.retractLeft()); // We only have one climber for glacier peak
+    operatorXbox.back().whileTrue(climber.retractRight()); // We only have one climber for glacier peak
     //operatorXbox.leftStick().whileTrue(climber.Extend());
 
 
     /* Intake Controls */
     operatorXbox.leftTrigger().whileTrue(autoOP.Intake());
     operatorXbox.rightTrigger().whileTrue(intakeCommands.ShootForward());
-    operatorXbox.rightStick().whileTrue(intakeCommands.EjectForward());
+    operatorXbox.rightStick().whileTrue(intakeCommands.adjustBackward()); //intakeCommands.EjectForward());
     operatorXbox.leftBumper().whileTrue(intakeCommands.EjectBackward());
 
     /* Direct Arm Movement Controls */ // Removed to streamline operator controller
-    /* new JoystickButton(operatorXbox,XboxController.Button.kB.value).onTrue(armCommands.MoveForward());
-    new JoystickButton(operatorXbox,XboxController.Button.kB.value).onTrue(armCommands.MoveBackward());
-    new JoystickButton(operatorXbox,XboxController.Button.kB.value).onTrue(wristCommands.MoveForward());
-    new JoystickButton(operatorXbox,XboxController.Button.kB.value).onTrue(wristCommands.MoveBackward()); */
+    driverXbox.leftTrigger().whileTrue(armCommands.MoveForward());
+    driverXbox.rightTrigger().whileTrue(armCommands.MoveBackward());
+    driverXbox.leftBumper().whileTrue(wristCommands.MoveForward());
+    driverXbox.rightBumper().whileTrue(wristCommands.MoveBackward());
+
+    driverXbox.start().onTrue(new InstantCommand(arm::saveState));
+    driverXbox.back().onTrue(new InstantCommand(wrist::saveState));
 
 
     //Commands.startEnd(()->climber.deploy(Constants.ClimberConstants.FullExtensionEncoder), ()->climber.stop(), climber);
