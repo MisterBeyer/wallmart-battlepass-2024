@@ -192,21 +192,6 @@
               "_showGlyph": true
             }
           },
-          "0,1": {
-            "size": [
-              4,
-              2
-            ],
-            "content": {
-              "_type": "Field",
-              "_title": "Field",
-              "_glyph": 330,
-              "_showGlyph": true,
-              "Game/Game": "k2024Crescendo",
-              "Visuals/Robot Icon Size": 50.0,
-              "Visuals/Show Outside Circles": false
-            }
-          },
           "8,4": {
             "size": [
               2,
@@ -216,8 +201,8 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Climber Amps",
               "_title": "SmartDashboard/Climber Amps",
-              "_glyph": 13,
-              "_showGlyph": true
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "2,3": {
@@ -232,8 +217,37 @@
               "_glyph": 318,
               "_showGlyph": true
             }
+          },
+          "0,1": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
+              "_type": "Field",
+              "_source0": "network_table:///SmartDashboard/Field",
+              "_title": "SmartDashboard/Field",
+              "_glyph": 330,
+              "_showGlyph": true,
+              "Game/Game": "k2024Crescendo",
+              "Visuals/Robot Icon Size": 26.0,
+              "Visuals/Show Outside Circles": true
+            }
           }
         }
+      }
+    },
+    {
+      "title": "Testing",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {}
       }
     }
   ],

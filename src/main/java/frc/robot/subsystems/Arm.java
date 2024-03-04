@@ -141,6 +141,10 @@ public class Arm extends TrapezoidProfileSubsystem{
         return Commands.runOnce(() -> setGoal(kArmOffsetRads), this);
     }
 
+    public void goToSoftStop2(double kArmOffsetRads) {
+       setGoal(kArmOffsetRads);
+    }
+
     /**
      * Move Arm to softstop to a point relitive to were it is now
      * @param isPositvie moves arm forward(True) or backwards(False)
@@ -173,6 +177,17 @@ public class Arm extends TrapezoidProfileSubsystem{
     }
 
 
+    /* Zeros Out Encoder In case of Some random Issue */
+    // DOES NOT WORK WILL DESTROY ARM
+    public void zeroEncoder() {
+        Arm0_encoder.setPosition(0.0);
+        setGoal(0.0);
+    }
+
+    /** Prints out current encoder position to log for later use */
+    public void saveState() {
+        System.out.println("Current Arm Position:" + Arm0_encoder.getPosition());
+    }
 
     /** Make sure we're not hitting the AmpLimit */
     // Obsolete

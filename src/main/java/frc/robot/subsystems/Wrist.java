@@ -13,6 +13,7 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.WristConstants;
 
 
@@ -132,8 +133,11 @@ public class Wrist extends TrapezoidProfileSubsystem{
      * @return Command for this function
      */
     public Command goToSoftStop(double kWristOffsetRads) {
-        
         return Commands.runOnce(() -> setGoal(kWristOffsetRads), this);
+    }
+
+    public void goToSoftStop2(double kWristOffsetRads) {
+        setGoal(kWristOffsetRads);
     }
 
     /**
@@ -168,6 +172,17 @@ public class Wrist extends TrapezoidProfileSubsystem{
     }
 
 
+    /* Zeros Out Encoder In case of Some random Issue */
+    // DOES NOT WORK WILL DESTROY ARM
+    public void zeroEncoder() {
+        Wrist0_encoder.setPosition(0.0);
+        setGoal(0.0); 
+    }
+
+    /** Prints out current encoder position to log for later use */
+    public void saveState() {
+        System.out.println("Current Wrist Position:" + Wrist0_encoder.getPosition());
+    }
 
     /** Make sure we're not hitting the AmpLimit */
     // Obsolete

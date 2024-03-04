@@ -71,22 +71,26 @@ public class WristCommands{
 
     /** Brings the Wrist into the [Stow] posistion */
     public Command goToStow() {
-       return wrist.goToSoftStop(0);
+      return Commands.runOnce(() -> wrist.goToSoftStop2(0), wrist);
+      //return wrist.goToSoftStop(0);
     }
 
     /** Brings the wrist to the [Intake] Posistion */
     public Command goToIntake() {
-        return wrist.goToSoftStop(OperatorConstants.WristIntakePosition);
+        return Commands.runOnce(() -> wrist.goToSoftStop2(OperatorConstants.WristIntakePosition), wrist);
+        //return wrist.goToSoftStop(OperatorConstants.WristIntakePosition);
     }
 
     /** Brings the wrist to the [Amp] Shooting Position */
     public Command goToAmp() {
-        return wrist.goToSoftStop(OperatorConstants.WristAmpPosition);
+        return Commands.runOnce(() -> wrist.goToSoftStop2(OperatorConstants.WristAmpPosition), wrist);
+        //return wrist.goToSoftStop(OperatorConstants.WristAmpPosition);
     }
 
     /** Brings the wrist to the [Speaker] Shooting Position */
     public Command goToSpeaker() {
-        return wrist.goToSoftStop(OperatorConstants.WristSpeakerPosition);
+        return Commands.runOnce(() -> wrist.goToSoftStop2(OperatorConstants.WristSpeakerPosition), wrist);
+        //return wrist.goToSoftStop(OperatorConstants.WristSpeakerPosition);
     }
 
 
@@ -94,11 +98,15 @@ public class WristCommands{
 
     /* Move Wrist Forward by ReletiveSoftStopDelta Constant */
     public Command MoveForward() {
-        return Commands.runOnce(() -> wrist.goToRelativeSoftStop(true), wrist);
+        return Commands.startEnd(() -> wrist.goToRelativeSoftStop(true), 
+                                 () -> wrist.stop(),
+                                wrist);
     }
 
     /* Move Wrist Background by ReletiveSoftStopDelta Constant */
     public Command MoveBackward() {
-        return Commands.runOnce(() -> wrist.goToRelativeSoftStop(false), wrist);
+        return Commands.startEnd(() -> wrist.goToRelativeSoftStop(false),
+                                 () -> wrist.stop(),
+                                 wrist);
     }
 }

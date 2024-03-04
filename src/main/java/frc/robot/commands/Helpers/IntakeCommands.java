@@ -142,6 +142,19 @@ public class IntakeCommands{
                                 intake);
     }
 
+
+    /** 
+     * Runs intake Backward Slowly
+     * Sets intake Speed to OperatorConstants FrontOut and BackOut
+     * 
+     * @return Command
+    */
+    public Command adjustBackward(){
+        return Commands.startEnd(() -> intake.setSpeed(OperatorConstants.FrontSlow2, -OperatorConstants.BackSlow2),
+                                 () -> intake.stop(),
+                                 intake);
+    }
+
     /** Stops the Intake when called 
      *  @return Command
     */
