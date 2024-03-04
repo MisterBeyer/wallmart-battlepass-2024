@@ -1,5 +1,6 @@
 package frc.robot.commands.teleop;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -30,7 +31,7 @@ public class AutoOperator{
         this.arm_control = new FourPos(arm, wrist);
     }
 
-
+    
 
     /** Intakes note then stows when note is intaken 
      * @return Command
@@ -47,6 +48,7 @@ public class AutoOperator{
     public SequentialCommandGroup Speaker() {
         return new SequentialCommandGroup(
             arm_control.Speaker(),
+            new WaitCommand(1),
             new ParallelRaceGroup(new ShootRampUp(intake),  
                                   new WaitCommand(3)),
             arm_control.Stow()
@@ -57,8 +59,9 @@ public class AutoOperator{
     public SequentialCommandGroup Amp() {
         return new SequentialCommandGroup(
             arm_control.Amp(),
-            intakeC.EjectBackward(),
-            new WaitCommand(1),
+            new WaitCommand(2),
+            new ParallelRaceGroup(intakeC.EjectBackward(),
+                                  new WaitCommand(1)),
             intakeC.Stop(),
             arm_control.Stow()
         );

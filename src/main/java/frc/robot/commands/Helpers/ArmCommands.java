@@ -59,18 +59,20 @@ public class ArmCommands extends Command{
 
     /** Brings the arm All the way to the [Bottom] */
     public Command goToStow() {
-       return arm.goToSoftStop(0);
+       return Commands.runOnce(() -> arm.goToSoftStop2(0), arm);
+       //return arm.goToSoftStop(0);
     }
 
     /** Brings the arm all the way Up to the [Amp] Shooting Position */
     public Command goToAmp() {
-        return arm.goToSoftStop(OperatorConstants.ArmAmpPosition);
+        return Commands.runOnce(() -> arm.goToSoftStop2(OperatorConstants.ArmAmpPosition), arm);
+        //return arm.goToSoftStop(OperatorConstants.ArmAmpPosition);
     }
 
     /** Brings the arm to the [Speaker] Shooting Position */
     public Command goToSpeaker() {
-        System.out.print("go to speaker works N:" + OperatorConstants.ArmSpeakerPosition);
-        return arm.goToSoftStop(OperatorConstants.ArmSpeakerPosition);
+        return Commands.runOnce(() -> arm.goToSoftStop2(OperatorConstants.ArmSpeakerPosition), arm);
+        //return arm.goToSoftStop(OperatorConstants.ArmSpeakerPosition);
     }
 
 
@@ -78,11 +80,15 @@ public class ArmCommands extends Command{
 
     /* Move Arm Forward by ReletiveSoftStopDelta Constant */
     public Command MoveForward() {
-          return Commands.runOnce(() -> arm.goToRelativeSoftStop(true), arm);
+        return Commands.startEnd(() -> arm.goToRelativeSoftStop(true),
+                                 () -> arm.stop(),
+                                 arm);
     }
 
     /* Move Arm Background by ReletiveSoftStopDelta Constant */
     public Command MoveBackward() {
-        return Commands.runOnce(() -> arm.goToRelativeSoftStop(false), arm);
+        return Commands.startEnd(() -> arm.goToRelativeSoftStop(false),
+                                 () -> arm.stop(),
+                                 arm);
     }
 }

@@ -50,7 +50,7 @@ public final class Constants
     public static int AmpLimit = 40;
 
     // Rate of change to use when Changing position by ReletiveSoftStop
-    public static double ReletiveSoftStopDelta = 2.0; // radians
+    public static double ReletiveSoftStopDelta = 1.0; // radians
 
 
     // Trapazoidal Profile Constants
@@ -78,7 +78,7 @@ public final class Constants
     public static int AmpLimit = 45;
 
     // Rate of change to use when Changing position by ReletiveSoftStop
-    public static double ReletiveSoftStopDelta = 2.0; // radians
+    public static double ReletiveSoftStopDelta = 1.0; // radians
   
 
     // Trapazoidal Profile Constants
@@ -104,7 +104,8 @@ public final class Constants
   public static class ClimberConstants
   {
     // Climber Max Speed
-    public static double MaxSpeed = Units.feetToMeters(.1); //15.1
+    public static double ExtendSpeed = 0.95; //15.1
+    public static double RetractSpeed = 0.95; //15.1
     
     // Amp Limits
     public static double ChainReachedAmps = 12;
@@ -117,21 +118,23 @@ public final class Constants
   public static class OperatorConstants
   {
     // Intake/Outake Speed
-    public static double BackOut = 0.8;
-    public static double FrontOut = 0.8;
+    public static double BackOut = 0.95;
+    public static double FrontOut = 0.95;
     public static double FrontIn = 0.7;
     public static double BackSlow = 0.7;
     public static double FrontSlow = 0.7;
+    public static double BackSlow2 = 0.2;
+    public static double FrontSlow2 = 0.2;
     public static double FrontRPM = 3500;
-    public static double IntakeNoteAmps = 110;
+    public static double IntakeNoteAmps = 108;
     public static double NoteLeftFrontAmps = 30.0;
 
     // Arm Encoder Positions
     public static double ArmAmpPosition = -43.8;
-    public static double ArmSpeakerPosition = -35.0;
+    public static double ArmSpeakerPosition =  -24.5; // -25.5; //-35.0\
 
     public static double WristAmpPosition = -12.5;
-    public static double WristSpeakerPosition = -12.2;
+    public static double WristSpeakerPosition = -7.3; // -8.3; // -11.65
     public static double WristIntakePosition = -14;
 
     
