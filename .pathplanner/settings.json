@@ -6,8 +6,8 @@
     "SkibbidiAuto"
   ],
   "autoFolders": [],
-  "defaultMaxVel": 2.0,
-  "defaultMaxAccel": 0.66,
+  "defaultMaxVel": 4.0,
+  "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 360.0,
   "defaultMaxAngAccel": 120.0,
   "maxModuleSpeed": 4.602
