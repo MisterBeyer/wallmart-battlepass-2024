@@ -21,9 +21,6 @@ public class Climber extends SubsystemBase{
     private RelativeEncoder Motor0_encoder = Motor0.getEncoder();  // Encoder used to find max retraction distance
     private RelativeEncoder Motor1_encoder = Motor1.getEncoder();  // Encoder used to find max retraction distance
 
-    private boolean ExtendingL;
-    private boolean ExtendingR;
-
     public Climber() {
       Motor0.setIdleMode(CANSparkMax.IdleMode.kBrake);
       Motor1.setIdleMode(CANSparkMax.IdleMode.kBrake);
@@ -36,10 +33,6 @@ public class Climber extends SubsystemBase{
       Motor0_encoder.setPosition(0.0);
       Motor1_encoder.setPosition(0.0);
 
-      // Have Motors follow each other
-
-      ExtendingL = false;
-      ExtendingR = false;
 
       // Shuffleboard 
       SmartDashboard.putNumber("Climber/Extention Motor Speed", ClimberConstants.ExtendSpeed);
@@ -60,44 +53,23 @@ public class Climber extends SubsystemBase{
     }
 
 
-    /** @return Average of Intake motor's Output Amperage */
-    public double getCurrent() {
-      double current = (Motor0.getOutputCurrent() + Motor1.getOutputCurrent())/2;
-      SmartDashboard.putNumber("Climber Amps", current);
+
+    /** @return Left Intake motor's Output Amperage */
+    public double getLeftCurrent() {
+      double current = Motor0.getOutputCurrent();
+      SmartDashboard.putNumber("Climber/Left Amps", current);
       return current;
     }
 
-    /**
-     * Depolys the CLimber till encoder values match provided double
-     * Using a set speed set in constants
-     * @param goal Goal position represented as encoder value
-     */
-    public void deploy(double goal) { // TODO: add pid
-        while(Motor0_encoder.getPosition() < ClimberConstants.FullExtensionEncoder){ Motor0.set(ClimberConstants.ExtendSpeed);
-   Motor1.set(ClimberConstants.ExtendSpeed);}
-        stop();
-    }
-
-   /**
-     * Retracts the CLimber till amp limit is reached
-     * Using a amp limit set in constants
-     */
-    public void retractToChain() {//TODO: run for both motors inidivdually
-      while (getCurrent() > ClimberConstants.ChainReachedAmps) Motor0.set(ClimberConstants.RetractSpeed);
-      stop();
-    }
-
-    
-   /**
-     * Retracts the CLimber till amp limit is reached
-     * Using a amp limit set in constants
-     */
-    public void retractFully() { //TODO use encoder position here but still run amp checks
-      while (getCurrent() > ClimberConstants.RobotReachedAmps) Motor0.set(ClimberConstants.RetractSpeed);
-      stop();
+    /** @return Right Intake motor's Output Amperage */
+    public double getRightCurrent() {
+      double current = Motor1.getOutputCurrent();
+      SmartDashboard.putNumber("Climber/Right Amps", current);
+      return current;
     }
 
 
+    /** Retracts left Climber at a constant speed */
     public Command retractLeft() {
       return Commands.startEnd(() -> {
         Motor0.set(-ClimberConstants.RetractSpeed);},
@@ -105,28 +77,20 @@ public class Climber extends SubsystemBase{
     }
 
     
+    /** Retracts right Climber at a constant speed */
     public Command retractRight() {
       return Commands.startEnd(() -> {
         Motor1.set(-ClimberConstants.RetractSpeed);},
       () -> stop());
     }
 
+    /** Extends boths Climbers at a constant speed */
     public Command Extend() {
       return Commands.startEnd(() -> {
         Motor0.set(ClimberConstants.ExtendSpeed);
         Motor1.set(ClimberConstants.ExtendSpeed);},
       () -> stop(),
       this);
-      /*
-      return Commands.startEnd(() -> {
-      ExtendingL = true;
-      ExtendingR = true;  
-        },
-      () -> {
-      ExtendingL = false;
-      ExtendingR = false;  
-        },
-      this); */
     }
 
 
@@ -146,16 +110,7 @@ public class Climber extends SubsystemBase{
     // This method will be called once per scheduler run
     @Override
     public void periodic() { 
-      getCurrent();
-      //updateConstants();
-      /*
-      if(Motor0_encoder.getPosition() < ClimberConstants.FullExtensionEncoder) {
-        if(ExtendingL) Motor0.set(ClimberConstants.MaxSpeed);
-        else ExtendingL = false;
-      }
-      if(Motor1_encoder.getPosition() < ClimberConstants.FullExtensionEncoder) {
-        if(ExtendingR) Motor1.set(ClimberConstants.MaxSpeed);
-        else ExtendingR = false;
-      } */
+      getLeftCurrent();
+      getRightCurrent();
     }
 }

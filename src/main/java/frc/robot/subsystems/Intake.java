@@ -118,6 +118,7 @@ public class Intake extends SubsystemBase{
     * @param enable enable(true) or disable(false) the intake lock
     */
     public void setLock(boolean enable) {
+      System.out.println("(Intake) Lock Set");
       isLocked = enable;
       stop();
      }

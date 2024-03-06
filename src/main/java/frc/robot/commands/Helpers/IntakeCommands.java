@@ -40,6 +40,8 @@ public class IntakeCommands{
         OperatorConstants.FrontRPM = SmartDashboard.getNumber("Operator/Shoot [Front] Goal RPM", OperatorConstants.FrontRPM); 
         OperatorConstants.IntakeNoteAmps = SmartDashboard.getNumber("Operator/Intake [Back] Goal RPM", OperatorConstants.IntakeNoteAmps); 
 
+        System.out.println("[IntakeCommands] Shuffleboard Updated");
+
         // Update Constants of Subsystems
         intake.updateConstants();
 
@@ -125,9 +127,13 @@ public class IntakeCommands{
      * @return Command
     */
     public Command EjectBackward(){
-        return Commands.startEnd(() -> intake.setSpeed(OperatorConstants.FrontOut, -OperatorConstants.BackOut),
-                                 () -> intake.stop(),
-                                 intake);
+        System.out.println("[IntakeCommands] Eject Backward");
+        return Commands.startEnd(() -> {
+                    System.out.println("[IntakeCommands] Eject Backward");
+                    intake.setSpeed(OperatorConstants.FrontOut, -OperatorConstants.BackOut);
+                },
+                () -> intake.stop(),
+                intake);
     }
 
     /** 
@@ -137,9 +143,12 @@ public class IntakeCommands{
      * @return Command
     */
     public Command EjectForward(){
-        return Commands.startEnd(() -> intake.setSpeed(-OperatorConstants.FrontOut, OperatorConstants.FrontOut), 
-                                () -> intake.stop(), 
-                                intake);
+        return Commands.startEnd(() -> {
+                  System.out.println("[IntakeCommands] Eject Forward");
+                  intake.setSpeed(-OperatorConstants.FrontOut, OperatorConstants.FrontOut);
+                },
+                () -> intake.stop(), 
+                intake);
     }
 
 
@@ -150,15 +159,22 @@ public class IntakeCommands{
      * @return Command
     */
     public Command adjustBackward(){
-        return Commands.startEnd(() -> intake.setSpeed(OperatorConstants.FrontSlow2, -OperatorConstants.BackSlow2),
-                                 () -> intake.stop(),
-                                 intake);
+        return Commands.startEnd(() -> {
+                    System.out.println("[IntakeCommands] Adjust Backward");
+                    intake.setSpeed(OperatorConstants.FrontSlow2, -OperatorConstants.BackSlow2);
+                },      
+                () -> intake.stop(),
+                intake);
     }
 
     /** Stops the Intake when called 
      *  @return Command
     */
     public Command Stop() {
-        return Commands.runOnce(() -> intake.stop(), intake);
+        return Commands.runOnce(() -> {
+                System.out.println("[IntakeCommands] Stop");
+                intake.stop();
+            },
+            intake);
     }
 }
