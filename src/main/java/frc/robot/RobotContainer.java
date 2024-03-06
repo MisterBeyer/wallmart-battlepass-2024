@@ -202,12 +202,12 @@ public class RobotContainer
     // Driver Controller Binds
     /* Special */
     //driverXbox.start().onTrue(rumble.driver());               // Rumble Driver Controller
-    driverXbox.y().onTrue(new SequentialCommandGroup(
+    driverXbox.y().onTrue(new SequentialCommandGroup( // Update Shuffleboard
                             new InstantCommand(armCommands::updateConstants),
                             new InstantCommand(wristCommands::updateConstants),
                             new InstantCommand(intakeCommands::updateConstants),
                             new InstantCommand(climber::updateConstants)
-    ));  // Update Shuffleboard
+    ));
 
 
     /* Other Subsystems */
@@ -216,7 +216,7 @@ public class RobotContainer
     /* Drivebase */
     driverXbox.x().onTrue((new InstantCommand(drivebase::zeroGyro))); // Reset Heading
     //driverXbox.b().onTrue(new InstantCommand(drivebase::addFakeVisionReading));
-    //driverXbox.back().whileTrue(
+    //driverXbox.a().whileTrue(
     //    Commands.deferredProxy(() -> drivebase.driveToPose(
     //                               new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
      //                         ));

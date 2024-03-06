@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.697973857486177,
-        "y": 7.439674879349759
+        "x": 7.900205219153025,
+        "y": 7.6055284732159025
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.175025888513317,
-        "y": 7.518610421836228
+        "x": 7.31591365911083,
+        "y": 6.9920223351715975
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Mid Note 1"
     },
     {
       "anchor": {
-        "x": 1.8138348020419592,
-        "y": 7.82950690457028
+        "x": 1.7943584167120892,
+        "y": 7.897674253237001
       },
       "prevControl": {
-        "x": 1.3140618588929502,
-        "y": 7.715949278052403
+        "x": 1.2977105906762236,
+        "y": 7.401026427201135
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,8 +32,8 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 4.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 0.66,
     "maxAngularVelocity": 360.0,
     "maxAngularAcceleration": 120.0
   },
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "I'm Gonna Press the E-Stop",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
