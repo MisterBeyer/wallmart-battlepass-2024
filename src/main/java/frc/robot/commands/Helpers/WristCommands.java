@@ -61,6 +61,8 @@ public class WristCommands{
         OperatorConstants.WristSpeakerPosition = SmartDashboard.getNumber("Operator/Wrist [Speaker] Enocder Positon", OperatorConstants.WristSpeakerPosition);
         OperatorConstants.WristIntakePosition = SmartDashboard.getNumber("Operator/Wrist [Intake] Enocder Positon", OperatorConstants.WristIntakePosition);
 
+        System.out.println("[WristCommands] Shuffleboard Updated");
+
         // Update Constants of Subsystems
         wrist.updateConstants();
     }
@@ -71,25 +73,41 @@ public class WristCommands{
 
     /** Brings the Wrist into the [Stow] posistion */
     public Command goToStow() {
-      return Commands.runOnce(() -> wrist.goToSoftStop2(0), wrist);
+      return Commands.runOnce(() -> {
+                System.out.println("[WristCommands] Stow");
+                wrist.goToSoftStop(0);
+            },
+            wrist);
       //return wrist.goToSoftStop(0);
     }
 
     /** Brings the wrist to the [Intake] Posistion */
     public Command goToIntake() {
-        return Commands.runOnce(() -> wrist.goToSoftStop2(OperatorConstants.WristIntakePosition), wrist);
+        return Commands.runOnce(() -> {
+            System.out.println("[WristCommands] Intake");
+            wrist.goToSoftStop(OperatorConstants.WristIntakePosition);
+        },
+        wrist);
         //return wrist.goToSoftStop(OperatorConstants.WristIntakePosition);
     }
 
     /** Brings the wrist to the [Amp] Shooting Position */
     public Command goToAmp() {
-        return Commands.runOnce(() -> wrist.goToSoftStop2(OperatorConstants.WristAmpPosition), wrist);
+        return Commands.runOnce(() -> {
+            System.out.println("[WristCommands] Amp");
+            wrist.goToSoftStop(OperatorConstants.WristAmpPosition);
+        },
+        wrist);
         //return wrist.goToSoftStop(OperatorConstants.WristAmpPosition);
     }
 
     /** Brings the wrist to the [Speaker] Shooting Position */
     public Command goToSpeaker() {
-        return Commands.runOnce(() -> wrist.goToSoftStop2(OperatorConstants.WristSpeakerPosition), wrist);
+        return Commands.runOnce(() -> {
+            System.out.println("[WristCommands] Speaker");
+            wrist.goToSoftStop(OperatorConstants.WristSpeakerPosition);
+        },
+        wrist);
         //return wrist.goToSoftStop(OperatorConstants.WristSpeakerPosition);
     }
 
@@ -98,15 +116,21 @@ public class WristCommands{
 
     /* Move Wrist Forward by ReletiveSoftStopDelta Constant */
     public Command MoveForward() {
-        return Commands.startEnd(() -> wrist.goToRelativeSoftStop(true), 
-                                 () -> wrist.stop(),
-                                wrist);
-    }
+        return Commands.startEnd(() ->  {
+                    System.out.println("[WristCommands] Adjust Forward");
+                    wrist.goToRelativeSoftStop(true);
+                }, 
+                () -> wrist.stop(),
+                wrist);
+    }   
 
     /* Move Wrist Background by ReletiveSoftStopDelta Constant */
     public Command MoveBackward() {
-        return Commands.startEnd(() -> wrist.goToRelativeSoftStop(false),
-                                 () -> wrist.stop(),
-                                 wrist);
+        return Commands.startEnd(() -> {
+                        System.out.println("[WristCommands] Adjsut Backward");
+                        wrist.goToRelativeSoftStop(false); 
+                    },    
+                    () -> wrist.stop(),
+                    wrist);
     }
 }
