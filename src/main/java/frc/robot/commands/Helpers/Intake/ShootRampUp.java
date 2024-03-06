@@ -17,6 +17,7 @@ public class ShootRampUp extends Command {
 
     @Override
     public void initialize() {
+        System.out.println("[IntakeCommands/ShootRampUP] Shooting Note");
         state = 0;
     }
 
@@ -54,6 +55,7 @@ public class ShootRampUp extends Command {
     @Override
     public void end(boolean interrupted) {
         intake.stop();
+        System.out.println("[IntakeCommands/ShootRampUP] Note Shot");
     }
 
     @Override 

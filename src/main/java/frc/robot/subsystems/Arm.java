@@ -1,7 +1,5 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.TrapezoidProfileSubsystem;
 
 import com.revrobotics.CANSparkMax;
@@ -130,18 +128,12 @@ public class Arm extends TrapezoidProfileSubsystem{
      }
      
 
-
  
     /**
      *  Moves arm to soft-stop using Trapazoidal Profiling
      * @param kArmOffsetRads Postion to move Arm to in Radians
-     * @return Command for this function
-     */
-    public Command goToSoftStop(double kArmOffsetRads) {
-        return Commands.runOnce(() -> setGoal(kArmOffsetRads), this);
-    }
-
-    public void goToSoftStop2(double kArmOffsetRads) {
+    */
+    public void goToSoftStop(double kArmOffsetRads) {
        setGoal(kArmOffsetRads);
     }
 
@@ -175,28 +167,6 @@ public class Arm extends TrapezoidProfileSubsystem{
         }
         Arm0.set(0.0);
     }
-
-
-    /* Zeros Out Encoder In case of Some random Issue */
-    // DOES NOT WORK WILL DESTROY ARM
-    public void zeroEncoder() {
-        Arm0_encoder.setPosition(0.0);
-        setGoal(0.0);
-    }
-
-    /** Prints out current encoder position to log for later use */
-    public void saveState() {
-        System.out.println("Current Arm Position:" + Arm0_encoder.getPosition());
-    }
-
-    /** Make sure we're not hitting the AmpLimit */
-    // Obsolete
-    /* private void verifyAmpLimit() {
-        double position = getPosition();
-        if (getAverageCurrent() < ArmConstants.AmpLimit) {
-            goToSoftStop(position);
-        }
-    } */
 
 
 

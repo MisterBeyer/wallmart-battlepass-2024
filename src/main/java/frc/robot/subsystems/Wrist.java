@@ -1,7 +1,5 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.TrapezoidProfileSubsystem;
 
 import com.revrobotics.CANSparkMax;
@@ -13,7 +11,6 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.WristConstants;
 
 
@@ -125,18 +122,12 @@ public class Wrist extends TrapezoidProfileSubsystem{
      }
      
        
-
  
     /**
      *  Moves Wrist to soft-stop using Trapazoidal Profiling
      * @param kWristOffsetRads Postion to move Wrist to in Radians
-     * @return Command for this function
      */
-    public Command goToSoftStop(double kWristOffsetRads) {
-        return Commands.runOnce(() -> setGoal(kWristOffsetRads), this);
-    }
-
-    public void goToSoftStop2(double kWristOffsetRads) {
+    public void goToSoftStop(double kWristOffsetRads) {
         setGoal(kWristOffsetRads);
     }
 
@@ -170,29 +161,6 @@ public class Wrist extends TrapezoidProfileSubsystem{
         }
         Wrist0.set(0.0);
     }
-
-
-    /* Zeros Out Encoder In case of Some random Issue */
-    // DOES NOT WORK WILL DESTROY ARM
-    public void zeroEncoder() {
-        Wrist0_encoder.setPosition(0.0);
-        setGoal(0.0); 
-    }
-
-    /** Prints out current encoder position to log for later use */
-    public void saveState() {
-        System.out.println("Current Wrist Position:" + Wrist0_encoder.getPosition());
-    }
-
-    /** Make sure we're not hitting the AmpLimit */
-    // Obsolete
-    /*private void verifyAmpLimit() {
-        double posisiton = getPosition();
-        if (getCurrent() < WristConstants.AmpLimit) {
-            goToSoftStop(posisiton);
-        }
-    } */
-
 
 
     @Override

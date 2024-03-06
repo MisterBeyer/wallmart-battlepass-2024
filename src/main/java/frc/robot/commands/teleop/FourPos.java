@@ -1,5 +1,6 @@
 package frc.robot.commands.teleop;
 
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -40,6 +41,7 @@ public class FourPos{
     /** Brings the Robot into the Stow Position */
     public ParallelCommandGroup Stow() {
         ParallelCommandGroup stow = new ParallelCommandGroup(
+            Commands.runOnce(() -> System.out.println("[FourPos] Stow")),
             ArmC.goToStow(),
             WristC.goToStow()
         );
@@ -49,6 +51,7 @@ public class FourPos{
     /** Brings the Robot's Intake out */
     public ParallelCommandGroup Intake() {
         ParallelCommandGroup ground = new ParallelCommandGroup(
+            Commands.runOnce(() -> System.out.println("[FourPos] Intake")),
             ArmC.goToStow(),
             WristC.goToIntake()
 
@@ -59,6 +62,7 @@ public class FourPos{
     /** Brings the Robot into Position to Shoot into Amp */
     public ParallelCommandGroup Amp() {
         ParallelCommandGroup amp = new ParallelCommandGroup(
+            Commands.runOnce(() -> System.out.println("[FourPos] Amp")),
             ArmC.goToAmp(),
             WristC.goToAmp()
         );
@@ -67,7 +71,8 @@ public class FourPos{
 
     /** Brings the Robot into Position to Shoot into Speaker */
     public ParallelCommandGroup Speaker() {
-        ParallelCommandGroup speaker = new ParallelCommandGroup(     
+        ParallelCommandGroup speaker = new ParallelCommandGroup(
+            Commands.runOnce(() -> System.out.println("[FourPos] Speaker")),
             ArmC.goToSpeaker(),
             WristC.goToSpeaker()
 
@@ -80,6 +85,7 @@ public class FourPos{
     /** Update Constants of all Subsystems */
     public SequentialCommandGroup updateShuffleboard() {
         SequentialCommandGroup update = new SequentialCommandGroup(
+            Commands.runOnce(() -> System.out.println("[FourPos] Shuffleboard Updated")),
             new InstantCommand(ArmC::updateConstants),
             new InstantCommand(WristC::updateConstants)
         );
