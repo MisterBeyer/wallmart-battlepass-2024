@@ -1,0 +1,93 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.33723452062288894,
+      "y": 7.479142650592993
+    },
+    "rotation": 0.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "start - amp"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoAmp"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Amp - Top outside note"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "top outside note - amp"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoAmp"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Amp - 2nd middle note"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2nd middle note - speaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoSpeaker"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}
