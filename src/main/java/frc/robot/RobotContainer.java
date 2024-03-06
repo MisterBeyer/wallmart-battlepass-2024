@@ -33,6 +33,13 @@ import java.sql.DriverPropertyInfo; */
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
+
+// TODO:
+/* Incrase rotation speed
+ * Slow Mode
+ * clase deadband to one
+ */
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
  * little robot logic should actually be handled in the {@link Robot} periodic methods (other than the scheduler calls).
@@ -204,10 +211,10 @@ public class RobotContainer
 
 
     /* Other Subsystems */
-    driverXbox.x().onTrue(intakeCommands.EjectForward());     // Outake 
+    //driverXbox.x().onTrue(intakeCommands.EjectForward());     // Outake 
 
     /* Drivebase */
-    driverXbox.a().onTrue((new InstantCommand(drivebase::zeroGyro))); // Reset Heading
+    driverXbox.x().onTrue((new InstantCommand(drivebase::zeroGyro))); // Reset Heading
     //driverXbox.b().onTrue(new InstantCommand(drivebase::addFakeVisionReading));
     //driverXbox.back().whileTrue(
     //    Commands.deferredProxy(() -> drivebase.driveToPose(
@@ -244,9 +251,6 @@ public class RobotContainer
     driverXbox.rightTrigger().whileTrue(armCommands.MoveBackward());
     driverXbox.leftBumper().whileTrue(wristCommands.MoveForward());
     driverXbox.rightBumper().whileTrue(wristCommands.MoveBackward());
-
-    driverXbox.start().onTrue(new InstantCommand(arm::saveState));
-    driverXbox.back().onTrue(new InstantCommand(wrist::saveState));
 
 
     //Commands.startEnd(()->climber.deploy(Constants.ClimberConstants.FullExtensionEncoder), ()->climber.stop(), climber);

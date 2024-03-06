@@ -15,6 +15,7 @@ public class IntakeNote extends Command {
 
     @Override
     public void initialize() {
+        System.out.println("[IntakeCommands/IntakeNote] Intaking Note");
         intake.setSpeed(OperatorConstants.FrontIn, 0);
     }
 
@@ -25,6 +26,8 @@ public class IntakeNote extends Command {
     @Override
     public void end(boolean interrupted) {
         intake.stop();
+
+        System.out.println("[IntakeCommands/IntakeNote] Note Retrieved");
     }
 
     @Override 
