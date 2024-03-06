@@ -28,6 +28,7 @@ public class Rumble extends SubsystemBase{
 
     /* Shakes Driver Controller */
     public SequentialCommandGroup driver() {
+        System.out.println("(Rumble) Shaking Driver");
         SequentialCommandGroup command = new SequentialCommandGroup(
             Commands.runOnce(() -> driver.setRumble(GenericHID.RumbleType.kBothRumble, OperatorConstants.RumbleStrength), this),
             new WaitCommand(time),
@@ -38,6 +39,7 @@ public class Rumble extends SubsystemBase{
 
     /* Shakes Operator Controller */
     public SequentialCommandGroup operator() {
+        System.out.println("(Rumble) Shaking Operator");
         SequentialCommandGroup command = new SequentialCommandGroup(
             Commands.runOnce(() -> operator.setRumble(GenericHID.RumbleType.kBothRumble, OperatorConstants.RumbleStrength), this),
             new WaitCommand(time),

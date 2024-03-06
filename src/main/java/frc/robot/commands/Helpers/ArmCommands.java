@@ -49,6 +49,7 @@ public class ArmCommands extends Command{
         OperatorConstants.ArmAmpPosition = SmartDashboard.getNumber("Operator/Arm [Amp] Enocder Positon", OperatorConstants.ArmAmpPosition);
         OperatorConstants.ArmSpeakerPosition = SmartDashboard.getNumber("Operator/Arm [Speaker] Enocder Positon", OperatorConstants.ArmSpeakerPosition);
 
+        System.out.println("[ArmCommands] Shuffleboard Updated");
         // Update Constants of Subsystems
         arm.updateConstants();
     }
@@ -59,19 +60,31 @@ public class ArmCommands extends Command{
 
     /** Brings the arm All the way to the [Bottom] */
     public Command goToStow() {
-       return Commands.runOnce(() -> arm.goToSoftStop2(0), arm);
+        return Commands.runOnce(() -> {
+                    System.out.println("[ArmCommands] Stow");
+                    arm.goToSoftStop(0);
+                },
+                arm);
        //return arm.goToSoftStop(0);
     }
 
     /** Brings the arm all the way Up to the [Amp] Shooting Position */
     public Command goToAmp() {
-        return Commands.runOnce(() -> arm.goToSoftStop2(OperatorConstants.ArmAmpPosition), arm);
+        return Commands.runOnce(() -> {
+                    System.out.println("[ArmCommands] Amp");
+                    arm.goToSoftStop(OperatorConstants.ArmAmpPosition);
+                }, 
+                arm);
         //return arm.goToSoftStop(OperatorConstants.ArmAmpPosition);
     }
 
     /** Brings the arm to the [Speaker] Shooting Position */
     public Command goToSpeaker() {
-        return Commands.runOnce(() -> arm.goToSoftStop2(OperatorConstants.ArmSpeakerPosition), arm);
+        return Commands.runOnce(() -> {
+                    System.out.println("[ArmCommands] Speaker");
+                    arm.goToSoftStop(OperatorConstants.ArmSpeakerPosition);
+                },
+                arm);
         //return arm.goToSoftStop(OperatorConstants.ArmSpeakerPosition);
     }
 
@@ -80,15 +93,22 @@ public class ArmCommands extends Command{
 
     /* Move Arm Forward by ReletiveSoftStopDelta Constant */
     public Command MoveForward() {
-        return Commands.startEnd(() -> arm.goToRelativeSoftStop(true),
-                                 () -> arm.stop(),
-                                 arm);
+        System.out.println("[ArmCommands] Adjust Forward");
+        return Commands.startEnd(() -> {
+                    System.out.println("[ArmCommands] Adjust Forward");
+                    arm.goToRelativeSoftStop(true);
+                },
+                () -> arm.stop(),
+                arm);
     }
 
     /* Move Arm Background by ReletiveSoftStopDelta Constant */
     public Command MoveBackward() {
-        return Commands.startEnd(() -> arm.goToRelativeSoftStop(false),
-                                 () -> arm.stop(),
-                                 arm);
+        return Commands.startEnd(() -> {
+                    System.out.println("[ArmCommands] Adjust Backward");
+                    arm.goToRelativeSoftStop(false);
+                },
+                () -> arm.stop(),
+                arm);
     }
 }
