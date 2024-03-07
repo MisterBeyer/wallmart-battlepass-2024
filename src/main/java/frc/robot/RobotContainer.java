@@ -99,6 +99,7 @@ public class RobotContainer
     NamedCommands.registerCommand("ArmToIntake", arm_control.Intake());
     NamedCommands.registerCommand("ArmToAmp", arm_control.Amp());
     NamedCommands.registerCommand("ArmToSpeaker", arm_control.Speaker());
+    NamedCommands.registerCommand("ArmToBackwardsSpeaker", arm_control.SpeakerBackwards());
 
     NamedCommands.registerCommand("IntakeEjectF", intakeCommands.EjectForward()); // Intake
     NamedCommands.registerCommand("IntakeEjectB", intakeCommands.EjectBackward());
@@ -110,6 +111,7 @@ public class RobotContainer
     NamedCommands.registerCommand("AutoIntake", autoOP.Intake());                 // AutoOP
     NamedCommands.registerCommand("AutoAmp", autoOP.Amp());
     NamedCommands.registerCommand("AutoSpeaker", autoOP.Speaker());
+    NamedCommands.registerCommand("AutoSpeakerBackwards", autoOP.SpeakerBackwards());
 
 
 
