@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 1.2554654495899562,
-        "y": 5.550936522700434
+        "x": 1.102946737328825,
+        "y": 5.531293435066112
       },
       "prevControl": {
-        "x": 1.5667183943707275,
-        "y": 5.59956979532243
+        "x": 1.4141996821095963,
+        "y": 5.579926707688108
       },
       "nextControl": null,
       "isLocked": false,
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "SkibbidiAuto",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }
