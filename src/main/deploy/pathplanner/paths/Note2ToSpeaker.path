@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.37,
-        "y": 5.55
+        "x": 2.5247228667648325,
+        "y": 5.55076982040085
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.389453309048798,
-        "y": 5.511093381902404
+        "x": 2.5441761758136305,
+        "y": 5.511863202303254
       },
       "isLocked": false,
       "linkedName": "Note2"
     },
     {
       "anchor": {
-        "x": 1.2554654495899562,
-        "y": 5.550936522700434
+        "x": 1.102946737328825,
+        "y": 5.531293435066112
       },
       "prevControl": {
-        "x": 1.3916386129315437,
-        "y": 5.531483213651636
+        "x": 1.2391199006704126,
+        "y": 5.511840126017313
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,10 +32,10 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0
+    "maxVelocity": 1.0,
+    "maxAcceleration": 0.66,
+    "maxAngularVelocity": 360.0,
+    "maxAngularAcceleration": 120.0
   },
   "goalEndState": {
     "velocity": 0,
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "SkibbidiAuto",
   "previewStartingState": null,
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

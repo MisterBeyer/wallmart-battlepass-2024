@@ -52,7 +52,7 @@ public class AutoOperator{
             arm_control.Speaker(),
             new WaitCommand(1),
             new ParallelRaceGroup(new ShootRampUp(intake),  
-                                  new WaitCommand(3)),
+                                  new WaitCommand(2)),
             arm_control.Stow()
         );
     }
