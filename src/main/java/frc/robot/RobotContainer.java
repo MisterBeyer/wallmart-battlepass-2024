@@ -224,7 +224,7 @@ public class RobotContainer
 
     //   Operator Controller Binds
 
-    /* Specail */
+    /* Specail */ //skibidi
     //operatorXbox.start().onTrue(rumble.operator());  // Rumble Driver Controller
 
     /* Main Arm Movement Controls */
