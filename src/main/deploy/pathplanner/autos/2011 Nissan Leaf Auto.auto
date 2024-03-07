@@ -18,15 +18,35 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Left SpeakerToNote"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoIntake"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Left SpeakerToNote"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.5
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AutoIntake"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {
@@ -42,15 +62,35 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "AmpToMidNote"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoIntake"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "AmpToMidNote"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.5
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AutoIntake"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {
