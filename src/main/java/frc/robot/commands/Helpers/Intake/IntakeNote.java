@@ -33,7 +33,7 @@ public class IntakeNote extends Command {
     @Override 
     public boolean isFinished() {
         //if(Math.abs(intake.getRearRPM()) > OperatorConstants.IntakeNoteBackRPM) return true;
-        if(intake.getFrontCurrent() > OperatorConstants.IntakeNoteAmps) return true;
+        if(intake.getFrontCurrent() > OperatorConstants.IntakeNoteAmps || Math.abs(intake.getRearRPM()) > 0.1) return true;
         else return false;
     }
 }
