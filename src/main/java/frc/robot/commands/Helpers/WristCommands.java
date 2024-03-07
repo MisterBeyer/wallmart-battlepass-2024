@@ -111,6 +111,15 @@ public class WristCommands{
         //return wrist.goToSoftStop(OperatorConstants.WristSpeakerPosition);
     }
 
+    public Command goToBackwardsSpeaker() {
+        return Commands.runOnce(() -> {
+            System.out.println("[WristCommands] Speaker");
+            wrist.goToSoftStop(OperatorConstants.WristSpeakerBackwardsPosition);
+        },
+        wrist);
+        //return wrist.goToSoftStop(OperatorConstants.WristSpeakerPosition);
+    }
+
 
     // Direct Control for Wrist
 

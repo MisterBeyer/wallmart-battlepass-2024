@@ -80,6 +80,16 @@ public class FourPos{
         return speaker;
     }
 
+    public ParallelCommandGroup SpeakerBackwards() {
+        ParallelCommandGroup speaker = new ParallelCommandGroup(
+            Commands.runOnce(() -> System.out.println("[FourPos] Speaker")),
+            ArmC.goToBackwardsSpeaker(),
+            WristC.goToBackwardsSpeaker()
+
+        );
+        return speaker;
+    }
+
 
 
     /** Update Constants of all Subsystems */

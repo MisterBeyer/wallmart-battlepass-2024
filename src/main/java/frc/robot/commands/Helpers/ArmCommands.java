@@ -88,6 +88,15 @@ public class ArmCommands extends Command{
         //return arm.goToSoftStop(OperatorConstants.ArmSpeakerPosition);
     }
 
+    public Command goToBackwardsSpeaker() {
+        return Commands.runOnce(() -> {
+                    System.out.println("[ArmCommands] Speaker");
+                    arm.goToSoftStop(OperatorConstants.ArmSpeakerBackwardsPosition);
+                },
+                arm);
+        //return arm.goToSoftStop(OperatorConstants.ArmSpeakerPosition);
+    }
+
 
     // Direct Control for Arm
 

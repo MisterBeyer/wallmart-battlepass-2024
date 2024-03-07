@@ -229,7 +229,7 @@ public class RobotContainer
 
     /* Main Arm Movement Controls */
     operatorXbox.x().onTrue(arm_control.Stow()); // Arm Positions
-    operatorXbox.b().onTrue(arm_control.Intake());
+    operatorXbox.b().onTrue(arm_control.SpeakerBackwards());//operatorXbox.b().onTrue(arm_control.Intake());
     operatorXbox.a().onTrue(arm_control.Amp());
     operatorXbox.y().onTrue(arm_control.Speaker());
 
