@@ -40,6 +40,7 @@ public class AutoOperator{
         return new SequentialCommandGroup(
             Commands.runOnce(() -> System.out.println("[AutoOp] Intaking")),
             arm_control.Intake(),
+            new WaitCommand(0.5),
             new IntakeNote(intake),
             arm_control.Stow()
         );
@@ -64,6 +65,22 @@ public class AutoOperator{
             new WaitCommand(1),
             new ParallelRaceGroup(new ShootRampUp(intake),  
                                   new WaitCommand(2)),
+            arm_control.Stow()
+        );
+    }
+
+    public SequentialCommandGroup SpeakerMoveBackwards(){
+        return new SequentialCommandGroup(
+            Commands.runOnce(() -> System.out.println("[AutoOp] Shooting Speaker Backwards")),
+            arm_control.SpeakerBackwards(),
+            new WaitCommand(1)
+            );
+    }
+
+    public SequentialCommandGroup SpeakerLaunchBackwards(){
+        return new SequentialCommandGroup(
+            new ParallelRaceGroup(new ShootRampUp(intake),  
+                                  new WaitCommand(1)),
             arm_control.Stow()
         );
     }
