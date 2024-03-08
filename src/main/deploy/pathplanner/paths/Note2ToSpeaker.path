@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 1.102946737328825,
-        "y": 5.531293435066112
+        "x": 1.1604194636960707,
+        "y": 5.52661562465982
       },
       "prevControl": {
-        "x": 1.2391199006704126,
-        "y": 5.511840126017313
+        "x": 1.2965926270376582,
+        "y": 5.507162315611022
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,7 +30,25 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.4,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoSpeakerMoveBackwards"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 1.0,
     "maxAcceleration": 0.66,

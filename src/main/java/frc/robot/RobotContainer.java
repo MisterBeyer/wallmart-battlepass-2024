@@ -112,6 +112,8 @@ public class RobotContainer
     NamedCommands.registerCommand("AutoAmp", autoOP.Amp());
     NamedCommands.registerCommand("AutoSpeaker", autoOP.Speaker());
     NamedCommands.registerCommand("AutoSpeakerBackwards", autoOP.SpeakerBackwards());
+    NamedCommands.registerCommand("AutoSpeakerMoveBackwards", autoOP.SpeakerMoveBackwards());
+    NamedCommands.registerCommand("AutoSpeakerLaunchBackwards", autoOP.SpeakerLaunchBackwards());
 
 
 
