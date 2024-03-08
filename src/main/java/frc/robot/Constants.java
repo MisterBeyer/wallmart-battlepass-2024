@@ -38,7 +38,7 @@ public final class Constants
   public static final class Drivebase
   {
     // Drivebase Max Speed
-    public static final double MaxSpeed = Units.feetToMeters(2.5); //15.1
+    public static final double MaxSpeed = Units.feetToMeters(15.1); //15.1
     
     // Hold time on motor brakes when disabled
     public static final double WHEEL_LOCK_TIME = 10; // seconds
@@ -121,18 +121,18 @@ public final class Constants
     public static double BackOut = 0.95;
     public static double FrontOut = 0.95;
     public static double FrontIn = 0.7;
-    public static double BackSlow = 0.7;
-    public static double FrontSlow = 0.7;
+    public static double BackSlow = 0.6;
+    public static double FrontSlow = 0.6;
     public static double BackSlow2 = 0.15;
     public static double FrontSlow2 = 0.15;
     public static double FrontRPM = 3500;
-    public static double IntakeNoteAmps = 108;
+    public static double IntakeNoteAmps = 110;
     public static double NoteLeftFrontAmps = 30.0;
 
     // Arm Encoder Positions
     public static double ArmAmpPosition = -43.8;
     public static double ArmSpeakerPosition =  -24.5; // -25.5; //-35.0\
-    public static double ArmSpeakerBackwardsPosition = -37.99;
+    public static double ArmSpeakerBackwardsPosition = -42.00;
 
     public static double WristAmpPosition = -12.5;
     public static double WristSpeakerPosition = -7.3; // -8.3; // -11.65
