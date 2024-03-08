@@ -32,25 +32,6 @@
                 "data": {
                   "pathName": "Amp - Top outside note"
                 }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 4.0
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AutoIntake"
-                      }
-                    }
-                  ]
-                }
               }
             ]
           }
@@ -76,25 +57,6 @@
                 "data": {
                   "pathName": "Amp - 2nd middle note"
                 }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 4.0
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AutoIntake"
-                      }
-                    }
-                  ]
-                }
               }
             ]
           }
@@ -108,7 +70,7 @@
         {
           "type": "named",
           "data": {
-            "name": "AutoSpeaker"
+            "name": "AutoSpeakerLaunchBackwards"
           }
         }
       ]
