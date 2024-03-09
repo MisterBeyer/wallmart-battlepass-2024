@@ -58,7 +58,7 @@ public class ShootRampUp extends Command {
             else state = 3;
         }
         else if (state == 3) { // Shoot Note - Wait till Note reaches front rollerss
-            if(intake.getFrontCurrent() < OperatorConstants.NoteShotFrontAmps) {
+            if(intake.getFrontCurrent() < OperatorConstants.NoteShotFrontAmps) { //TODO: Trailing average
                 intake.setSpeed(-OperatorConstants.FrontOut, OperatorConstants.BackOut);
             }
             else state = 4;
@@ -69,7 +69,7 @@ public class ShootRampUp extends Command {
             }
             else state = 5;
         } 
-
+        System.out.println(state + " " + intake.getFrontCurrent());
     }
 
 

@@ -124,14 +124,14 @@ public final class Constants
     public static double BackOut = 0.95;
     public static double FrontOut = 0.95;
     public static double FrontIn = 0.7;
-    public static double BackSlow = 0.625;
-    public static double FrontSlow = 0.625;
+    public static double BackSlow = 0.6;
+    public static double FrontSlow = 0.6;
     public static double BackSlow2 = 0.15;
     public static double FrontSlow2 = 0.15;
     public static double FrontRPM = 3500;
     public static double IntakeNoteAmps = 110;
     public static double NoteLeftFrontAmps = 30.0;
-    public static double NoteShotFrontAmps = 30.0;
+    public static double NoteShotFrontAmps = 35.0;
 
     // Arm Encoder Positions
     public static double ArmAmpPosition = -40.8;
