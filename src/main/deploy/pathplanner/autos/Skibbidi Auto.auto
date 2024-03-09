@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.1604194636960707,
-      "y": 5.52661562465982
+      "x": 1.1613758933330447,
+      "y": 5.52155524239874
     },
-    "rotation": 0.0
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -76,6 +76,12 @@
           "type": "named",
           "data": {
             "name": "AutoSpeakerLaunchBackwards"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ArmToStow"
           }
         }
       ]
