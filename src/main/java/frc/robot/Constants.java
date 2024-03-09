@@ -114,7 +114,7 @@ public final class Constants
     public static double ChainReachedAmps = 12;
 
     // Set Encoder values
-    public static double FullExtensionEncoder = 360;
+    public static double FullExtensionEncoder = 187;
     public static double FullRetractionEncoder = 10;
   }
 
