@@ -60,7 +60,7 @@ public class Wrist extends TrapezoidProfileSubsystem{
         Wrist0_pidController.setFF(WristConstants.FF);
 
 
-        Wrist0_pidController.setOutputRange(-0.8, 0.8); // kMINOutput, kMAXOutput
+        Wrist0_pidController.setOutputRange(-0.95, 0.95); // kMINOutput, kMAXOutput
 
         // Save settings in case of brownout
         Wrist0.burnFlash();

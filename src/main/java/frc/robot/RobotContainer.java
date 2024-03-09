@@ -107,7 +107,7 @@ public class RobotContainer
     NamedCommands.registerCommand("AutoAmp", autoOP.Amp());
     NamedCommands.registerCommand("AutoSpeaker", autoOP.Speaker());
     NamedCommands.registerCommand("AutoSpeakerBackwards", autoOP.SpeakerBackwards());
-    NamedCommands.registerCommand("AutoSpeakerLaunchBackwards", autoOP.SpeakerLaunch());
+    NamedCommands.registerCommand("AutoSpeakerLaunchBackwards", autoOP.Launch());
 
 
 
@@ -272,13 +272,12 @@ public class RobotContainer
    * Makes Robot go "limp" allowing it to be manipulated easily by hang
    */
   public void TestMode() {
-    // Stop Intake Just in case
-    intake.stop();
+    operatorXbox.b().onTrue(arm_control.Intake());
+    operatorXbox.x().onTrue(arm_control.Stow());
 
-    // Set All Modules to Coast
-    drivebase.setMotorBrake(false);
-    arm.coast();
-    wrist.coast();
+    operatorXbox.leftStick().whileTrue(climberCommands.adjustBothUp());
+    operatorXbox.start().whileTrue(climberCommands.adjustLeftDown());
+    operatorXbox.back().whileTrue(climberCommands.adjustRightDown());
   }
 
   public void setDriveMode()
