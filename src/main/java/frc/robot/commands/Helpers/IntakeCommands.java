@@ -42,7 +42,9 @@ public class IntakeCommands{
 
         System.out.println("[IntakeCommands] Shuffleboard Updated");
 
-        // Update Constants of Subsystems
+        // Update Constants of Subsystems and Helpers
+        IntakeNote.updateConstants();
+        ShootRampUp.updateConstants();
         intake.updateConstants();
 
 

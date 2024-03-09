@@ -39,6 +39,10 @@ public class Wrist extends TrapezoidProfileSubsystem{
                 WristConstants.kMaxAccelerationRadPerSecSquared),
                 WristConstants.kWristOffsetRads);
 
+
+        // Reset Settings on Motor Controller, in case we need to swap one
+        Wrist0.restoreFactoryDefaults();
+
         // kBrake Mode
         Wrist0.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
