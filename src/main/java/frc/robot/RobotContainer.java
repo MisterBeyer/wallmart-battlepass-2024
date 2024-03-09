@@ -233,8 +233,10 @@ public class RobotContainer
 
     /* Climber Controls */
     //operatorXbox.leftStick().whileTrue(climberCommands.Extend());
-    operatorXbox.start().whileTrue(climberCommands.Extend());
-    operatorXbox.back().whileTrue(climberCommands.Retract()); 
+    operatorXbox.start().whileTrue(climberCommands.adjustLeftDown());
+    operatorXbox.back().whileTrue(climberCommands.adjustRightDown());
+    operatorXbox.leftStick().whileTrue(climberCommands.Extend());
+    //operatorXbox.back().whileTrue(climberCommands.Retract()); 
 
 
     /* Intake Controls */
