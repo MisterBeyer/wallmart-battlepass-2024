@@ -82,10 +82,10 @@ public class AutoOperator{
 
 
     /** Just Launches Note using ShootRampUp Command and then Stows */
-    public SequentialCommandGroup SpeakerLaunch(){
-        return new SequentialCommandGroup(
+    public ParallelRaceGroup Launch(){
+        return new ParallelRaceGroup(
             new ShootRampUp(intake),
-            arm_control.Stow()
+            new WaitCommand(1)
         );
     } 
 }

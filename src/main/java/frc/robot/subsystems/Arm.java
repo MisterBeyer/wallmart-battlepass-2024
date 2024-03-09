@@ -65,7 +65,7 @@ public class Arm extends TrapezoidProfileSubsystem{
         Arm0_pidController.setFF(ArmConstants.FF);
 
     
-        Arm0_pidController.setOutputRange(-0.8, 0.8); // kMINOutput, kMAXOutput
+        Arm0_pidController.setOutputRange(-0.95, 0.95); // kMINOutput, kMAXOutput // -0.8, 0.8
 
         // Save settings in case of brownout
         Arm0.burnFlash();
