@@ -52,8 +52,7 @@ public class AutoOperator{
             Commands.runOnce(() -> System.out.println("[AutoOp] Shooting Speaker")),
             arm_control.Speaker(),
             new WaitCommand(1),
-            new ParallelRaceGroup(new ShootRampUp(intake),  
-                                  new WaitCommand(2)),
+            new ShootRampUp(intake),
             arm_control.Stow()
         );
     }
@@ -63,8 +62,7 @@ public class AutoOperator{
             Commands.runOnce(() -> System.out.println("[AutoOp] Shooting Speaker Backwards")),
             arm_control.SpeakerBackwards(),
             new WaitCommand(1),
-            new ParallelRaceGroup(new ShootRampUp(intake),  
-                                  new WaitCommand(2)),
+            new ShootRampUp(intake),
             arm_control.Stow()
         );
     }
