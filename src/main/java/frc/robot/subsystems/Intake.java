@@ -21,6 +21,11 @@ public class Intake extends SubsystemBase{
 
 
     public Intake() {
+
+      // Reset Settings on Motor Controller, in case we need to swap one
+      IntakeR.restoreFactoryDefaults();
+      IntakeF.restoreFactoryDefaults();
+
       IntakeR.setIdleMode(CANSparkMax.IdleMode.kCoast);
       IntakeF.setIdleMode(CANSparkMax.IdleMode.kCoast);
 

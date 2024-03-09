@@ -69,22 +69,6 @@ public class AutoOperator{
         );
     }
 
-    public SequentialCommandGroup SpeakerMoveBackwards(){
-        return new SequentialCommandGroup(
-            Commands.runOnce(() -> System.out.println("[AutoOp] Shooting Speaker Backwards")),
-            arm_control.SpeakerBackwards(),
-            new WaitCommand(1)
-            );
-    }
-
-    public SequentialCommandGroup SpeakerLaunchBackwards(){
-        return new SequentialCommandGroup(
-            new ParallelRaceGroup(new ShootRampUp(intake),  
-                                  new WaitCommand(1)),
-            arm_control.Stow()
-        );
-    }
-
     /** Goes from any position to Shoot in speaker and the Stows once note has been launched */
     public SequentialCommandGroup Amp() {
         return new SequentialCommandGroup(
@@ -97,4 +81,13 @@ public class AutoOperator{
             arm_control.Stow()
         );
     }
+
+
+    /** Just Launches Note using ShootRampUp Command and then Stows */
+    public SequentialCommandGroup SpeakerLaunch(){
+        return new SequentialCommandGroup(
+            new ShootRampUp(intake),
+            arm_control.Stow()
+        );
+    } 
 }
