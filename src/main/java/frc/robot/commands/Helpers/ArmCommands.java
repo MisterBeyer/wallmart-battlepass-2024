@@ -40,6 +40,7 @@ public class ArmCommands extends Command{
         // ShuffleBoard!
         SmartDashboard.putNumber("Operator/Arm [Amp] Enocder Positon", OperatorConstants.ArmAmpPosition);
         SmartDashboard.putNumber("Operator/Arm [Speaker] Enocder Positon", OperatorConstants.ArmSpeakerPosition);
+        SmartDashboard.putNumber("Operator/Arm [Backwards Speaker] Enocder Positon", OperatorConstants.ArmSpeakerBackwardsPosition);
     } 
 
 
@@ -48,6 +49,7 @@ public class ArmCommands extends Command{
         // Encoder Posistions
         OperatorConstants.ArmAmpPosition = SmartDashboard.getNumber("Operator/Arm [Amp] Enocder Positon", OperatorConstants.ArmAmpPosition);
         OperatorConstants.ArmSpeakerPosition = SmartDashboard.getNumber("Operator/Arm [Speaker] Enocder Positon", OperatorConstants.ArmSpeakerPosition);
+        OperatorConstants.ArmSpeakerBackwardsPosition = SmartDashboard.getNumber("Operator/Arm [Backwards Speaker] Enocder Positon", OperatorConstants.ArmSpeakerBackwardsPosition);
 
         System.out.println("[ArmCommands] Shuffleboard Updated");
         // Update Constants of Subsystems
@@ -90,7 +92,7 @@ public class ArmCommands extends Command{
 
     public Command goToBackwardsSpeaker() {
         return Commands.runOnce(() -> {
-                    System.out.println("[ArmCommands] Speaker");
+                    System.out.println("[ArmCommands] Speaker Backwards");
                     arm.goToSoftStop(OperatorConstants.ArmSpeakerBackwardsPosition);
                 },
                 arm);

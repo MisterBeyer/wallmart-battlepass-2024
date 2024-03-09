@@ -103,16 +103,19 @@ public final class Constants
 
   public static class ClimberConstants
   {
+    // Max Amp Limit
+    public static final int AmpLimit = 60;
+
     // Climber Max Speed
     public static double ExtendSpeed = 0.95; //15.1
     public static double RetractSpeed = 0.95; //15.1
     
     // Amp Limits
     public static double ChainReachedAmps = 12;
-    public static double RobotReachedAmps = 12;
 
     // Set Encoder values
     public static double FullExtensionEncoder = 360;
+    public static double FullRetractionEncoder = 10;
   }
 
   public static class OperatorConstants
@@ -128,6 +131,7 @@ public final class Constants
     public static double FrontRPM = 3500;
     public static double IntakeNoteAmps = 110;
     public static double NoteLeftFrontAmps = 30.0;
+    public static double NoteShotFrontAmps = 30.0;
 
     // Arm Encoder Positions
     public static double ArmAmpPosition = -43.8;

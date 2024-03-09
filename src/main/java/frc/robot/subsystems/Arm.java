@@ -38,6 +38,11 @@ public class Arm extends TrapezoidProfileSubsystem{
                 ArmConstants.kMaxAccelerationRadPerSecSquared),
                 ArmConstants.kArmOffsetRads);
 
+                
+        // Reset Settings on Motor Controller, in case we need to swap one
+        Arm0.restoreFactoryDefaults();
+        Arm1.restoreFactoryDefaults();
+
         // kBrake Mode
         Arm0.setIdleMode(CANSparkMax.IdleMode.kBrake);
         Arm1.setIdleMode(CANSparkMax.IdleMode.kCoast);

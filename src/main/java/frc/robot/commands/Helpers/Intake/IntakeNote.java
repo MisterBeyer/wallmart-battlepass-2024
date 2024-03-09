@@ -1,5 +1,6 @@
 package frc.robot.commands.Helpers.Intake;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.Constants.OperatorConstants;
@@ -11,7 +12,18 @@ public class IntakeNote extends Command {
     public IntakeNote(Intake module) {
         this.intake = module;
         addRequirements(intake);
+
+        // Shuffleboard!
+        SmartDashboard.putNumber("Intake/IntakeNote/Intake Note Amp Limit", OperatorConstants.IntakeNoteAmps);
     }
+
+    /** Updates Motor Speeds and limits from shuffleboard */
+    public static void updateConstants() {
+        OperatorConstants.IntakeNoteAmps = SmartDashboard.getNumber("Intake/IntakeNote/Intake Note Amp Limit", OperatorConstants.IntakeNoteAmps);
+
+        System.out.println("[IntakeCommands/IntakeNote] Shuffleboard Updated");
+    } 
+    
 
     @Override
     public void initialize() {
@@ -33,7 +45,6 @@ public class IntakeNote extends Command {
     @Override 
     public boolean isFinished() {
         //if(Math.abs(intake.getRearRPM()) > OperatorConstants.IntakeNoteBackRPM) return true;
-        if(intake.getFrontCurrent() > OperatorConstants.IntakeNoteAmps || Math.abs(intake.getRearRPM()) > 0.3) return true;
-        else return false;
+        return (intake.getFrontCurrent() > OperatorConstants.IntakeNoteAmps || Math.abs(intake.getRearRPM()) > 0.3);
     }
 }

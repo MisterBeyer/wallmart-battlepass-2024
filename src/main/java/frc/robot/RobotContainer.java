@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -33,12 +32,6 @@ import java.sql.DriverPropertyInfo; */
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
-
-// TODO:
-/* Incrase rotation speed
- * Slow Mode
- * clase deadband to one
- */
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -67,6 +60,7 @@ public class RobotContainer
   private final ArmCommands armCommands = new ArmCommands(arm);
   private final WristCommands wristCommands = new WristCommands(wrist);
   private final IntakeCommands intakeCommands = new IntakeCommands(intake);
+  private final ClimberCommands climberCommands = new ClimberCommands(climber);
 
   // Define Command Helpers
   private FourPos arm_control = new FourPos(arm, wrist);
@@ -100,6 +94,7 @@ public class RobotContainer
     NamedCommands.registerCommand("ArmToAmp", arm_control.Amp());
     NamedCommands.registerCommand("ArmToSpeaker", arm_control.Speaker());
     NamedCommands.registerCommand("ArmToBackwardsSpeaker", arm_control.SpeakerBackwards());
+    NamedCommands.registerCommand("AutoSpeakerMoveBackwards", arm_control.SpeakerBackwards()); // Added to avoid pathplanner changes
 
     NamedCommands.registerCommand("IntakeEjectF", intakeCommands.EjectForward()); // Intake
     NamedCommands.registerCommand("IntakeEjectB", intakeCommands.EjectBackward());
@@ -112,8 +107,7 @@ public class RobotContainer
     NamedCommands.registerCommand("AutoAmp", autoOP.Amp());
     NamedCommands.registerCommand("AutoSpeaker", autoOP.Speaker());
     NamedCommands.registerCommand("AutoSpeakerBackwards", autoOP.SpeakerBackwards());
-    NamedCommands.registerCommand("AutoSpeakerMoveBackwards", autoOP.SpeakerMoveBackwards());
-    NamedCommands.registerCommand("AutoSpeakerLaunchBackwards", autoOP.SpeakerLaunchBackwards());
+    NamedCommands.registerCommand("AutoSpeakerLaunchBackwards", autoOP.SpeakerLaunch());
 
 
 
@@ -161,7 +155,7 @@ public class RobotContainer
     // controls are front-left positive
     // left stick controls translation
     // right stick controls the desired angle NOT angular rotation
-   @SuppressWarnings("unused")
+   //@SuppressWarnings("unused")
     Command driveFieldOrientedDirectAngle = drivebase.driveCommand(
         () -> -MathUtil.applyDeadband(driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
         () -> -MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
@@ -210,7 +204,7 @@ public class RobotContainer
                             new InstantCommand(armCommands::updateConstants),
                             new InstantCommand(wristCommands::updateConstants),
                             new InstantCommand(intakeCommands::updateConstants),
-                            new InstantCommand(climber::updateConstants)
+                            new InstantCommand(climberCommands::updateConstants)
     ));
 
 
@@ -238,10 +232,9 @@ public class RobotContainer
     operatorXbox.y().onTrue(arm_control.Speaker());
 
     /* Climber Controls */
-    operatorXbox.leftStick().whileTrue(climber.Extend());
-    operatorXbox.start().whileTrue(climber.retractLeft()); // We only have one climber for glacier peak
-    operatorXbox.back().whileTrue(climber.retractRight()); // We only have one climber for glacier peak
-    //operatorXbox.leftStick().whileTrue(climber.Extend());
+    //operatorXbox.leftStick().whileTrue(climberCommands.Extend());
+    operatorXbox.start().whileTrue(climberCommands.Extend());
+    operatorXbox.back().whileTrue(climberCommands.Retract()); 
 
 
     /* Intake Controls */
@@ -267,7 +260,7 @@ public class RobotContainer
    */
   public Command getAutonomousCommand()
   {
-    drivebase.zeroGyro();
+    //drivebase.zeroGyro();
     // An example command will be run in autonomous
     return autoChooser.getSelected();
   }
