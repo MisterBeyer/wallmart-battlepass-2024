@@ -137,11 +137,13 @@ public final class Constants
     public static double ArmAmpPosition = -40.8;
     public static double ArmSpeakerPosition =  -24.5; // -25.5; //-35.0\
     public static double ArmSpeakerBackwardsPosition = -42.00;
+    public static double ArmSpeakerPodiumPosition = 0.0; //TODO: tune this
 
     public static double WristAmpPosition = -12.5;
     public static double WristSpeakerPosition = -7.3; // -8.3; // -11.65
     public static double WristSpeakerBackwardsPosition = -7.11;
     public static double WristIntakePosition = -13.5;
+    public static double WristPodiumPosition = 0.0; //TODO: tune this
 
     
     // Joystick Deadband
