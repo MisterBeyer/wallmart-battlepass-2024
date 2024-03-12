@@ -1,5 +1,6 @@
 package frc.robot.commands.Helpers.Intake;
 
+import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -8,9 +9,9 @@ import frc.robot.subsystems.Intake;
 
 public class ShootRampUp extends Command {
     private Intake intake;
-
+    private int counter;
     private int state;
-
+    private LinearFilter movingFilter; 
     public ShootRampUp(Intake module) {
         this.intake = module;
         addRequirements(intake);
@@ -32,15 +33,17 @@ public class ShootRampUp extends Command {
 
     @Override
     public void initialize() {
+        movingFilter = LinearFilter.movingAverage(5);
         System.out.println("[IntakeCommands/ShootRampUP] Shooting Note");
         state = 0;
+        counter = 0;
     }
 
     @Override
     public void execute() {
         if (state == 0) { // Spin-up Front Roller
             if(intake.getFrontCurrent() < OperatorConstants.NoteLeftFrontAmps) {
-                intake.setSpeed(OperatorConstants.FrontSlow, 0);
+                intake.setSpeed(OperatorConstants.FrontSlow, -0.05);
             }
             else state = 1;
         }
@@ -55,7 +58,10 @@ public class ShootRampUp extends Command {
                 //System.out.println(intake.getFrontRPM());
                 intake.setSpeed(-OperatorConstants.FrontOut, 0);
             }
-            else state = 3;
+            else { 
+                state = 3;
+                movingFilter.reset();
+            }
         }
         else if (state == 3) { // Shoot Note - Wait till Note reaches front rollerss
             if(intake.getFrontCurrent() < OperatorConstants.NoteShotFrontAmps) { //TODO: Trailing average
@@ -64,12 +70,17 @@ public class ShootRampUp extends Command {
             else state = 4;
         } 
         else if (state == 4) { // Shoots Note Until It leaves front rollers
-            if(intake.getFrontCurrent() > OperatorConstants.NoteShotFrontAmps) {
+            counter += 1;
+            if(intake.getFrontCurrent() > OperatorConstants.NoteShotFrontAmps || counter < 5) {
                 intake.setSpeed(-OperatorConstants.FrontOut, OperatorConstants.BackOut);
             }
             else state = 5;
         } 
+<<<<<<< HEAD
         System.out.println(state + " " + intake.getFrontCurrent());
+=======
+        System.out.println("state: "+state+" - " + intake.getFrontCurrent());
+>>>>>>> d827ba58a3360da4b9dc197b2bcc97e4c6ba0c70
     }
 
 
