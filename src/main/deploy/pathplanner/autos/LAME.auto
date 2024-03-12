@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.8887064986466873,
-      "y": 4.62564151700071
+      "x": 0.8009808327308976,
+      "y": 4.647330063890897
     },
-    "rotation": 138.81407483429044
+    "rotation": -56.30993247402016
   },
   "command": {
     "type": "sequential",
@@ -14,13 +14,31 @@
         {
           "type": "named",
           "data": {
-            "name": "AutoSpeaker"
+            "name": "AutoSpeakerBackwards"
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "LAME PATH"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Lame pt 2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoSpeakerLaunchBackwards"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ArmToStow"
           }
         }
       ]
