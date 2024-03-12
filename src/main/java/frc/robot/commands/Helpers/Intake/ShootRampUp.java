@@ -75,7 +75,10 @@ public class ShootRampUp extends Command {
                 intake.setSpeed(-OperatorConstants.FrontOut, OperatorConstants.BackOut);
             }
             else state = 5;
-        }
+        } 
+<<<<<<< HEAD
+        System.out.println(state + " " + intake.getFrontCurrent());
+=======
         System.out.println("state: "+state+" - " + intake.getFrontCurrent());
     }
 
