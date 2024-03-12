@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.4,
+      "waypointRelativePos": 0.2,
       "command": {
         "type": "sequential",
         "data": {
@@ -51,7 +51,7 @@
   ],
   "globalConstraints": {
     "maxVelocity": 1.5,
-    "maxAcceleration": 2.0,
+    "maxAcceleration": 2.25,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -63,5 +63,5 @@
   "reversed": false,
   "folder": "SkibbidiAuto",
   "previewStartingState": null,
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }
