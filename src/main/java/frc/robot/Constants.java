@@ -130,13 +130,13 @@ public final class Constants
     public static double FrontSlow2 = 0.15;
     public static double FrontRPM = 3500;
     public static double IntakeNoteAmps = 110;
-    public static double NoteLeftFrontAmps = 30.0;
-    public static double NoteShotFrontAmps = 30.0;
+    public static double NoteLeftFrontAmps = 24.0; //changed from 30
+    public static double NoteShotFrontAmps = 20.0; //changed from 30
 
     // Arm Encoder Positions
     public static double ArmAmpPosition = -40.8;
-    public static double ArmSpeakerPosition =  -24.5; // -25.5; //-35.0\
-    public static double ArmSpeakerBackwardsPosition = -42.00;
+    public static double ArmSpeakerPosition =  -23; // -25.5; //-35.0\ //24.5
+    public static double ArmSpeakerBackwardsPosition = -41.00;
     public static double ArmSpeakerPodiumPosition = 0.0; //TODO: tune this
 
     public static double WristAmpPosition = -12.5;

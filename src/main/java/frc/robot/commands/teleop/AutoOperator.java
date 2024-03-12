@@ -85,7 +85,7 @@ public class AutoOperator{
     public ParallelRaceGroup Launch(){
         return new ParallelRaceGroup(
             new ShootRampUp(intake),
-            new WaitCommand(1)
+            new WaitCommand(1.25)
         );
     } 
 }
