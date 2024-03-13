@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.895312713702351,
-        "y": 0.8090893104863144
+        "x": 6.898751489810673,
+        "y": 0.3749438268107309
       },
       "isLocked": false,
       "linkedName": "Lame2"
@@ -20,8 +20,8 @@
         "y": 4.6670639495125155
       },
       "prevControl": {
-        "x": 2.142885055000881,
-        "y": 2.8614134151345225
+        "x": 1.244993259217289,
+        "y": 2.2397960180535748
       },
       "nextControl": null,
       "isLocked": false,
@@ -50,8 +50,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 1.75,
-    "maxAcceleration": 2.25,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
