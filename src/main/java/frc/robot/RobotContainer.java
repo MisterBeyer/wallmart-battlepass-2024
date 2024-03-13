@@ -262,7 +262,7 @@ public class RobotContainer
    */
   public Command getAutonomousCommand()
   {
-    //drivebase.zeroGyro();
+    drivebase.zeroGyro();
     // An example command will be run in autonomous
     return autoChooser.getSelected();
   }
