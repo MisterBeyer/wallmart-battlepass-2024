@@ -95,6 +95,7 @@ public class RobotContainer
     NamedCommands.registerCommand("ArmToAmp", arm_control.Amp());
     NamedCommands.registerCommand("ArmToSpeaker", arm_control.Speaker());
     NamedCommands.registerCommand("ArmToBackwardsSpeaker", arm_control.SpeakerBackwards());
+    //NamedCommands.registerCommand("ArmToBackwardsSpeaker", arm_control.SpeakerPodium());
     NamedCommands.registerCommand("AutoSpeakerMoveBackwards", arm_control.SpeakerBackwards()); // Added to avoid pathplanner changes
 
     NamedCommands.registerCommand("IntakeEjectF", intakeCommands.EjectForward()); // Intake
@@ -108,6 +109,7 @@ public class RobotContainer
     NamedCommands.registerCommand("AutoAmp", autoOP.Amp());
     NamedCommands.registerCommand("AutoSpeaker", autoOP.Speaker());
     NamedCommands.registerCommand("AutoSpeakerBackwards", autoOP.SpeakerBackwards());
+    NamedCommands.registerCommand("AutoSpeakerPodium", autoOP.SpeakerPodium());
     NamedCommands.registerCommand("AutoSpeakerLaunchBackwards", autoOP.Launch());
 
 
@@ -187,7 +189,7 @@ public class RobotContainer
     
     // Start LightOnNote Loop
     Command lightOnNote = new LightUpOnNote(bluetooth, intake);
-    bluetooth.setDefaultCommand(lightOnNote);
+    //bluetooth.setDefaultCommand(lightOnNote);
   }
   
   /**
@@ -231,7 +233,7 @@ public class RobotContainer
 
     /* Main Arm Movement Controls */
     operatorXbox.x().onTrue(arm_control.Stow()); // Arm Positions
-    operatorXbox.b().onTrue(arm_control.SpeakerBackwards());//operatorXbox.b().onTrue(arm_control.Intake());
+    //operatorXbox.b().onTrue(arm_control.PoduimShot());//operatorXbox.b().onTrue(arm_control.Intake());
     operatorXbox.a().onTrue(arm_control.Amp());
     operatorXbox.y().onTrue(arm_control.Speaker());
 
