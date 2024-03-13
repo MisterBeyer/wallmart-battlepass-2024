@@ -125,7 +125,7 @@ public final class Constants
     public static double FrontOut = 0.95;
     public static double FrontIn = 0.7;
     public static double BackSlow = 0.6;
-    public static double FrontSlow = 0.6;
+    public static double FrontSlow = 0.5;
     public static double BackSlow2 = 0.15;
     public static double FrontSlow2 = 0.15;
     public static double FrontRPM = 3500;
