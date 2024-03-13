@@ -133,6 +133,7 @@ public class IntakeCommands{
         return Commands.startEnd(() -> {
                     System.out.println("[IntakeCommands] Eject Backward");
                     intake.setSpeed(OperatorConstants.FrontOut, -OperatorConstants.BackOut);
+                    intake.setNoteStatus(false);
                 },
                 () -> intake.stop(),
                 intake);
@@ -148,6 +149,7 @@ public class IntakeCommands{
         return Commands.startEnd(() -> {
                   System.out.println("[IntakeCommands] Eject Forward");
                   intake.setSpeed(-OperatorConstants.FrontOut, OperatorConstants.FrontOut);
+                  intake.setNoteStatus(false);
                 },
                 () -> intake.stop(), 
                 intake);

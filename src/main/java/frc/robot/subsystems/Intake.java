@@ -18,6 +18,7 @@ public class Intake extends SubsystemBase{
 
 
     private boolean isLocked;
+    private boolean hasNote;
 
 
     public Intake() {
@@ -34,12 +35,18 @@ public class Intake extends SubsystemBase{
       IntakeF.burnFlash();
 
       isLocked = false;
+      hasNote  = false;
     }
 
 
     /** @return Intake Lock status */
     public boolean getLock() {
       return isLocked;
+    }
+
+    /** @return Wether Note is marked as inside Intake T/F */
+    public boolean getNoteStatus() {
+      return this.hasNote;
     }
 
     /** @return RPM of the Front Intake Motor as double */
@@ -77,6 +84,9 @@ public class Intake extends SubsystemBase{
       SmartDashboard.putNumber("Intake/Rear Intake Amps", getRearCurrent());
       SmartDashboard.putNumber("Intake/Front Intake RPM", getFrontRPM());
       SmartDashboard.putNumber("Intake/Rear Intake RPM", getRearRPM());
+
+      SmartDashboard.putBoolean("Intake/Lock Status", getLock());
+      SmartDashboard.putBoolean("Intake/Note Status", getNoteStatus());
     }
 
     /** Pulls the IntakeSpeed variables from shuffleboard  */
@@ -127,6 +137,13 @@ public class Intake extends SubsystemBase{
       isLocked = enable;
       stop();
      }
+
+    /** Sets the Note Status of the Intake
+     * @param status Wether the intake has a note or not T/F
+     */
+    public void setNoteStatus(boolean status) {
+      hasNote = status;
+    }
 
 
     // My code is perfect 
