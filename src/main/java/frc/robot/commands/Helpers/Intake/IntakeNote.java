@@ -38,6 +38,7 @@ public class IntakeNote extends Command {
     @Override
     public void end(boolean interrupted) {
         intake.stop();
+        intake.setNoteStatus(true);
 
         System.out.println("[IntakeCommands/IntakeNote] Note Retrieved");
     }

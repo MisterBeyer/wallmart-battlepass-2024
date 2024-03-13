@@ -14,6 +14,7 @@ public class ShootRampUp extends Command {
     private int state;
     private Timer timer;
     private LinearFilter movingFilter; 
+    
     public ShootRampUp(Intake module) {
         this.intake = module;
         addRequirements(intake);
@@ -82,11 +83,13 @@ public class ShootRampUp extends Command {
             }
             else state = 5;
         }
+
         else if  (state == 6) { // corrects note if state 1 runs for too long 
             intake.setSpeed(0, OperatorConstants.BackSlow); // back runs at .6
                 if(intake.getFrontRPM() <= 0.01);
                     state = 2;
         }
+
 
 
         System.out.println("state: "+state+" - " + intake.getFrontCurrent());
@@ -96,6 +99,8 @@ public class ShootRampUp extends Command {
     @Override
     public void end(boolean interrupted) {
         intake.stop();
+        intake.setNoteStatus(false);
+
         System.out.println("[IntakeCommands/ShootRampUP] Note Shot");
     }
 
