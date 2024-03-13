@@ -21,7 +21,7 @@ import com.pathplanner.lib.util.PIDConstants;
 public final class Constants
 {
 
-  public static final double ROBOT_MASS = (30) * 0.453592; // 32lbs * kg per pound
+  public static final double ROBOT_MASS = (116) * 0.453592; // 32lbs * kg per pound
   public static final Matter CHASSIS    = new Matter(new Translation3d(Units.inchesToMeters(26), Units.inchesToMeters(26),  Units.inchesToMeters(8)), ROBOT_MASS);
   public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
 
@@ -143,7 +143,7 @@ public final class Constants
     public static double WristSpeakerPosition = -7.3; // -8.3; // -11.65
     public static double WristSpeakerBackwardsPosition = -7.11;
     public static double WristIntakePosition = -13.5;
-    public static double WristPodiumPosition = 0.0; //TODO: tune this
+    public static double WristSpeakerPodiumPosition = -3.09;
 
     
     // Joystick Deadband
