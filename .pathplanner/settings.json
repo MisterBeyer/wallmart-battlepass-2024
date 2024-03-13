@@ -1,9 +1,10 @@
 {
-  "robotWidth": 0.53,
-  "robotLength": 0.53,
+  "robotWidth": 0.8255,
+  "robotLength": 0.8255,
   "holonomicMode": true,
   "pathFolders": [
     "I'm Gonna Press the E-Stop",
+    "LAME",
     "SkibbidiAuto"
   ],
   "autoFolders": [],

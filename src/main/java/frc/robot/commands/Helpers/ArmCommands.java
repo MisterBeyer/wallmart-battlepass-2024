@@ -40,7 +40,9 @@ public class ArmCommands extends Command{
         // ShuffleBoard!
         SmartDashboard.putNumber("Operator/Arm [Amp] Enocder Positon", OperatorConstants.ArmAmpPosition);
         SmartDashboard.putNumber("Operator/Arm [Speaker] Enocder Positon", OperatorConstants.ArmSpeakerPosition);
+
         SmartDashboard.putNumber("Operator/Arm [Backwards Speaker] Enocder Positon", OperatorConstants.ArmSpeakerBackwardsPosition);
+        SmartDashboard.putNumber("Operator/Arm [Podium Speaker] Enocder Positon", OperatorConstants.ArmSpeakerPodiumPosition);
     } 
 
 
@@ -49,7 +51,10 @@ public class ArmCommands extends Command{
         // Encoder Posistions
         OperatorConstants.ArmAmpPosition = SmartDashboard.getNumber("Operator/Arm [Amp] Enocder Positon", OperatorConstants.ArmAmpPosition);
         OperatorConstants.ArmSpeakerPosition = SmartDashboard.getNumber("Operator/Arm [Speaker] Enocder Positon", OperatorConstants.ArmSpeakerPosition);
+
         OperatorConstants.ArmSpeakerBackwardsPosition = SmartDashboard.getNumber("Operator/Arm [Backwards Speaker] Enocder Positon", OperatorConstants.ArmSpeakerBackwardsPosition);
+        OperatorConstants.ArmSpeakerPodiumPosition = SmartDashboard.getNumber("Operator/Arm [Poduim Speaker] Enocder Positon", OperatorConstants.ArmSpeakerPodiumPosition);
+
 
         System.out.println("[ArmCommands] Shuffleboard Updated");
         // Update Constants of Subsystems
@@ -90,10 +95,21 @@ public class ArmCommands extends Command{
         //return arm.goToSoftStop(OperatorConstants.ArmSpeakerPosition);
     }
 
+    /** Brings the arm to the [Speaker] Shooting Position but if we're facing backwards*/
     public Command goToBackwardsSpeaker() {
         return Commands.runOnce(() -> {
                     System.out.println("[ArmCommands] Speaker Backwards");
                     arm.goToSoftStop(OperatorConstants.ArmSpeakerBackwardsPosition);
+                },
+                arm);
+        //return arm.goToSoftStop(OperatorConstants.ArmSpeakerPosition);
+    }
+
+    /** Brings the arm to the [Speaker] Shooting Position but if we're facing backwards*/
+    public Command goToPodiumSpeaker() {
+        return Commands.runOnce(() -> {
+                    System.out.println("[ArmCommands] Speaker From Podium");
+                    arm.goToSoftStop(OperatorConstants.ArmSpeakerPodiumPosition);
                 },
                 arm);
         //return arm.goToSoftStop(OperatorConstants.ArmSpeakerPosition);
