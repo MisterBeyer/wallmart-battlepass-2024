@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.442332115433463,
-        "y": 7.36073933686329
+        "x": 4.520818272405777,
+        "y": 7.5
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8172759422441935,
-        "y": 7.686348449619977
+        "x": 3.8301322756491687,
+        "y": 7.513180738935024
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "avoid the note moment"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 7.712635481928188
       },
       "prevControl": {
-        "x": 1.6890056857036806,
-        "y": 7.57781207870108
+        "x": 2.4882280533791854,
+        "y": 7.696215392430785
       },
       "nextControl": null,
       "isLocked": false,
@@ -43,9 +43,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "I'm Gonna Press the E-Stop",
   "previewStartingState": {
-    "rotation": -89.88925585278903,
+    "rotation": -90.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

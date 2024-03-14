@@ -53,9 +53,9 @@ public class RobotContainer
   private final Wrist wrist = new Wrist();
   private final Arm arm = new Arm();
 
-  private final Climber climber = new Climber();
+  private final Climber climber = new Climber()34r7
   //private final Climber climber = new Climber();
-  private final Bluetooth bluetooth = new Bluetooth();
+ // private final Bluetooth bluetooth = new Bluetooth();
 
   private final ArmCommands armCommands = new ArmCommands(arm);
   private final WristCommands wristCommands = new WristCommands(wrist);
@@ -188,7 +188,7 @@ public class RobotContainer
        !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle: driveFieldOrientedDirectAngle);
     
     // Start LightOnNote Loop
-    Command lightOnNote = new LightUpOnNote(bluetooth, intake);
+    //Command lightOnNote = new LightUpOnNote(bluetooth, intake);
     //bluetooth.setDefaultCommand(lightOnNote);
   }
   

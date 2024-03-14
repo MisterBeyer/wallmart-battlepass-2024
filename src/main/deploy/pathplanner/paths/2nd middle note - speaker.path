@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.754829787279971,
-        "y": 5.791499401695687
+        "x": 8.299857368945508,
+        "y": 5.3972177175123575
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.240171991198128,
-        "y": 7.025399810947983
+        "x": 7.4414333444051515,
+        "y": 6.956194681620133
       },
       "isLocked": false,
       "linkedName": "Mid Note 2"
@@ -20,8 +20,8 @@
         "y": 6.611496509109273
       },
       "prevControl": {
-        "x": 2.5615147736381787,
-        "y": 8.677866194259302
+        "x": 3.563724819757333,
+        "y": 5.722826830269045
       },
       "nextControl": null,
       "isLocked": false,
@@ -50,20 +50,20 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 2.5,
+    "maxVelocity": 2.5,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
     "rotation": 59.11680800198557,
-    "rotateFast": false
+    "rotateFast": true
   },
   "reversed": false,
   "folder": "I'm Gonna Press the E-Stop",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 1.0595849565238245,
     "velocity": 0
   },
   "useDefaultConstraints": true

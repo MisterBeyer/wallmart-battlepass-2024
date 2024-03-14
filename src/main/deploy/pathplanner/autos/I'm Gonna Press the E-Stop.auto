@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.4451412868831403,
-      "y": 7.353398653917232
+      "x": 1.442332115433463,
+      "y": 7.36073933686329
     },
-    "rotation": 0.0
+    "rotation": -91.52752544221292
   },
   "command": {
     "type": "sequential",
@@ -21,6 +21,12 @@
           "type": "named",
           "data": {
             "name": "AutoAmp"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Avoid the note"
           }
         },
         {
@@ -43,9 +49,21 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "Top outside note - amp (pt2)"
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "AutoAmp"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Avoid the note"
           }
         },
         {
@@ -59,18 +77,6 @@
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "2nd middle note - speaker"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoSpeakerLaunchBackwards"
           }
         }
       ]
