@@ -21,8 +21,8 @@ import com.pathplanner.lib.util.PIDConstants;
 public final class Constants
 {
 
-  public static final double ROBOT_MASS = (116) * 0.453592; // 32lbs * kg per pound
-  public static final Matter CHASSIS    = new Matter(new Translation3d(Units.inchesToMeters(26), Units.inchesToMeters(26),  Units.inchesToMeters(8)), ROBOT_MASS);
+  public static final double ROBOT_MASS = (110) * 0.453592; // 32lbs * kg per pound
+  public static final Matter CHASSIS    = new Matter(new Translation3d(Units.inchesToMeters(32), Units.inchesToMeters(32),  Units.inchesToMeters(8)), ROBOT_MASS);
   public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
 
   public static final class Pathplanner
