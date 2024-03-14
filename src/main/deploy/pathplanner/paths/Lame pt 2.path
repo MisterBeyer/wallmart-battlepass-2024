@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.895312713702351,
-        "y": 0.8090893104863142
+        "x": 7.801686764846617,
+        "y": 0.7856122983256354
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.895312713702351,
-        "y": 0.8090893104863144
+        "x": 5.802455722003041,
+        "y": 0.8949452459811424
       },
       "isLocked": false,
       "linkedName": "Lame2"
     },
     {
       "anchor": {
-        "x": 0.8207147183525153,
-        "y": 4.6670639495125155
+        "x": 0.7419021448052339,
+        "y": 4.471694533568482
       },
       "prevControl": {
-        "x": 2.142885055000881,
-        "y": 2.8614134151345225
+        "x": 1.3666618456938517,
+        "y": 2.402178024374934
       },
       "nextControl": null,
       "isLocked": false,
@@ -50,21 +50,21 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 1.75,
-    "maxAcceleration": 2.25,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 0.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -58.39249775375105,
+    "rotation": -57.994616791916535,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "LAME",
   "previewStartingState": {
-    "rotation": 19.093492000485583,
+    "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }
