@@ -1,6 +1,6 @@
 {
-  "robotWidth": 0.53,
-  "robotLength": 0.53,
+  "robotWidth": 0.7366,
+  "robotLength": 0.7366,
   "holonomicMode": true,
   "pathFolders": [
     "I'm Gonna Press the E-Stop",
