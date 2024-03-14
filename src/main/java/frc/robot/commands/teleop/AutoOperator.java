@@ -67,6 +67,16 @@ public class AutoOperator{
         );
     }
 
+    public SequentialCommandGroup SpeakerPodium() {
+        return new SequentialCommandGroup(
+            Commands.runOnce(() -> System.out.println("[AutoOp] Shooting Speaker From Podium")),
+            arm_control.SpeakerPoduim(),
+            new WaitCommand(1),
+            new ShootRampUp(intake),
+            arm_control.Stow()
+        );
+    }
+
     /** Goes from any position to Shoot in speaker and the Stows once note has been launched */
     public SequentialCommandGroup Amp() {
         return new SequentialCommandGroup(

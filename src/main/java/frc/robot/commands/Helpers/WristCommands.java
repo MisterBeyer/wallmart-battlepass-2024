@@ -51,6 +51,9 @@ public class WristCommands{
         SmartDashboard.putNumber("Operator/Wrist [Amp] Enocder Positon", OperatorConstants.WristAmpPosition);
         SmartDashboard.putNumber("Operator/Wrist [Speaker] Enocder Positon", OperatorConstants.WristSpeakerPosition);
         SmartDashboard.putNumber("Operator/Wrist [Intake] Enocder Positon", OperatorConstants.WristIntakePosition);
+
+        SmartDashboard.putNumber("Operator/Wrist [Backwards Speaker] Enocder Positon", OperatorConstants.WristSpeakerBackwardsPosition);
+        SmartDashboard.putNumber("Operator/Wrist [Poduim Speaker] Enocder Positon", OperatorConstants.WristSpeakerPodiumPosition);
     } 
 
 
@@ -60,6 +63,9 @@ public class WristCommands{
         OperatorConstants.WristAmpPosition = SmartDashboard.getNumber("Operator/Wrist [Amp] Enocder Positon", OperatorConstants.WristAmpPosition);
         OperatorConstants.WristSpeakerPosition = SmartDashboard.getNumber("Operator/Wrist [Speaker] Enocder Positon", OperatorConstants.WristSpeakerPosition);
         OperatorConstants.WristIntakePosition = SmartDashboard.getNumber("Operator/Wrist [Intake] Enocder Positon", OperatorConstants.WristIntakePosition);
+
+        OperatorConstants.WristIntakePosition = SmartDashboard.getNumber("Operator/Wrist [Backwards Speaker] Enocder Positon", OperatorConstants.WristSpeakerBackwardsPosition);
+        OperatorConstants.WristIntakePosition = SmartDashboard.getNumber("Operator/Wrist [Poduim Speaker] Enocder Positon", OperatorConstants.WristSpeakerPodiumPosition);
 
         System.out.println("[WristCommands] Shuffleboard Updated");
 
@@ -111,6 +117,7 @@ public class WristCommands{
         //return wrist.goToSoftStop(OperatorConstants.WristSpeakerPosition);
     }
 
+    /** Brings the wrist to the [Speaker] Shooting Position but if the robot is facing backwards */
     public Command goToBackwardsSpeaker() {
         return Commands.runOnce(() -> {
             System.out.println("[WristCommands] Speaker");
@@ -118,6 +125,16 @@ public class WristCommands{
         },
         wrist);
         //return wrist.goToSoftStop(OperatorConstants.WristSpeakerPosition);
+    }
+
+    /** Brings the wrist to the [Speaker] Shooting Position but if we're at the Poduim*/
+    public Command goToPodiumSpeaker() {
+        return Commands.runOnce(() -> {
+                    System.out.println("[WristCommands] Speaker From Podium");
+                    wrist.goToSoftStop(OperatorConstants.WristSpeakerPodiumPosition);
+                },
+                wrist);
+        //return arm.goToSoftStop(OperatorConstants.ArmSpeakerPosition);
     }
 
 

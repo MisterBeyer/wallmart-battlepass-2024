@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.8009808327308976,
-      "y": 4.647330063890897
+      "x": 0.7575211373274493,
+      "y": 4.487313526090697
     },
-    "rotation": -56.30993247402016
+    "rotation": -58.0
   },
   "command": {
     "type": "sequential",
@@ -21,6 +21,12 @@
           "type": "path",
           "data": {
             "pathName": "LAME PATH"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ArmToStow"
           }
         },
         {
