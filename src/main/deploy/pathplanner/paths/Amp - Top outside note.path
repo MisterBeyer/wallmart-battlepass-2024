@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.7,
-        "y": 7.9
+        "x": 1.8118031325769923,
+        "y": 7.712635481928188
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.81814817753187,
-        "y": 7.866279166977533
+        "x": 3.076941526876444,
+        "y": 7.3299701651339095
       },
       "isLocked": false,
       "linkedName": "Amp"
     },
     {
       "anchor": {
-        "x": 7.974248256188821,
-        "y": 7.73568316367402
+        "x": 7.723591802235541,
+        "y": 7.408065127744986
       },
       "prevControl": {
-        "x": 7.0221292409005125,
-        "y": 7.84610396851052
+        "x": 6.771472786947233,
+        "y": 7.518485932581486
       },
       "nextControl": null,
       "isLocked": false,
@@ -50,15 +50,15 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 1.75,
-    "maxAcceleration": 2.25,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 13.147721615209479,
-    "rotateFast": true
+    "rotation": 2.960936134163862,
+    "rotateFast": false
   },
   "reversed": false,
   "folder": "I'm Gonna Press the E-Stop",

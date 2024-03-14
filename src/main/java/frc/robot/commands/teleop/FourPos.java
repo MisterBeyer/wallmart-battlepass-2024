@@ -80,12 +80,24 @@ public class FourPos{
         return speaker;
     }
 
-    /** Brings the Robot to the Alternative Speaker Posisiton to Shoot into Speaker */
+    
+    /** Brings the Robot to the Alternative Speaker Posisiton to Shoot into Speaker while facing backwards */
     public ParallelCommandGroup SpeakerBackwards() {
         ParallelCommandGroup backwardspeaker = new ParallelCommandGroup(
             Commands.runOnce(() -> System.out.println("[FourPos] Backwards Speaker")),
             ArmC.goToBackwardsSpeaker(),
             WristC.goToBackwardsSpeaker()
+        );
+        return backwardspeaker;
+    }
+
+        
+    /** Brings the Robot to the Alternative Speaker Posisiton to Shoot into Speaker while at the Podium */
+    public ParallelCommandGroup SpeakerPoduim() {
+        ParallelCommandGroup backwardspeaker = new ParallelCommandGroup(
+            Commands.runOnce(() -> System.out.println("[FourPos] Speaker from Podium")),
+            ArmC.goToPodiumSpeaker(),
+            WristC.goToPodiumSpeaker()
         );
         return backwardspeaker;
     }
