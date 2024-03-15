@@ -12,7 +12,7 @@ public class ShootRampUp extends Command {
     private Intake intake;
     private int counter;
     private int state;
-    private Timer timer;
+    private Timer timer = new Timer();
     private LinearFilter movingFilter; 
     
     public ShootRampUp(Intake module) {

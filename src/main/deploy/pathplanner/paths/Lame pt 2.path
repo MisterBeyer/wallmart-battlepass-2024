@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 0.7419021448052339,
+        "x": 0.74,
         "y": 4.471694533568482
       },
       "prevControl": {
-        "x": 1.3666618456938517,
-        "y": 2.402178024374934
+        "x": 1.2995056747006783,
+        "y": 2.3835909284624464
       },
       "nextControl": null,
       "isLocked": false,
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoSpeakerMoveBackwards"
+                "name": "ArmToSpeaker"
               }
             }
           ]
@@ -50,14 +50,14 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 0.5,
+    "maxVelocity": 2.5,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -57.994616791916535,
+    "rotation": 121.74546781710694,
     "rotateFast": false
   },
   "reversed": false,
@@ -66,5 +66,5 @@
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

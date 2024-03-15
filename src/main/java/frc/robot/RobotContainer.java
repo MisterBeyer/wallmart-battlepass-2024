@@ -53,7 +53,7 @@ public class RobotContainer
   private final Wrist wrist = new Wrist();
   private final Arm arm = new Arm();
 
-  private final Climber climber = new Climber()34r7
+  private final Climber climber = new Climber();
   //private final Climber climber = new Climber();
  // private final Bluetooth bluetooth = new Bluetooth();
 
