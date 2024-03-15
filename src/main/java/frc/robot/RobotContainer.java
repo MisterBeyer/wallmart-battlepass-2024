@@ -95,7 +95,7 @@ public class RobotContainer
     NamedCommands.registerCommand("ArmToAmp", arm_control.Amp());
     NamedCommands.registerCommand("ArmToSpeaker", arm_control.Speaker());
     NamedCommands.registerCommand("ArmToBackwardsSpeaker", arm_control.SpeakerBackwards());
-    //NamedCommands.registerCommand("ArmToBackwardsSpeaker", arm_control.SpeakerPodium());
+    NamedCommands.registerCommand("ArmToPodiumSpeaker", arm_control.SpeakerPoduim());
     NamedCommands.registerCommand("AutoSpeakerMoveBackwards", arm_control.SpeakerBackwards()); // Added to avoid pathplanner changes
 
     NamedCommands.registerCommand("IntakeEjectF", intakeCommands.EjectForward()); // Intake
