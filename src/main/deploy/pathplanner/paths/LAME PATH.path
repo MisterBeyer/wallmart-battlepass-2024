@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.2063245739043236,
-        "y": 3.498982088397823
+        "x": 2.1934817734711403,
+        "y": 1.9148129843534374
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.801686764846617,
-        "y": 0.7856122983256354
+        "x": 8.2,
+        "y": 0.6
       },
       "prevControl": {
-        "x": 4.455930495283299,
-        "y": 0.7856122983256354
+        "x": 4.854243730436681,
+        "y": 0.6000000000000001
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.75,
+      "waypointRelativePos": 0.65,
       "command": {
         "type": "parallel",
         "data": {
@@ -63,7 +63,7 @@
   "reversed": false,
   "folder": "LAME",
   "previewStartingState": {
-    "rotation": 122.96766146062589,
+    "rotation": 119.88955002118446,
     "velocity": 0
   },
   "useDefaultConstraints": true
