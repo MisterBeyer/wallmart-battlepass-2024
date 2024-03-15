@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 4.520818272405777,
-        "y": 7.5
+        "y": 7.6
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.08966217932436,
-        "y": 7.331138508430864
+        "x": 6.069928293702742,
+        "y": 7.469275707782185
       },
       "isLocked": false,
       "linkedName": "avoid the note moment"
@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 8.23,
-        "y": 6.98
+        "y": 7.6
       },
       "prevControl": {
-        "x": 7.277880984711691,
-        "y": 7.0904208048365005
+        "x": 7.2835622594322125,
+        "y": 7.57781207870108
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.1,
+      "waypointRelativePos": 0.0,
       "command": {
         "type": "parallel",
         "data": {
