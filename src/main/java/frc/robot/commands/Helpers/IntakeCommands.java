@@ -129,7 +129,6 @@ public class IntakeCommands{
      * @return Command
     */
     public Command EjectBackward(){
-        System.out.println("[IntakeCommands] Eject Backward");
         return Commands.startEnd(() -> {
                     System.out.println("[IntakeCommands] Eject Backward");
                     intake.setSpeed(OperatorConstants.FrontOut, -OperatorConstants.BackOut);
