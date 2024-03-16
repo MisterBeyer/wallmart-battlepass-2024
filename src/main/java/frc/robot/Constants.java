@@ -54,8 +54,8 @@ public final class Constants
 
 
     // Trapazoidal Profile Constants
-    public static double kMaxVelocityRadPerSecond = 75; 
-    public static double kMaxAccelerationRadPerSecSquared = 100; //75
+    public static double kMaxVelocityRadPerSecond = 100;//75 
+    public static double kMaxAccelerationRadPerSecSquared = 125; //100
     public static double kArmOffsetRads = 0.0;
 
     // Arm Feedforward Constants
@@ -82,8 +82,8 @@ public final class Constants
   
 
     // Trapazoidal Profile Constants
-    public static double kMaxVelocityRadPerSecond = 60; 
-    public static double kMaxAccelerationRadPerSecSquared = 60;
+    public static double kMaxVelocityRadPerSecond = 80;//60 
+    public static double kMaxAccelerationRadPerSecSquared = 80;//60
     public static double kWristOffsetRads = 0.0;
 
     // Arm Feedforward Constants
