@@ -101,7 +101,7 @@ public class ShootRampUp extends Command {
         intake.stop();
         intake.setNoteStatus(false);
 
-        System.out.println("[IntakeCommands/ShootRampUP] Note Shot");
+        System.out.println("[IntakeCommands/ShootRampUP] Note Shot. Interrupted: " + interrupted);
     }
 
     @Override 
