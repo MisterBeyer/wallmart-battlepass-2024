@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
@@ -31,6 +32,7 @@ import java.sql.DriverPropertyInfo; */
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 
 
 /**
@@ -44,7 +46,7 @@ public class RobotContainer
   private final int OperatorControllerPort = 1;
 
   // Create and auto chooser for use with SmartDashboard
-  private final SendableChooser<Command> autoChooser;
+  private SendableChooser<Command> autoChooser;
 
   // The robot's subsystems and commands are defined here...
   private SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
@@ -114,8 +116,17 @@ public class RobotContainer
 
 
     // Build an auto chooser. This will use "Skibbidi Auto" as the default option.
-    autoChooser = AutoBuilder.buildAutoChooser("Skibbidi Auto");
-    SmartDashboard.putData("Auto Chooser", autoChooser);
+    //autoChooser = AutoBuilder.buildAutoChooser();
+    try {
+      autoChooser.setDefaultOption("Disabled", new WaitCommand(0.1));
+      autoChooser.addOption("Skibbidi Auto", new PathPlannerAuto("Skibbidi Auto"));
+      SmartDashboard.putData("Auto Chooser", autoChooser);
+    }
+    catch (Exception e) {
+      System.out.println("PathPlanner Error: Failed to Load Path");
+      System.out.println(e.toString());
+    }
+
   
 
     // Creates a UsbCamera and MjpegServer [1] and connects them
