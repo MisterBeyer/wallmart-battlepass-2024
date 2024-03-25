@@ -137,7 +137,7 @@ public final class Constants
     public static double ArmAmpPosition = -40.8;
     public static double ArmSpeakerPosition =  -23; // -25.5; //-35.0\ //24.5
     public static double ArmSpeakerBackwardsPosition = -41.00;
-    public static double ArmSpeakerPodiumPosition = 0.0; //TODO: tune this
+    public static double ArmSpeakerPodiumPosition = 0.0; //TODO: tune this (dont touch)
 
     public static double WristAmpPosition = -12.5;
     public static double WristSpeakerPosition = -7.3; // -8.3; // -11.65
