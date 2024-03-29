@@ -14,13 +14,14 @@ import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
-
+import frc.robot.commands.Limelight;
 import frc.robot.commands.Helpers.*;
 import frc.robot.commands.teleop.AutoOperator;
 import frc.robot.commands.teleop.FourPos;
@@ -54,6 +55,7 @@ public class RobotContainer
   private final Intake intake = new Intake();
   private final Wrist wrist = new Wrist();
   private final Arm arm = new Arm();
+  private final Limelight limelight = new Limelight();
 
   private final Climber climber = new Climber();
   //private final Climber climber = new Climber();
@@ -137,6 +139,9 @@ public class RobotContainer
 
     // Creates the CvSource and MjpegServer [2] and connects them
     //CvSource outputStream = CameraServer.putVideo("Blur", 640, 480);
+
+    // Activate LimeLight
+    b.setDefaultCommand(limelight);
 
 
     // Configure the trigger bindings
