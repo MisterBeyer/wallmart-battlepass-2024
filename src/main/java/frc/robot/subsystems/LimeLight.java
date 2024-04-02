@@ -13,36 +13,35 @@ public class LimeLight extends SubsystemBase {
 
 
     public LimeLight() {
+        LimelightHelpers.setLEDMode_PipelineControl("");
+        LimelightHelpers.setCropWindow("", -1, 1, -1, 1);
+
         System.out.println("[LimeLight] Bofa Mode Loaded");
     }
 
 
+  
 
   
         public void doLimelightThing(){
-            num++;
-        //read values periodically
-         tx = LimelightHelpers.getTX("limelight");
-        ty = LimelightHelpers.getTY("limelight");
-        area = LimelightHelpers.getTA("limelight");
-        if(num % 50 == 0){
-            System.out.print(tx + ", " + ty + ", " + area );
-        }
-       
-        /* 
-        //reads tv (is target dectected)
-         tv = LimelightHelpers.getTV("limelight");
-        if(num % 50 == 0){
-            System.out.println(tv + ",");
-        }
-        */ //TODO: un comment when ready to test TV
+        num++;
+         if(num % 50 == 0){
+            tv = LimelightHelpers.getTV("");
+            tx = LimelightHelpers.getTX("");
+            ty = LimelightHelpers.getTY("");
+            area = LimelightHelpers.getTA("");
 
-        //post to smart dashboard periodically
-        SmartDashboard.putNumber("Limelight/TX", tx);
-        SmartDashboard.putNumber("Limelight/TY", ty);
-        SmartDashboard.putNumber("Limelight/Area", area);
+            //  if(num % 50 == 0){
+            System.out.println(tx + ", " + tv);
+            
+            //post to smart dashboard periodically
+            SmartDashboard.putNumber("Limelight/TX", tx);
+            SmartDashboard.putNumber("Limelight/TY", ty);
+            SmartDashboard.putNumber("Limelight/Area", area);
         }
-        @Override
+    }
+
+    @Override
     public void periodic() {
         doLimelightThing();
     }
