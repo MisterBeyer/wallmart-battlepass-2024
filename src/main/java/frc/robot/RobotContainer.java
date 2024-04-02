@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Translation2d;
 //import edu.wpi.first.math.geometry.Pose2d; // TODO: Check if robot explodes with these commented out
 //import edu.wpi.first.math.geometry.Rotation2d;
 //import edu.wpi.first.math.geometry.Translation2d;
@@ -233,6 +234,7 @@ public class RobotContainer
 
     /* Other Subsystems */
     //driverXbox.x().onTrue(intakeCommands.EjectForward());     // Outake 
+    driverXbox.b().whileTrue(Commands.runEnd(() -> drivebase.drive(new Translation2d(0, 0), -LimelightHelpers.getTX("") * Math.PI / 180, false), () -> System.out.println("Bogo"), drivebase)); // Center on Apriltag
 
     /* Drivebase */
     driverXbox.x().onTrue((new InstantCommand(drivebase::zeroGyro))); // Reset Heading
