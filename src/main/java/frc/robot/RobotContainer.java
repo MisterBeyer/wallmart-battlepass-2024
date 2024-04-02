@@ -21,12 +21,13 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
-import frc.robot.commands.Limelight;
 import frc.robot.commands.Helpers.*;
 import frc.robot.commands.teleop.AutoOperator;
 import frc.robot.commands.teleop.FourPos;
 
 import frc.robot.subsystems.*;
+
+import java.beans.Beans;
 import java.io.File;
 /*  Not sure how this got hre
 import java.sql.DriverPropertyInfo; */
@@ -55,7 +56,6 @@ public class RobotContainer
   private final Intake intake = new Intake();
   private final Wrist wrist = new Wrist();
   private final Arm arm = new Arm();
-  private final Limelight limelight = new Limelight();
 
   private final Climber climber = new Climber();
   //private final Climber climber = new Climber();
@@ -65,6 +65,7 @@ public class RobotContainer
   private final WristCommands wristCommands = new WristCommands(wrist);
   private final IntakeCommands intakeCommands = new IntakeCommands(intake);
   private final ClimberCommands climberCommands = new ClimberCommands(climber);
+  private final LimeLight Limelight = new LimeLight();
 
   // Define Command Helpers
   private FourPos arm_control = new FourPos(arm, wrist);
@@ -90,7 +91,7 @@ public class RobotContainer
   {
     // Enable Lean Protection
     LeanProtection.LeanProtectEnable();
-
+    Limelight.doLimelightThing();
     // Register Named Auto Commands
 
     /* Manual Controls for Auto - Only for certain edge cases, use Automated controls for most autos */
@@ -140,8 +141,8 @@ public class RobotContainer
     // Creates the CvSource and MjpegServer [2] and connects them
     //CvSource outputStream = CameraServer.putVideo("Blur", 640, 480);
 
-    // Activate LimeLight
-    b.setDefaultCommand(limelight);
+    // Activate LimeLight65
+    //Bluetooth.setDefaultCommand(limelight);
 
 
     // Configure the trigger bindings
