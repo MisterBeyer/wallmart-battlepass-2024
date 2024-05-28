@@ -67,19 +67,21 @@ public class Wrist extends TrapezoidProfileSubsystem{
         
 
         // Shuffleboard!
-        SmartDashboard.putNumber("Wrist/Reletive SoftStop Delta", WristConstants.ReletiveSoftStopDelta);
 
-        SmartDashboard.putNumber("Wrist/Wrist P", WristConstants.P); //PID
+        /*SmartDashboard.putNumber("Wrist/Reletive SoftStop Delta", WristConstants.ReletiveSoftStopDelta);
+
+        SmartDashboard.putNumber("Wrist/Wrist P", WristConstants.P); 
         SmartDashboard.putNumber("Wrist/Wrist I", WristConstants.I);
         SmartDashboard.putNumber("Wrist/Wrist D", WristConstants.D);
         SmartDashboard.putNumber("Wrist/Wrist IZone", WristConstants.Iz);
         SmartDashboard.putNumber("Wrist/Wrist FF", WristConstants.FF);
+*/
     }
 
 
 
     /** Updates Constants from shuffleboard */
-    public void updateConstants() {
+    public void updateConstants() {/* 
         // Function Constants
         WristConstants.ReletiveSoftStopDelta = SmartDashboard.getNumber("Wrist/Reletive SoftStop Delta", WristConstants.ReletiveSoftStopDelta);
 
@@ -96,6 +98,7 @@ public class Wrist extends TrapezoidProfileSubsystem{
         Wrist0_pidController.setD(WristConstants.D);
         Wrist0_pidController.setIZone(WristConstants.Iz);
         Wrist0_pidController.setFF(WristConstants.FF);
+        */
 
     }
 

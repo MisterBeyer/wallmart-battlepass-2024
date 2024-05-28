@@ -14,7 +14,7 @@ public class IntakeNote extends Command {
         addRequirements(intake);
 
         // Shuffleboard!
-        SmartDashboard.putNumber("Intake/IntakeNote/Intake Note Amp Limit", OperatorConstants.IntakeNoteAmps);
+        //SmartDashboard.putNumber("Intake/IntakeNote/Intake Note Amp Limit", OperatorConstants.IntakeNoteAmps);
     }
 
     /** Updates Motor Speeds and limits from shuffleboard */

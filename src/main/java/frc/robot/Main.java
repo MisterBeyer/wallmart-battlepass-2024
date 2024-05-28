@@ -50,6 +50,12 @@ public final class Main
    */
   public static void main(String... args)
   {
-    RobotBase.startRobot(Robot::new);
+    while (true) {
+       try {
+      RobotBase.startRobot(Robot::new);
+    } catch (Exception e) {
+      System.out.println("The code no worky :(" + e + ")");
+    }
+    }
   }
 }
