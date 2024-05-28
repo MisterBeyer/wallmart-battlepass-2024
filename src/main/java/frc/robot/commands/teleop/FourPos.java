@@ -4,10 +4,13 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.Helpers.ArmCommands;
+import frc.robot.commands.Helpers.IntakeCommands;
 import frc.robot.commands.Helpers.WristCommands;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Wrist;
+import frc.robot.subsystems.Intake;
 
 
 /* Adds four commands to be used by operator to control the arm/wrist/intake module
@@ -21,19 +24,23 @@ public class FourPos{
     // Define Subsystems
     private Arm arm;
     private Wrist wrist;
+    private Intake intake;
 
     // Define Helpers
     private ArmCommands ArmC;
     private WristCommands WristC;
+    private IntakeCommands IntakeC;
 
 
-    public FourPos(Arm armprovider, Wrist wristprovider) {
+    public FourPos(Arm armprovider, Wrist wristprovider, Intake intakeprovider) {
         this.arm = armprovider;
         this.wrist = wristprovider;
+        this.intake = intakeprovider;
 
         // Setup Helper Commands
         ArmC = new ArmCommands(this.arm);
         WristC = new WristCommands(this.wrist);
+        IntakeC = new IntakeCommands(this.intake);
     }
 
 
@@ -74,8 +81,11 @@ public class FourPos{
         ParallelCommandGroup speaker = new ParallelCommandGroup(
             Commands.runOnce(() -> System.out.println("[FourPos] Speaker")),
             ArmC.goToSpeaker(),
-            WristC.goToSpeaker()
-
+            WristC.goToSpeaker(),
+            new SequentialCommandGroup(
+                new WaitCommand(0.25),
+                IntakeC.PullBackNote()
+            )
         );
         return speaker;
     }
@@ -86,7 +96,11 @@ public class FourPos{
         ParallelCommandGroup backwardspeaker = new ParallelCommandGroup(
             Commands.runOnce(() -> System.out.println("[FourPos] Backwards Speaker")),
             ArmC.goToBackwardsSpeaker(),
-            WristC.goToBackwardsSpeaker()
+            WristC.goToBackwardsSpeaker(),
+            new SequentialCommandGroup(
+                new WaitCommand(0.25),
+                IntakeC.PullBackNote()
+            )
         );
         return backwardspeaker;
     }
@@ -97,7 +111,11 @@ public class FourPos{
         ParallelCommandGroup backwardspeaker = new ParallelCommandGroup(
             Commands.runOnce(() -> System.out.println("[FourPos] Speaker from Podium")),
             ArmC.goToPodiumSpeaker(),
-            WristC.goToPodiumSpeaker()
+            WristC.goToPodiumSpeaker(),
+            new SequentialCommandGroup(
+                new WaitCommand(0.25), //TODO: Add Shuffleboard to this value
+                IntakeC.PullBackNote()
+            )
         );
         return backwardspeaker;
     }

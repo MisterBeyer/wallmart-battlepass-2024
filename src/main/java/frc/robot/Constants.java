@@ -101,6 +101,11 @@ public final class Constants
 
   }
 
+  public static class IntakeConstants {
+    // Note Detected reading from Time of Flight sensor
+    public static int NoteInTOF = 150;
+  }
+
   public static class ClimberConstants
   {
     // Max Amp Limit
@@ -155,5 +160,8 @@ public final class Constants
 
     // Joystick Rumble Stength
     public static final double RumbleStrength = 1.0;
+
+    // LimeLight
+    public static double LimelightArmAdjustmentMuliplyer = 1;
   }
 }
