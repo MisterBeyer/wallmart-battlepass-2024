@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.Helpers.IntakeCommands;
 import frc.robot.commands.Helpers.Intake.IntakeNote;
-import frc.robot.commands.Helpers.Intake.ShootRampUp;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Wrist;
@@ -28,7 +27,7 @@ public class AutoOperator{
         
         this.intakeC = new IntakeCommands(this.intake);
 
-        this.arm_control = new FourPos(arm, wrist);
+        this.arm_control = new FourPos(arm, wrist, intake);
     }
 
     
@@ -51,8 +50,10 @@ public class AutoOperator{
         return new SequentialCommandGroup(
             Commands.runOnce(() -> System.out.println("[AutoOp] Shooting Speaker")),
             arm_control.Speaker(),
-            new WaitCommand(1),
-            new ShootRampUp(intake),
+            new WaitCommand(.5),
+            new ParallelRaceGroup(
+                intakeC.LaunchNote(),
+                new WaitCommand(1.25)),
             arm_control.Stow()
         );
     }
@@ -61,8 +62,10 @@ public class AutoOperator{
         return new SequentialCommandGroup(
             Commands.runOnce(() -> System.out.println("[AutoOp] Shooting Speaker Backwards")),
             arm_control.SpeakerBackwards(),
-            new WaitCommand(1),
-            new ShootRampUp(intake),
+            new WaitCommand(.5),
+            new ParallelRaceGroup(
+                intakeC.LaunchNote(),
+                new WaitCommand(1)),
             arm_control.Stow()
         );
     }
@@ -71,8 +74,10 @@ public class AutoOperator{
         return new SequentialCommandGroup(
             Commands.runOnce(() -> System.out.println("[AutoOp] Shooting Speaker From Podium")),
             arm_control.SpeakerPoduim(),
-            new WaitCommand(1),
-            new ShootRampUp(intake),
+            new WaitCommand(.5),
+            new ParallelRaceGroup(
+                intakeC.LaunchNote(),
+                new WaitCommand(1)),
             arm_control.Stow()
         );
     }
@@ -94,8 +99,8 @@ public class AutoOperator{
     /** Just Launches Note using ShootRampUp Command and then Stows */
     public ParallelRaceGroup Launch(){
         return new ParallelRaceGroup(
-            new ShootRampUp(intake),
-            new WaitCommand(1.25)
+            intakeC.LaunchNote(),
+            new WaitCommand(1) // TODO: Clean Up this file
         );
     } 
 }

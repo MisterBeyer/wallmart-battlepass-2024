@@ -6,7 +6,6 @@ package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.geometry.Translation2d;
 //import edu.wpi.first.math.geometry.Pose2d; // TODO: Check if robot explodes with these commented out
 //import edu.wpi.first.math.geometry.Rotation2d;
 //import edu.wpi.first.math.geometry.Translation2d;
@@ -15,7 +14,6 @@ import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -66,10 +64,12 @@ public class RobotContainer
   private final WristCommands wristCommands = new WristCommands(wrist);
   private final IntakeCommands intakeCommands = new IntakeCommands(intake);
   private final ClimberCommands climberCommands = new ClimberCommands(climber);
+  private final CaprisonCommands limelightCommands = new CaprisonCommands();
+
   private final LimeLight Limelight = new LimeLight();
 
   // Define Command Helpers
-  private FourPos arm_control = new FourPos(arm, wrist);
+  private FourPos arm_control = new FourPos(arm, wrist, intake);
   private AutoOperator autoOP = new AutoOperator(arm, wrist, intake);
 
   // OperatorIntake intake_control = new OperatorIntake(intake);
@@ -107,7 +107,8 @@ public class RobotContainer
     NamedCommands.registerCommand("IntakeEjectF", intakeCommands.EjectForward()); // Intake
     NamedCommands.registerCommand("IntakeEjectB", intakeCommands.EjectBackward());
     NamedCommands.registerCommand("IntakeIn", intakeCommands.Intake());
-    NamedCommands.registerCommand("IntakeShoot", intakeCommands.ShootForward());
+    NamedCommands.registerCommand("IntakePullBack", intakeCommands.PullBackNote());
+    NamedCommands.registerCommand("IntakeShoot", intakeCommands.LaunchNote());
     NamedCommands.registerCommand("IntakeStop", intakeCommands.Stop());
 
     /* Automated Controls for Auto */
@@ -228,13 +229,15 @@ public class RobotContainer
                             new InstantCommand(armCommands::updateConstants),
                             new InstantCommand(wristCommands::updateConstants),
                             new InstantCommand(intakeCommands::updateConstants),
-                            new InstantCommand(climberCommands::updateConstants)
+                            new InstantCommand(climberCommands::updateConstants),
+                            new InstantCommand(limelightCommands::updateConstants)
     ));
 
 
     /* Other Subsystems */
     //driverXbox.x().onTrue(intakeCommands.EjectForward());     // Outake 
-    driverXbox.b().whileTrue(Commands.runEnd(() -> drivebase.drive(new Translation2d(0, 0), -LimelightHelpers.getTX("") * Math.PI / 180, false), () -> System.out.println("Bogo"), drivebase)); // Center on Apriltag
+    driverXbox.b().whileTrue(limelightCommands.AdjustDriveBase(drivebase));
+    driverXbox.a().whileTrue(limelightCommands.AdjustArm(arm));
 
     /* Drivebase */
     driverXbox.x().onTrue((new InstantCommand(drivebase::zeroGyro))); // Reset Heading
@@ -252,7 +255,7 @@ public class RobotContainer
 
     /* Main Arm Movement Controls */
     operatorXbox.x().onTrue(arm_control.Stow()); // Arm Positions
-    //operatorXbox.b().onTrue(arm_control.PoduimShot());//operatorXbox.b().onTrue(arm_control.Intake());
+    operatorXbox.b().onTrue(arm_control.SpeakerBackwards());//operatorXbox.b().onTrue(arm_control.Intake());
     operatorXbox.a().onTrue(arm_control.Amp());
     operatorXbox.y().onTrue(arm_control.Speaker());
 
@@ -266,7 +269,7 @@ public class RobotContainer
 
     /* Intake Controls */
     operatorXbox.leftTrigger().whileTrue(autoOP.Intake());
-    operatorXbox.rightTrigger().whileTrue(intakeCommands.ShootForward());
+    operatorXbox.rightTrigger().whileTrue(intakeCommands.LaunchNote());//ShootForward());
     operatorXbox.rightStick().whileTrue(intakeCommands.adjustBackward()); //intakeCommands.EjectForward());
     operatorXbox.leftBumper().whileTrue(intakeCommands.EjectBackward());
 

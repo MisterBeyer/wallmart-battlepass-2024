@@ -46,6 +46,10 @@ public class IntakeNote extends Command {
     @Override 
     public boolean isFinished() {
         //if(Math.abs(intake.getRearRPM()) > OperatorConstants.IntakeNoteBackRPM) return true;
-        return (intake.getFrontCurrent() > OperatorConstants.IntakeNoteAmps || Math.abs(intake.getRearRPM()) > 10); //TODO: add constant
+       
+        // Old Current based check
+        //return (intake.getFrontCurrent() > OperatorConstants.IntakeNoteAmps || Math.abs(intake.getRearRPM()) > 10); //TODO: add constant
+        
+        return intake.getTOFReading(); 
     }
 }
