@@ -4,8 +4,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Helpers.Intake.IntakeNote;
-import frc.robot.commands.Helpers.Intake.ShootRampUp;
+import frc.robot.commands.Helpers.Intake.*;
 import frc.robot.subsystems.Intake;
 
 //dont unplug the ethernet
@@ -44,7 +43,8 @@ public class IntakeCommands{
 
         // Update Constants of Subsystems and Helpers
         IntakeNote.updateConstants();
-        ShootRampUp.updateConstants();
+        ShootPullBack.updateConstants();
+        ShootNote.updateConstants();
         intake.updateConstants();
 
 
@@ -102,15 +102,26 @@ public class IntakeCommands{
 
 
      /**
+     * Pulls Note Back off of Front Rollers onto Rear Rollers
+     * so that they can Spin-Up in prep for Shooting
+     * 
+     * @return Command
+     */ 
+    public Command PullBackNote() {
+        return new ShootPullBack(intake);
+    }  
+
+    /**
      * Shoots note out of intake by ramping up front till it reaches
      * the speed in OperatorConstants.FrontRPM 
      * 
      * Then Shoots the Note out of the Front of the intake
      * @return Command
      */ 
-    public Command ShootForward() {
-        return new ShootRampUp(intake);
-    }    
+    public Command LaunchNote() {
+        return new ShootNote(intake);
+    }  
+
 
     /**
      * Intakes note

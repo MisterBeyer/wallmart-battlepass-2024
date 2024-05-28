@@ -70,8 +70,7 @@ public class ClimberCommands{
                 System.out.println("[ClimberCommands] Adjust Left Down");
                 climber.setLeft(-ClimberConstants.RetractSpeed);
                 },
-                () -> climber.stop(),
-                climber);
+                () -> climber.stop());
     }
 
     /** Manually Lowers Right Climber  */
@@ -80,8 +79,7 @@ public class ClimberCommands{
                 System.out.println("[ClimberCommands] Adjust Right Down");
                 climber.setRight(-ClimberConstants.RetractSpeed);
                 },
-                () -> climber.stop(),
-                climber);
+                () -> climber.stop());
     }
 
 
