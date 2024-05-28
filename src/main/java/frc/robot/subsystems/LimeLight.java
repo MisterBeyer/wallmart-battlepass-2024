@@ -32,7 +32,7 @@ public class LimeLight extends SubsystemBase {
             area = LimelightHelpers.getTA("");
 
             //  if(num % 50 == 0){
-            System.out.println(tx + ", " + tv);
+            System.out.println(area + ", " + tv);
             
             //post to smart dashboard periodically
             SmartDashboard.putNumber("Limelight/TX", tx);

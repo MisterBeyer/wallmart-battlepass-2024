@@ -2,9 +2,11 @@ package frc.robot.subsystems;
 
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.IntakeConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.playingwithfusion.TimeOfFlight;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 
@@ -15,6 +17,8 @@ public class Intake extends SubsystemBase{
     private final CANSparkMax IntakeF = new CANSparkMax(31, MotorType.kBrushless);
     private final RelativeEncoder IntakeR_enc = IntakeR.getEncoder();
     private final RelativeEncoder IntakeF_enc = IntakeF.getEncoder();
+
+    private final TimeOfFlight rangeSensorF = new TimeOfFlight(40);
 
 
     private boolean isLocked;
@@ -36,6 +40,9 @@ public class Intake extends SubsystemBase{
 
       isLocked = false;
       hasNote  = false;
+
+      // ShuffleBoard!
+      SmartDashboard.putNumber("Intake/TOF NoteIn Limit", IntakeConstants.NoteInTOF);
     }
 
 
@@ -63,6 +70,12 @@ public class Intake extends SubsystemBase{
     public double getFrontCurrent() {
       return IntakeF.getOutputCurrent();
     }
+
+     /** @return Output t/f if the note is detected by the Time of Flight sensor */
+    public boolean getTOFReading() {
+      if(rangeSensorF.getRange() <= IntakeConstants.NoteInTOF) return true;
+      return false;
+    }
     
     /** @return Output Current of the Rear Intake Motor as double*/
     public double getRearCurrent(){
@@ -87,11 +100,13 @@ public class Intake extends SubsystemBase{
 
       SmartDashboard.putBoolean("Intake/Lock Status", getLock());
       SmartDashboard.putBoolean("Intake/Note Status", getNoteStatus());
+      SmartDashboard.putNumber("Intake/TOF Reading", rangeSensorF.getRange());
     }
 
     /** Pulls the IntakeSpeed variables from shuffleboard  */
     public void updateConstants() {
-      // Nothing so far
+      // TOF Limits
+      IntakeConstants.NoteInTOF = (int) SmartDashboard.getNumber("Intake/TOF NoteIn Limit", IntakeConstants.NoteInTOF);
     }
 
 
