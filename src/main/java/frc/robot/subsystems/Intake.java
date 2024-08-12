@@ -92,7 +92,7 @@ public class Intake extends SubsystemBase{
 
 
     /** Puts data onto Shuffleboard */
-    public void putData() {/* 
+    public void putData() {}/* 
       SmartDashboard.putNumber("Intake/Front Intake Amps", getFrontCurrent());
       SmartDashboard.putNumber("Intake/Rear Intake Amps", getRearCurrent());
       SmartDashboard.putNumber("Intake/Front Intake RPM", getFrontRPM());
@@ -101,7 +101,7 @@ public class Intake extends SubsystemBase{
       SmartDashboard.putBoolean("Intake/Lock Status", getLock());
       SmartDashboard.putBoolean("Intake/Note Status", getNoteStatus());
       SmartDashboard.putNumber("Intake/TOF Reading", rangeSensorF.getRange());
-    }
+    }*/
 
     /** Pulls the IntakeSpeed variables from shuffleboard  */
     public void updateConstants() {
