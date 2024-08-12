@@ -31,7 +31,7 @@ import java.io.File;
 /*  Not sure how this got hre
 import java.sql.DriverPropertyInfo; */
 
-import com.pathplanner.lib.auto.AutoBuilder;
+//import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
@@ -83,7 +83,7 @@ public class RobotContainer
   CommandXboxController operatorXbox = new CommandXboxController(OperatorControllerPort);
 
   // Define Rumble Commands
-  private Rumble rumble = new Rumble(DriverControllerPort, OperatorControllerPort);
+  //private Rumble rumble = new Rumble(DriverControllerPort, OperatorControllerPort);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -314,7 +314,7 @@ public class RobotContainer
   public void setDriveMode()
   {
     // Shake the Driver Controller so we don't repeat Block Party
-    rumble.driver();
+    //rumble.driver();
     //drivebase.setDefaultCommand();/..
   }
 
