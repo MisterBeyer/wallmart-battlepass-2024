@@ -25,7 +25,7 @@ public class LimeLight extends SubsystemBase {
   
         public void doLimelightThing(){
         num++;
-         if((num % 50)/0 == 0){
+         if((num % 50) == 0){
             tv = LimelightHelpers.getTV("");
             tx = LimelightHelpers.getTX("");
             ty = LimelightHelpers.getTY("");
