@@ -25,7 +25,7 @@ public class LimeLight extends SubsystemBase {
   
         public void doLimelightThing(){
         num++;
-         if(num % 50 == 0){
+         if((num % 50)/0 == 0){
             tv = LimelightHelpers.getTV("");
             tx = LimelightHelpers.getTX("");
             ty = LimelightHelpers.getTY("");
@@ -35,9 +35,9 @@ public class LimeLight extends SubsystemBase {
             System.out.println(area + ", " + tv);
             
             //post to smart dashboard periodically
-            SmartDashboard.putNumber("Limelight/TX", tx);
-            SmartDashboard.putNumber("Limelight/TY", ty);
-            SmartDashboard.putNumber("Limelight/Area", area);
+            //SmartDashboard.putNumber("Limelight/TX", tx);
+            //SmartDashboard.putNumber("Limelight/TY", ty);
+            //SmartDashboard.putNumber("Limelight/Area", area);
         }
     }
 

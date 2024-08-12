@@ -73,13 +73,14 @@ public class Arm extends TrapezoidProfileSubsystem{
         
 
         // Shuffleboard!
-        SmartDashboard.putNumber("Arm/Reletive SoftStop Delta", ArmConstants.ReletiveSoftStopDelta);
+        /*SmartDashboard.putNumber("Arm/Reletive SoftStop Delta", ArmConstants.ReletiveSoftStopDelta);
 
         SmartDashboard.putNumber("Arm/Arm P", ArmConstants.P); //PID
         SmartDashboard.putNumber("Arm/Arm I", ArmConstants.I);
         SmartDashboard.putNumber("Arm/Arm D", ArmConstants.D);
         SmartDashboard.putNumber("Arm/Arm IZone", ArmConstants.Iz);
         SmartDashboard.putNumber("Arm/Arm FF", ArmConstants.FF);
+        */
     }
 
 
@@ -89,35 +90,35 @@ public class Arm extends TrapezoidProfileSubsystem{
             ArmConstants.ReletiveSoftStopDelta = SmartDashboard.getNumber("Arm/Reletive SoftStop Delta", ArmConstants.ReletiveSoftStopDelta);
 
             // PID Constants
-            ArmConstants.P = SmartDashboard.getNumber("Arm/Arm P", ArmConstants.P);
+           /*  ArmConstants.P = SmartDashboard.getNumber("Arm/Arm P", ArmConstants.P);
             ArmConstants.I = SmartDashboard.getNumber("Arm/Arm I", ArmConstants.I);
             ArmConstants.D = SmartDashboard.getNumber("Arm/Arm D", ArmConstants.D);
             ArmConstants.Iz = SmartDashboard.getNumber("Arm/Arm IZone", ArmConstants.Iz);
             ArmConstants.FF = SmartDashboard.getNumber("Arm/Arm FF", ArmConstants.FF);
-
+*/
             // ^Update PID Controller
-            Arm0_pidController.setP(ArmConstants.P);
+           /*  Arm0_pidController.setP(ArmConstants.P);
             Arm0_pidController.setI(ArmConstants.I);
             Arm0_pidController.setD(ArmConstants.D);
             Arm0_pidController.setIZone(ArmConstants.Iz);
             Arm0_pidController.setFF(ArmConstants.FF);
-
+*/
     }
     
 
     /** @return Average of Arm motor's Output Amperage  */
     public double getAverageCurrent() {
         double current = (Arm0.getOutputCurrent() + Arm1.getOutputCurrent())/2;
-  
-        SmartDashboard.putNumber("Arm/L Arm Amps", Arm0.getOutputCurrent());
-        SmartDashboard.putNumber("Arm/R Arm Amps", Arm1.getOutputCurrent());
+   
+        //SmartDashboard.putNumber("Arm/L Arm Amps", Arm0.getOutputCurrent());
+        //SmartDashboard.putNumber("Arm/R Arm Amps", Arm1.getOutputCurrent());
         return current;
       }
 
     /** @return The current encoder posistion of the right motor */
     public double getPosition() {
         double position = Arm0_encoder.getPosition();
-        SmartDashboard.putNumber("Arm/Arm Encoder", position);
+        //SmartDashboard.putNumber("Arm/Arm Encoder", position);
         return position;
     }
 

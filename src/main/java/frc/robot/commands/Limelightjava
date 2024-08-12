@@ -8,7 +8,7 @@ public class Limelight {
     private double tx;
     private double ty;
     private double area;
-
+}
 
     public Limelight() {
         LimelightHelpers.setLEDMode_PipelineControl("");
