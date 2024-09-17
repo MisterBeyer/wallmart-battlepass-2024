@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.5237490474980953,
-        "y": 6.977901955803912
+        "x": 2.4684941677575676,
+        "y": 3.9073093530802447
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.1719220581298306,
-        "y": 6.699372255887369
+        "x": 2.162618940622498,
+        "y": 4.440124264863914
       },
       "isLocked": false,
-      "linkedName": "Note1"
+      "linkedName": "note3"
     },
     {
       "anchor": {
@@ -20,12 +20,12 @@
         "y": 5.52661562465982
       },
       "prevControl": {
-        "x": 1.4682680793933023,
-        "y": 5.761166950905331
+        "x": 1.585543742516057,
+        "y": 5.08683188794949
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Start"
+      "linkedName": "Speaker"
     }
   ],
   "rotationTargets": [],
@@ -33,15 +33,15 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.25,
+      "waypointRelativePos": 0.0,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
-                "name": "AutoSpeakerBackwards"
+                "name": "AutoSpeakerMoveBackwards"
               }
             }
           ]
@@ -57,11 +57,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -1.225172166583698,
+    "rotation": -0.5235456119980716,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "SkibbidiAuto",
+  "folder": "RAM",
   "previewStartingState": null,
   "useDefaultConstraints": true
 }
