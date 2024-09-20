@@ -14,12 +14,12 @@ public class IntakeNote extends Command {
         addRequirements(intake);
 
         // Shuffleboard!
-        //SmartDashboard.putNumber("Intake/IntakeNote/Intake Note Amp Limit", OperatorConstants.IntakeNoteAmps);
+        SmartDashboard.putNumber("Intake/IntakeNote/Note In Intake TOF Reading", OperatorConstants.intakeTOFLimit);
     }
 
     /** Updates Motor Speeds and limits from shuffleboard */
     public static void updateConstants() {
-        OperatorConstants.IntakeNoteAmps = SmartDashboard.getNumber("Intake/IntakeNote/Intake Note Amp Limit", OperatorConstants.IntakeNoteAmps);
+        OperatorConstants.intakeTOFLimit = SmartDashboard.getNumber("Intake/IntakeNote/Note In Intake TOF Reading", OperatorConstants.intakeTOFLimit);
 
         System.out.println("[IntakeCommands/IntakeNote] Shuffleboard Updated");
     } 
@@ -45,11 +45,6 @@ public class IntakeNote extends Command {
 
     @Override 
     public boolean isFinished() {
-        //if(Math.abs(intake.getRearRPM()) > OperatorConstants.IntakeNoteBackRPM) return true;
-       
-        // Old Current based check
-        //return (intake.getFrontCurrent() > OperatorConstants.IntakeNoteAmps || Math.abs(intake.getRearRPM()) > 10); //TODO: add constant
-        
-        return intake.getTOFReading(); 
+        return (intake.getTOFReading() <= OperatorConstants.intakeTOFLimit); 
     }
 }

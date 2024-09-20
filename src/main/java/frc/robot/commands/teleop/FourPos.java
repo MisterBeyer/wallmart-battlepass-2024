@@ -1,10 +1,12 @@
 package frc.robot.commands.teleop;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Helpers.ArmCommands;
 import frc.robot.commands.Helpers.IntakeCommands;
 import frc.robot.commands.Helpers.WristCommands;
@@ -41,6 +43,9 @@ public class FourPos{
         ArmC = new ArmCommands(this.arm);
         WristC = new WristCommands(this.wrist);
         IntakeC = new IntakeCommands(this.intake);
+
+        // Shuffleboard!
+        SmartDashboard.putNumber("Operator/Note Pullback start delay", OperatorConstants.PullbackDelay);
     }
 
 
@@ -83,7 +88,7 @@ public class FourPos{
             ArmC.goToSpeaker(),
             WristC.goToSpeaker(),
             new SequentialCommandGroup(
-                new WaitCommand(0.25),
+                new WaitCommand(OperatorConstants.PullbackDelay),
                 IntakeC.PullBackNote()
             )
         );
@@ -98,7 +103,7 @@ public class FourPos{
             ArmC.goToBackwardsSpeaker(),
             WristC.goToBackwardsSpeaker(),
             new SequentialCommandGroup(
-                new WaitCommand(0.25),
+                new WaitCommand(OperatorConstants.PullbackDelay),
                 IntakeC.PullBackNote()
             )
         );
@@ -113,7 +118,7 @@ public class FourPos{
             ArmC.goToPodiumSpeaker(),
             WristC.goToPodiumSpeaker(),
             new SequentialCommandGroup(
-                new WaitCommand(0.25), //TODO: Add Shuffleboard to this value
+                new WaitCommand(OperatorConstants.PullbackDelay),
                 IntakeC.PullBackNote()
             )
         );
@@ -125,7 +130,10 @@ public class FourPos{
     /** Update Constants of all Subsystems */
     public SequentialCommandGroup updateShuffleboard() {
         SequentialCommandGroup update = new SequentialCommandGroup(
-            Commands.runOnce(() -> System.out.println("[FourPos] Shuffleboard Updated")),
+            Commands.runOnce(() -> {
+                OperatorConstants.PullbackDelay = SmartDashboard.getNumber("Operator/Note Pullback start delay", OperatorConstants.PullbackDelay);
+                System.out.println("[FourPos] Shuffleboard Updated");
+            }),
             new InstantCommand(ArmC::updateConstants),
             new InstantCommand(WristC::updateConstants)
         );

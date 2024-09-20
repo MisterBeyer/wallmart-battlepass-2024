@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Helpers.IntakeCommands;
 import frc.robot.commands.Helpers.Intake.IntakeNote;
 import frc.robot.subsystems.Arm;
@@ -53,7 +54,7 @@ public class AutoOperator{
             new WaitCommand(.5),
             new ParallelRaceGroup(
                 intakeC.LaunchNote(),
-                new WaitCommand(1.25)),
+                new WaitCommand(OperatorConstants.shootingCutoffDelay)),
             arm_control.Stow()
         );
     }
@@ -65,7 +66,7 @@ public class AutoOperator{
             new WaitCommand(.5),
             new ParallelRaceGroup(
                 intakeC.LaunchNote(),
-                new WaitCommand(1)),
+                new WaitCommand(OperatorConstants.shootingCutoffDelay)),
             arm_control.Stow()
         );
     }
@@ -77,7 +78,7 @@ public class AutoOperator{
             new WaitCommand(.5),
             new ParallelRaceGroup(
                 intakeC.LaunchNote(),
-                new WaitCommand(1)),
+                new WaitCommand(OperatorConstants.shootingCutoffDelay)),
             arm_control.Stow()
         );
     }
@@ -89,7 +90,7 @@ public class AutoOperator{
             arm_control.Amp(),
             new WaitCommand(2),
             new ParallelRaceGroup(intakeC.EjectBackward(),
-                                  new WaitCommand(1)),
+                                  new WaitCommand(OperatorConstants.shootingCutoffDelay)),
             intakeC.Stop(),
             arm_control.Stow()
         );
@@ -100,7 +101,7 @@ public class AutoOperator{
     public ParallelRaceGroup Launch(){
         return new ParallelRaceGroup(
             intakeC.LaunchNote(),
-            new WaitCommand(1) // TODO: Clean Up this file
+            new WaitCommand(OperatorConstants.shootingCutoffDelay)
         );
     } 
 }

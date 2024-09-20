@@ -6,13 +6,9 @@ package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.MathUtil;
-//import edu.wpi.first.math.geometry.Pose2d; // TODO: Check if robot explodes with these commented out
-//import edu.wpi.first.math.geometry.Rotation2d;
-//import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -31,9 +27,10 @@ import java.io.File;
 /*  Not sure how this got hre
 import java.sql.DriverPropertyInfo; */
 
-//import com.pathplanner.lib.auto.AutoBuilder;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 
 
 /**
@@ -121,29 +118,13 @@ public class RobotContainer
 
 
     // Build an auto chooser. This will use "Skibbidi Auto" as the default option.
-    //autoChooser = AutoBuilder.buildAutoChooser();
-    try {
-      autoChooser.setDefaultOption("Disabled", new WaitCommand(0.1));
-      autoChooser.addOption("Skibbidi Auto", new PathPlannerAuto("Skibbidi Auto"));
-      SmartDashboard.putData("Auto Chooser", autoChooser);
-    }
-    catch (Exception e) {
-      System.out.println("PathPlanner Error: Failed to Load Path");
-      System.out.println(e.toString());
-    }
-
-  
+    autoChooser = AutoBuilder.buildAutoChooser();
+    autoChooser.setDefaultOption("Disabled", new WaitCommand(0.1));
 
     // Creates a UsbCamera and MjpegServer [1] and connects them
     CameraServer.startAutomaticCapture(0);
 
-    // Creates the CvSink and connects it to the UsbCamera
-    //CvSink cvSink = CameraServer.getVideo();
-
-    // Creates the CvSource and MjpegServer [2] and connects them
-    //CvSource outputStream = CameraServer.putVideo("Blur", 640, 480);
-
-    // Activate LimeLight65
+    // Activate LED on LimeLight
     //Bluetooth.setDefaultCommand(limelight);
 
 
@@ -236,6 +217,7 @@ public class RobotContainer
 
     /* Other Subsystems */
     //driverXbox.x().onTrue(intakeCommands.EjectForward());     // Outake 
+    // Limelight
     driverXbox.b().whileTrue(limelightCommands.AdjustDriveBase(drivebase));
     driverXbox.a().whileTrue(limelightCommands.AdjustArm(arm));
 
