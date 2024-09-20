@@ -157,9 +157,9 @@ public final class Constants
     public static final double RumbleStrength = 1.0;
 
     // Delays and Wait Limits  
-    public static double shootingCutoffWaitLimit = 2;
+    public static double shootingCutoffWaitLimit = 1.25;
     public static double armMovementDelay = .5;
-    public static double intakeMovementDelay = .45;
+    public static double intakeMovementDelay = .4;
     public static double PullbackDelay = .25;
 
     // LimeLight
