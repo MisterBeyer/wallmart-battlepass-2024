@@ -1,8 +1,8 @@
 package frc.robot.commands.teleop;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -127,17 +127,11 @@ public class FourPos{
 
 
 
-    /** Update Constants of all Subsystems */
-    public SequentialCommandGroup updateShuffleboard() {
-        SequentialCommandGroup update = new SequentialCommandGroup(
-            Commands.runOnce(() -> {
+    /** Update Constants from shuffleboard */
+    public Command updateConstants() {
+        return Commands.runOnce(() -> {
                 OperatorConstants.PullbackDelay = SmartDashboard.getNumber("Operator/Note Pullback start delay", OperatorConstants.PullbackDelay);
                 System.out.println("[FourPos] Shuffleboard Updated");
-            }),
-            new InstantCommand(ArmC::updateConstants),
-            new InstantCommand(WristC::updateConstants)
-        );
-
-        return update;
+            });
     }
 }

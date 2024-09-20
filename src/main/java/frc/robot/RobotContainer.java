@@ -54,7 +54,6 @@ public class RobotContainer
   private final Arm arm = new Arm();
 
   private final Climber climber = new Climber();
-  //private final Climber climber = new Climber();
  // private final Bluetooth bluetooth = new Bluetooth();
 
   private final ArmCommands armCommands = new ArmCommands(arm);
@@ -211,7 +210,9 @@ public class RobotContainer
                             new InstantCommand(wristCommands::updateConstants),
                             new InstantCommand(intakeCommands::updateConstants),
                             new InstantCommand(climberCommands::updateConstants),
-                            new InstantCommand(limelightCommands::updateConstants)
+                            new InstantCommand(limelightCommands::updateConstants),
+                            new InstantCommand(arm_control::updateConstants),
+                            new InstantCommand(autoOP::updateConstants)
     ));
 
 
