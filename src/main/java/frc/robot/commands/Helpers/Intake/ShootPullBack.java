@@ -17,13 +17,14 @@ public class ShootPullBack extends Command {
         addRequirements(intake);
 
         // ShuffleBoard!
-        SmartDashboard.putNumber("Intake/ShootRampUp/Note Left Front Roller Amps", OperatorConstants.NoteLeftFrontAmps);
-
+        SmartDashboard.putNumber("Intake/ShootRampUp/Note Reached TOF Sensor Limit", OperatorConstants.reachedTOFLimit);
+        SmartDashboard.putNumber("Intake/ShootRampUp/Note Left TOF Sensor Limit", OperatorConstants.leftTOFLimit);
     }
 
     /** Updates Motor Speeds and limits from shuffleboard */
     public static void updateConstants() {
-        OperatorConstants.NoteLeftFrontAmps = SmartDashboard.getNumber("Intake/ShootRampUp/Note Left Front Roller Amps", OperatorConstants.NoteLeftFrontAmps);
+        OperatorConstants.reachedTOFLimit = SmartDashboard.getNumber("Intake/ShootRampUp/Note Reached TOF Sensor Limit", OperatorConstants.reachedTOFLimit);
+        OperatorConstants.leftTOFLimit = SmartDashboard.getNumber("Intake/ShootRampUp/Note Reached TOF Sensor Limit", OperatorConstants.leftTOFLimit);
 
         System.out.println("[IntakeCommands/ShootPullBack] Shuffleboard Updated");
     } 
@@ -38,33 +39,22 @@ public class ShootPullBack extends Command {
 
     @Override
     public void execute() {
-        /* if (state == 0) { // Spin-up Front Roller
-            if(intake.getFrontCurrent() < OperatorConstants.NoteLeftFrontAmps) {
-                intake.setSpeed(OperatorConstants.FrontSlow, -0.05);
+
+        if (state == 0) { // Push Note until it reaches the Time Of Flight sensor
+        
+            if(intake.getTOFReading() >= OperatorConstants.reachedTOFLimit) {
+                intake.setSpeed(OperatorConstants.FrontSlow, -OperatorConstants.BackSlow);
             }
             else state = 1;
-        } */
-        if (state == 0) { // Run until the Note leaves front rollers
+        }
+
+        else if (state == 1) { // Push Note until it leaves the Time Of Flight sensor
         
-            if(intake.getTOFReading()) {
-                intake.setSpeed(OperatorConstants.FrontSlow, OperatorConstants.BackSlow);
+            if(intake.getTOFReading() <= OperatorConstants.leftTOFLimit) {
+                intake.setSpeed(0, -OperatorConstants.BackSlow);
             }
             else state = 2;
         }
-            // Old Implementation for Current sensors
-            /*if (timer.get() >= 1) {
-            state = 6;
-        }
-            if(intake.getFrontCurrent() > OperatorConstants.NoteLeftFrontAmps) {
-                intake.setSpeed(OperatorConstants.FrontSlow, 0);
-            }
-            else state = 2;
-        }
-        else if  (state == 6) { // corrects note if state 1 runs for too long 
-            intake.setSpeed(0, OperatorConstants.BackSlow); // back runs at .6
-                if(intake.getFrontRPM() <= 0.01);
-                    state = 2;
-        } */
 
 
         System.out.println("state: "+state+" - " + intake.getFrontCurrent());

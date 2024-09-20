@@ -35,9 +35,9 @@ public class LimeLight extends SubsystemBase {
             System.out.println(area + ", " + tv);
             
             //post to smart dashboard periodically
-            //SmartDashboard.putNumber("Limelight/TX", tx);
-            //SmartDashboard.putNumber("Limelight/TY", ty);
-            //SmartDashboard.putNumber("Limelight/Area", area);
+            SmartDashboard.putNumber("Limelight/TX", tx);
+            SmartDashboard.putNumber("Limelight/TY", ty);
+            SmartDashboard.putNumber("Limelight/Area", area);
         }
     }
 
@@ -50,6 +50,3 @@ public class LimeLight extends SubsystemBase {
 
     
 }
-
-
-// TODO: to start lets get the limelight to see (ex: ID 1) and do a simple task (ex: raise arm to speaker or spin 180)
