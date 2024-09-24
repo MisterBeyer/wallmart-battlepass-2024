@@ -124,10 +124,10 @@ public final class Constants
     public static double BackOut = 0.95;
     public static double FrontOut = 0.95;
     public static double FrontIn = 0.7;
-    public static double BackSlow = 0.2;
+    public static double BackSlow = 0.05;
     public static double FrontSlow = 0.2;
-    public static double BackSlow2 = 0.15;
-    public static double FrontSlow2 = 0.15;
+    public static double BackSlow2 = 0.25;
+    public static double FrontSlow2 = 0.2
     public static double FrontRPM = 3500;
     public static double IntakeNoteAmps = 110;
     public static double NoteLeftFrontAmps = 24.0; //changed from 30
@@ -168,6 +168,6 @@ public final class Constants
     // TOF Sensor Limits
     public static double intakeTOFLimit = 150;
     public static double reachedTOFLimit = 150;
-    public static double leftTOFLimit = 350;
+    public static double leftTOFLimit = 160;
   }
 }

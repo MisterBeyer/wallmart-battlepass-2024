@@ -1,10 +1,14 @@
 package frc.robot.commands.Helpers;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.commands.Helpers.LimeLight.ArmDistanceAdjust;
 import frc.robot.commands.Helpers.LimeLight.DriveBaseRotationAdjust;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.LimelightHelpers;
 
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import frc.robot.Constants.OperatorConstants;
@@ -25,6 +29,17 @@ public class CaprisonCommands {
     }
 
 
+    /**
+     * Moves Arm up a certain amount depending on distance from an apriltag 
+     * @param drivebase Swerve Drivebase provided by YAGSL
+     * @return
+     */
+    public Command getPose(SwerveSubsystem drivebase) {
+        return Commands.runOnce(() -> {
+            Pose2d pose = LimelightHelpers.getBotPose2d("");
+           // drivebase.addVisionReading(pose,  Timer.getFPGATimestamp());
+        }, drivebase);
+    }
 
     /**
      * Moves Arm up a certain amount depending on distance from an apriltag 

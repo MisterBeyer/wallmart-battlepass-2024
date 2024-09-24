@@ -9,10 +9,11 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+//import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
@@ -27,10 +28,9 @@ import java.io.File;
 /*  Not sure how this got hre
 import java.sql.DriverPropertyInfo; */
 
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+//import com.pathplanner.lib.commands.PathPlannerAuto;
 
 
 /**
@@ -54,6 +54,7 @@ public class RobotContainer
   private final Arm arm = new Arm();
 
   private final Climber climber = new Climber();
+  //private final Climber climber = new Climber();
  // private final Bluetooth bluetooth = new Bluetooth();
 
   private final ArmCommands armCommands = new ArmCommands(arm);
@@ -118,12 +119,30 @@ public class RobotContainer
 
     // Build an auto chooser. This will use "Skibbidi Auto" as the default option.
     autoChooser = AutoBuilder.buildAutoChooser();
-    autoChooser.setDefaultOption("Disabled", new WaitCommand(0.1));
+    SmartDashboard.putData("Auto Chooser", autoChooser);
+
+    /* try {
+      autoChooser.setDefaultOption("Disabled", new WaitCommand(0.1));
+      autoChooser.addOption("Skibbidi Auto", new PathPlannerAuto("Skibbidi Auto"));
+      SmartDashboard.putData("Auto Chooser", autoChooser);
+    }
+    catch (Exception e) {
+      System.out.println("PathPlanner Error: Failed to Load Path");
+      System.out.println(e.toString());
+    } */
+
+  
 
     // Creates a UsbCamera and MjpegServer [1] and connects them
     CameraServer.startAutomaticCapture(0);
 
-    // Activate LED on LimeLight
+    // Creates the CvSink and connects it to the UsbCamera
+    //CvSink cvSink = CameraServer.getVideo();
+
+    // Creates the CvSource and MjpegServer [2] and connects them
+    //CvSource outputStream = CameraServer.putVideo("Blur", 640, 480);
+
+    // Activate LimeLight65
     //Bluetooth.setDefaultCommand(limelight);
 
 
@@ -210,15 +229,12 @@ public class RobotContainer
                             new InstantCommand(wristCommands::updateConstants),
                             new InstantCommand(intakeCommands::updateConstants),
                             new InstantCommand(climberCommands::updateConstants),
-                            new InstantCommand(limelightCommands::updateConstants),
-                            new InstantCommand(arm_control::updateConstants),
-                            new InstantCommand(autoOP::updateConstants)
+                            new InstantCommand(limelightCommands::updateConstants)
     ));
 
 
     /* Other Subsystems */
     //driverXbox.x().onTrue(intakeCommands.EjectForward());     // Outake 
-    // Limelight
     driverXbox.b().whileTrue(limelightCommands.AdjustDriveBase(drivebase));
     driverXbox.a().whileTrue(limelightCommands.AdjustArm(arm));
 
