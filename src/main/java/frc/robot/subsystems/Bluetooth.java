@@ -46,7 +46,6 @@ public class Bluetooth extends SubsystemBase{
     wait(2000)
     ;
     } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }candle.clearAnimation(0)
     ;candle.setLEDs(0, 0, 0)
