@@ -101,11 +101,6 @@ public final class Constants
 
   }
 
-  public static class IntakeConstants {
-    // Note Detected reading from Time of Flight sensor
-    public static int NoteInTOF = 150;
-  }
-
   public static class ClimberConstants
   {
     // Max Amp Limit
@@ -129,8 +124,8 @@ public final class Constants
     public static double BackOut = 0.95;
     public static double FrontOut = 0.95;
     public static double FrontIn = 0.7;
-    public static double BackSlow = 0.6;
-    public static double FrontSlow = 0.5;
+    public static double BackSlow = 0.2;
+    public static double FrontSlow = 0.2;
     public static double BackSlow2 = 0.15;
     public static double FrontSlow2 = 0.15;
     public static double FrontRPM = 3500;
@@ -142,7 +137,7 @@ public final class Constants
     public static double ArmAmpPosition = -40.8;
     public static double ArmSpeakerPosition =  -23; // -25.5; //-35.0\ //24.5
     public static double ArmSpeakerBackwardsPosition = -41.00;
-    public static double ArmSpeakerPodiumPosition = 0.0; //TODO: tune this (dont touch)
+    public static double ArmSpeakerPodiumPosition = 0.0;
 
     public static double WristAmpPosition = -12.5;
     public static double WristSpeakerPosition = -7.3; // -8.3; // -11.65
@@ -161,7 +156,18 @@ public final class Constants
     // Joystick Rumble Stength
     public static final double RumbleStrength = 1.0;
 
+    // Delays and Wait Limits  
+    public static double shootingCutoffWaitLimit = 1.25;
+    public static double armMovementDelay = .5;
+    public static double intakeMovementDelay = .4;
+    public static double PullbackDelay = .25;
+
     // LimeLight
     public static double LimelightArmAdjustmentMuliplyer = 1;
+
+    // TOF Sensor Limits
+    public static double intakeTOFLimit = 150;
+    public static double reachedTOFLimit = 150;
+    public static double leftTOFLimit = 350;
   }
 }

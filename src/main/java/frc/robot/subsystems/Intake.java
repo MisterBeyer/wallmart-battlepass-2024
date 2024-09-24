@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.IntakeConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -40,9 +39,6 @@ public class Intake extends SubsystemBase{
 
       isLocked = false;
       hasNote  = false;
-
-      // ShuffleBoard!
-      SmartDashboard.putNumber("Intake/TOF NoteIn Limit", IntakeConstants.NoteInTOF);
     }
 
 
@@ -71,17 +67,15 @@ public class Intake extends SubsystemBase{
       return IntakeF.getOutputCurrent();
     }
 
-     /** @return Output t/f if the note is detected by the Time of Flight sensor */
-    public boolean getTOFReading() {
-      if(rangeSensorF.getRange() <= IntakeConstants.NoteInTOF) return true;
-      return false;
-    }
+    /** @return value reported by Time of Flight sensor as double*/
+    public double getTOFReading() {
+          return rangeSensorF.getRange();
+        }
     
     /** @return Output Current of the Rear Intake Motor as double*/
     public double getRearCurrent(){
         return IntakeR.getOutputCurrent();
     }
-
 
     /** @return Average of Intake motor's Output Amperage */
     public double getAverageCurrent() {
@@ -92,7 +86,7 @@ public class Intake extends SubsystemBase{
 
 
     /** Puts data onto Shuffleboard */
-    public void putData() {}/* 
+    public void putData() {
       SmartDashboard.putNumber("Intake/Front Intake Amps", getFrontCurrent());
       SmartDashboard.putNumber("Intake/Rear Intake Amps", getRearCurrent());
       SmartDashboard.putNumber("Intake/Front Intake RPM", getFrontRPM());
@@ -101,12 +95,10 @@ public class Intake extends SubsystemBase{
       SmartDashboard.putBoolean("Intake/Lock Status", getLock());
       SmartDashboard.putBoolean("Intake/Note Status", getNoteStatus());
       SmartDashboard.putNumber("Intake/TOF Reading", rangeSensorF.getRange());
-    }*/
+    }
 
     /** Pulls the IntakeSpeed variables from shuffleboard  */
     public void updateConstants() {
-      // TOF Limits
-      IntakeConstants.NoteInTOF = (int) SmartDashboard.getNumber("Intake/TOF NoteIn Limit", IntakeConstants.NoteInTOF);
     }
 
 
