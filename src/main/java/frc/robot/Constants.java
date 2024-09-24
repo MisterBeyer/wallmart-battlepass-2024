@@ -24,9 +24,12 @@ public final class Constants
   public static final double ROBOT_MASS = (116) * 0.453592; // 32lbs * kg per pound
   public static final Matter CHASSIS    = new Matter(new Translation3d(Units.inchesToMeters(32), Units.inchesToMeters(32),  Units.inchesToMeters(8)), ROBOT_MASS);
   public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
+  public static final double MAX_SPEED  = Units.feetToMeters(14.5);
+  // Maximum speed of the robot in meters per second, used to limit acceleration.
 
   public static final class Pathplanner
   {
+
     // Translation PID constants
     public static final PIDConstants TranslationPID = new PIDConstants(5, 0, 0);
     public static final PIDConstants RotationPID = new PIDConstants(5, 0, 0);
@@ -34,12 +37,13 @@ public final class Constants
     // Max module speed, in m/s
     public static final double MaxModuleSpeed = Units.feetToMeters(15.1);
   }
-
+  
   public static final class Drivebase
   {
-    // Drivebase Max Speed
-    public static final double MaxSpeed = Units.feetToMeters(15.1); //15.1
-    
+    // Autonomous Constants
+    public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.7, 0, 0);
+    public static final PIDConstants ANGLE_PID       = new PIDConstants(0.4, 0, 0.01);
+
     // Hold time on motor brakes when disabled
     public static final double WHEEL_LOCK_TIME = 10; // seconds
   }
@@ -127,7 +131,7 @@ public final class Constants
     public static double BackSlow = 0.05;
     public static double FrontSlow = 0.2;
     public static double BackSlow2 = 0.25;
-    public static double FrontSlow2 = 0.2
+    public static double FrontSlow2 = 0.2;
     public static double FrontRPM = 3500;
     public static double IntakeNoteAmps = 110;
     public static double NoteLeftFrontAmps = 24.0; //changed from 30
