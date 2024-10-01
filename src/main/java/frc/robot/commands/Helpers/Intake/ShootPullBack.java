@@ -41,20 +41,25 @@ public class ShootPullBack extends Command {
     public void execute() {
 
         if (state == 0) { // Push Note until it reaches the Time Of Flight sensor
-        
-            if(intake.getTOFReading() >= OperatorConstants.reachedTOFLimit) {
+            System.out.println(intake.getTOFReading());
+            if(intake.getTOFReading() <= OperatorConstants.leftTOFLimit) {
                 intake.setSpeed(OperatorConstants.FrontSlow, -OperatorConstants.BackSlow);
             }
-            else state = 1;
+            else {
+                System.out.println(intake.getTOFReading() + "Stopped");
+                intake.stop();
+                state = 2;
+            }
+
         }
 
-        else if (state == 1) { // Push Note until it leaves the Time Of Flight sensor
+        /*else if (state == 1) { // Push Note until it leaves the Time Of Flight sensor
         
             if(intake.getTOFReading() <= OperatorConstants.leftTOFLimit) {
                 intake.setSpeed(0, -OperatorConstants.BackSlow);
             }
             else state = 2;
-        }
+        } */
 
 
         System.out.println("state: "+state+" - " + intake.getFrontCurrent());
