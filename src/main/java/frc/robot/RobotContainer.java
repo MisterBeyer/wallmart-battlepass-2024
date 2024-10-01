@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 //import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -27,6 +28,9 @@ import java.beans.Beans;
 import java.io.File;
 /*  Not sure how this got hre
 import java.sql.DriverPropertyInfo; */
+import java.sql.Driver;
+
+import org.photonvision.PhotonCamera;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -64,10 +68,15 @@ public class RobotContainer
   private final CaprisonCommands limelightCommands = new CaprisonCommands();
 
   private final LimeLight Limelight = new LimeLight();
+  private final PhotonCamera apriltagCam = new PhotonCamera("");
+ // private final Vision apriltag = new Vision(drivebase.getPose(), drivebase.getObject(field));
+
 
   // Define Command Helpers
   private FourPos arm_control = new FourPos(arm, wrist, intake);
   private AutoOperator autoOP = new AutoOperator(arm, wrist, intake);
+
+  private double x = 1;
 
   // OperatorIntake intake_control = new OperatorIntake(intake);
 
@@ -131,6 +140,8 @@ public class RobotContainer
       System.out.println(e.toString());
     } */
 
+    SmartDashboard.putNumber("X", x);
+
   
 
     // Creates a UsbCamera and MjpegServer [1] and connects them
@@ -177,8 +188,8 @@ public class RobotContainer
     // right stick controls the desired angle NOT angular rotation
    //@SuppressWarnings("unused")
     Command driveFieldOrientedDirectAngle = drivebase.driveCommand(
-        () -> -MathUtil.applyDeadband(driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
-        () -> -MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
+        () -> -MathUtil.applyDeadband(driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND)*x,
+        () -> -MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND)*x,
         () -> -driverXbox.getRightX(),
         () -> -driverXbox.getRightY());
 
@@ -229,7 +240,8 @@ public class RobotContainer
                             new InstantCommand(wristCommands::updateConstants),
                             new InstantCommand(intakeCommands::updateConstants),
                             new InstantCommand(climberCommands::updateConstants),
-                            new InstantCommand(limelightCommands::updateConstants)
+                            new InstantCommand(limelightCommands::updateConstants),
+                            Commands.runOnce(()-> {x = SmartDashboard.getNumber("X", x);})
     ));
 
 
@@ -245,7 +257,7 @@ public class RobotContainer
     //    Commands.deferredProxy(() -> drivebase.driveToPose(
     //                               new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
      //                         ));
-    //driverXbox.y().whileTrue(drivebase.aimAtSpeaker(2));
+    driverXbox.rightStick().whileTrue(drivebase.aimAtTarget(apriltagCam));
     // driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
     //new JoystickButton(driverXbox, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
 
