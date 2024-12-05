@@ -4,116 +4,174 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.util.Units;
+import swervelib.math.Matter;
+
+import com.pathplanner.lib.util.PIDConstants;
 
 /**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants. This class should not be used for any other purpose. All constants should be declared
- * globally (i.e. public static). Do not put anything functional in this class.
+ * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean constants. This
+ * class should not be used for any other purpose. All constants should be declared globally (i.e. public static). Do
+ * not put anything functional in this class.
  *
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {
-  public static final class DriveConstants {
-    public static final int kFrontLeftDriveMotorCanId = 0;
-    public static final int kRearLeftDriveMotorCanId = 2;
-    public static final int kFrontRightDriveMotorCanId = 4;
-    public static final int kRearRightDriveMotorCanId = 6;
+public final class Constants
+{
 
-    public static final int kFrontLeftTurningMotorCanId = 1;
-    public static final int kRearLeftTurningMotorCanId = 3;
-    public static final int kFrontRightTurningMotorCanId = 5;
-    public static final int kRearRightTurningMotorCanId = 7;
+  public static final double ROBOT_MASS = (116) * 0.453592; // 32lbs * kg per pound
+  public static final Matter CHASSIS    = new Matter(new Translation3d(Units.inchesToMeters(32), Units.inchesToMeters(32),  Units.inchesToMeters(8)), ROBOT_MASS);
+  public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
+  public static final double MAX_SPEED  = Units.feetToMeters(14.5);
+  // Maximum speed of the robot in meters per second, used to limit acceleration.
 
-    public static final int[] kFrontLeftTurningEncoderCanIds = new int[] {0, 1};
-    public static final int[] kRearLeftTurningEncoderCanIds = new int[] {2, 3};
-    public static final int[] kFrontRightTurningEncoderCanIds = new int[] {4, 5};
-    public static final int[] kRearRightTurningEncoderCanIds = new int[] {6, 7};
+  public static final class Pathplanner
+  {
 
-    public static final boolean kFrontLeftTurningEncoderReversed = false;
-    public static final boolean kRearLeftTurningEncoderReversed = true;
-    public static final boolean kFrontRightTurningEncoderReversed = false;
-    public static final boolean kRearRightTurningEncoderReversed = true;
+    // Translation PID constants
+    public static final PIDConstants TranslationPID = new PIDConstants(5, 0, 0);
+    public static final PIDConstants RotationPID = new PIDConstants(5, 0, 0);
 
-    public static final int[] kFrontLeftDriveEncoderCanIds = new int[] {8, 9};
-    public static final int[] kRearLeftDriveEncoderCanIds = new int[] {10, 11};
-    public static final int[] kFrontRightDriveEncoderCanIds = new int[] {12, 13};
-    public static final int[] kRearRightDriveEncoderCanIds = new int[] {14, 15};
+    // Max module speed, in m/s
+    public static final double MaxModuleSpeed = Units.feetToMeters(15.1);
+  }
+  
+  public static final class Drivebase
+  {
+    // Autonomous Constants
+    public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.7, 0, 0);
+    public static final PIDConstants ANGLE_PID       = new PIDConstants(0.4, 0, 0.01);
 
-    public static final boolean kFrontLeftDriveEncoderReversed = false;
-    public static final boolean kRearLeftDriveEncoderReversed = true;
-    public static final boolean kFrontRightDriveEncoderReversed = false;
-    public static final boolean kRearRightDriveEncoderReversed = true;
-
-    // If you call DriveSubsystem.drive() with a different period make sure to update this.
-    public static final double kDrivePeriod = TimedRobot.kDefaultPeriod;
-
-    public static final double kTrackWidth = 0.5;
-    // Distance between centers of right and left wheels on robot
-    public static final double kWheelBase = 0.7;
-    // Distance between front and back wheels on robot
-
-    //TODO Fill in these values
-    public static final SwerveDriveKinematics kDriveKinematics =
-        new SwerveDriveKinematics(
-            new Translation2d(kWheelBase / 2, kTrackWidth / 2),
-            new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
-            new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
-            new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
-
-    public static final boolean kGyroReversed = false;
-
-    // These are example values only - DO NOT USE THESE FOR YOUR OWN ROBOT!
-    // These characterization values MUST be determined either experimentally or theoretically
-    // for *your* robot's drive.
-    // The SysId tool provides a convenient method for obtaining these values for your robot.
-    public static final double ksVolts = 1;
-    public static final double kvVoltSecondsPerMeter = 0.8;
-    public static final double kaVoltSecondsSquaredPerMeter = 0.15;
-
-    public static final double kMaxSpeedMetersPerSecond = 3;
+    // Hold time on motor brakes when disabled
+    public static final double WHEEL_LOCK_TIME = 10; // seconds
   }
 
-  public static final class ModuleConstants {
-    public static final double kMaxModuleAngularSpeedRadiansPerSecond = 2 * Math.PI;
-    public static final double kMaxModuleAngularAccelerationRadiansPerSecondSquared = 2 * Math.PI;
+  public static final class ArmConstants 
+  {
+    // Amp Limits
+    public static int AmpLimit = 40;
 
-    public static final int kEncoderCPR = 1024;
-    public static final double kWheelDiameterMeters = 0.15;
-    public static final double kDriveEncoderDistancePerPulse =
-        // Assumes the encoders are directly mounted on the wheel shafts
-        (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
+    // Rate of change to use when Changing position by ReletiveSoftStop
+    public static double ReletiveSoftStopDelta = 1.0; // radians
 
-    public static final double kTurningEncoderDistancePerPulse =
-        // Assumes the encoders are on a 1:1 reduction with the module shaft.
-        (2 * Math.PI) / (double) kEncoderCPR;
 
-    public static final double kPModuleTurningController = 1;
+    // Trapazoidal Profile Constants
+    public static double kMaxVelocityRadPerSecond = 100;//75 
+    public static double kMaxAccelerationRadPerSecSquared = 125; //100
+    public static double kArmOffsetRads = 0.0;
 
-    public static final double kPModuleDriveController = 1;
+    // Arm Feedforward Constants
+    public static double kSVolts = 1;
+    public static double kGVolts = 1;
+    public static double kVVoltSecondPerRad = 0.80;
+    public static double kAVoltSecondSquaredPerRad = 0.15;
+
+    // PID Values
+    public static double P = 1.0;
+    public static double I = 0.0;
+    public static double D = 0.0;
+    public static double Iz = 0.0;
+    public static double FF = 0.0;
   }
 
-  public static final class OIConstants {
-    public static final int kDriverControllerCanId = 0;
+  public static final class WristConstants 
+  {
+    // Amp Limits
+    public static int AmpLimit = 45;
+
+    // Rate of change to use when Changing position by ReletiveSoftStop
+    public static double ReletiveSoftStopDelta = 1.0; // radians
+  
+
+    // Trapazoidal Profile Constants
+    public static double kMaxVelocityRadPerSecond = 80;//60 
+    public static double kMaxAccelerationRadPerSecSquared = 80;//60
+    public static double kWristOffsetRads = 0.0;
+
+    // Arm Feedforward Constants
+    public static double kSVolts = 1;
+    public static double kGVolts = 1;
+    public static double kVVoltSecondPerRad = 0.80;
+    public static double kAVoltSecondSquaredPerRad = 0.15;
+
+    // PID Values
+    public static double P = 1.0;
+    public static double I = 0.0;
+    public static double D = 0.0;
+    public static double Iz = 0.0;
+    public static double FF = 0.0;
+
   }
 
-  public static final class AutoConstants {
-    public static final double kMaxSpeedMetersPerSecond = 3;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 3;
-    public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
-    public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
+  public static class ClimberConstants
+  {
+    // Max Amp Limit
+    public static final int AmpLimit = 60;
 
-    public static final double kPXController = 1;
-    public static final double kPYController = 1;
-    public static final double kPThetaController = 1;
+    // Climber Max Speed
+    public static double ExtendSpeed = 0.95; //15.1
+    public static double RetractSpeed = 0.95; //15.1
+    
+    // Amp Limits
+    public static double ChainReachedAmps = 12;
 
-    // Constraint for the motion profiled robot angle controller
-    public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
-        new TrapezoidProfile.Constraints(
-            kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+    // Set Encoder values
+    public static double FullExtensionEncoder = 187;
+    public static double FullRetractionEncoder = 10;
+  }
+
+  public static class OperatorConstants
+  {
+    // Intake/Outake Speed
+    public static double BackOut = 0.95;
+    public static double FrontOut = 0.95;
+    public static double FrontIn = 0.7;
+    public static double BackSlow = 0.05;
+    public static double FrontSlow = 0.2;
+    public static double BackSlow2 = 0.25;
+    public static double FrontSlow2 = 0.2;
+    public static double FrontRPM = 3500;
+    public static double IntakeNoteAmps = 110;
+    public static double NoteLeftFrontAmps = 24.0; //changed from 30
+    public static double NoteShotFrontAmps = 20.0; //changed from 30
+
+    // Arm Encoder Positions
+    public static double ArmAmpPosition = -40.8;
+    public static double ArmSpeakerPosition =  -23; // -25.5; //-35.0\ //24.5
+    public static double ArmSpeakerBackwardsPosition = -41.00;
+    public static double ArmSpeakerPodiumPosition = 0.0;
+
+    public static double WristAmpPosition = -12.5;
+    public static double WristSpeakerPosition = -7.3; // -8.3; // -11.65
+    public static double WristSpeakerBackwardsPosition = -7.11;
+    public static double WristIntakePosition = -13.5;
+    public static double WristSpeakerPodiumPosition = -3.09;
+
+    
+    // Joystick Deadband
+    public static final double LEFT_X_DEADBAND = 0.05;
+    public static final double LEFT_Y_DEADBAND = 0.05;
+    public static final double RIGHT_X_DEADBAND = 0.6;
+    public static final double TURN_CONSTANT = 0.75;
+    public static final double IntakeDeadBand = 0.05;
+
+    // Joystick Rumble Stength
+    public static final double RumbleStrength = 1.0;
+
+    // Delays and Wait Limits  
+    public static double shootingCutoffWaitLimit = 1.25;
+    public static double armMovementDelay = .5;
+    public static double intakeMovementDelay = .4;
+    public static double PullbackDelay = .25;
+
+    // LimeLight
+    public static double LimelightArmAdjustmentMuliplyer = 1;
+
+    // TOF Sensor Limits
+    public static double intakeTOFLimit = 150;
+    public static double reachedTOFLimit = 150;
+    public static double leftTOFLimit = 160;
   }
 }

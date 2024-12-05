@@ -1,12 +1,19 @@
 {
-  "robotWidth": 0.9,
-  "robotLength": 0.9,
+  "robotWidth": 0.8255,
+  "robotLength": 0.8255,
   "holonomicMode": true,
-  "pathFolders": [],
+  "pathFolders": [
+    "At home challenge",
+    "I'm Gonna Press the E-Stop",
+    "LAME",
+    "New Folder",
+    "RAM",
+    "SkibbidiAuto"
+  ],
   "autoFolders": [],
-  "defaultMaxVel": 3.0,
+  "defaultMaxVel": 5.0,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
-  "maxModuleSpeed": 4.5
+  "maxModuleSpeed": 4.602
 }
