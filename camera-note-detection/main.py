@@ -2,10 +2,19 @@ from cscore import CameraServer, VideoSource, UsbCamera, MjpegServer
 from ntcore import NetworkTableInstance, EventFlags
 import ntcore
 
+import apriltag
 import cv2
 import json
 import numpy as np
 import time
+
+
+# Apriltag detection values
+LINE_LENGTH = 2
+CENTER_COLOR = (0, 255, 0)
+CORNER_COLOR = (255, 0, 255)
+# End Apriltag detection values
+
 
 # WE NEED TO TUNE THESE VALUES
 # Define lower and upper bounds for orange color in HSV
@@ -228,6 +237,32 @@ def startSwitchedCamera(config):
 
     return server
 
+
+# ### AprilTag ###
+### Some utility functions to simplify drawing on the camera feed
+# draw a crosshair
+def plotPoint(image, center, color):
+    center = (int(center[0]), int(center[1]))
+    image = cv2.line(image,
+                     (center[0] - LINE_LENGTH, center[1]),
+                     (center[0] + LINE_LENGTH, center[1]),
+                     color,
+                     3)
+    image = cv2.line(image,
+                     (center[0], center[1] - LINE_LENGTH),
+                     (center[0], center[1] + LINE_LENGTH),
+                     color,
+                     3)
+    return image
+
+# plot a little text
+def plotText(image, center, color, text):
+    center = (int(center[0]) + 4, int(center[1]) - 4)
+    return cv2.putText(image, str(text), center, cv2.FONT_HERSHEY_SIMPLEX,
+                       1, color, 3)
+
+
+# ### Contour Stuff ###
 def find_largest_orange_contour(hsv_image: np.ndarray) -> np.ndarray:
     """
     Finds the largest orange contour in an HSV image
@@ -283,6 +318,19 @@ def main():
         
     # Table for vision output information
     vision_nt = ntinst.getTable('Vision')
+    
+    # Apriltag setup
+    options = apriltag.DetectorOptions(families='tag16h5',
+                                 border=1,
+                                 nthreads=4,
+                                 quad_decimate=1.0,
+                                 quad_blur=0.0,
+                                 refine_edges=True,
+                                 refine_decode=False,
+                                 refine_pose=False,
+                                 debug=False,
+                                 quad_contours=True)
+    detector = apriltag.Detector()
 
     # start cameras
     # work around wpilibsuite/allwpilib#5055
@@ -305,7 +353,7 @@ def main():
     time.sleep(0.5)
 
 
-    print("CTBT OpenCV Note Detection --- v0")
+    print("CTBT OpenCV Note and Apriltag Detection --- v1")
 
     while True:
           #start_time = time.time()
@@ -319,6 +367,12 @@ def main():
                 output_stream.notifyError(input_stream.getError())
                 continue
 
+          # Reset Apriltag Detected Information
+          tagfound = 0
+          apriltag_id = 0
+          apriltag_cX = 0
+          apriltag_cY = 0
+
           # Reset Detected Note information
           notefound = 0
           cX = 0
@@ -328,6 +382,29 @@ def main():
           frame_hsv = cv2.cvtColor(output_img, cv2.COLOR_BGR2HSV)
           contour = find_largest_orange_contour(frame_hsv)
           
+          # Find apriltag
+          grayimg = cv2.cvtColor(output_img, cv2.COLOR_BGR2GRAY)
+          # look for tags
+          detections = detector.detect(grayimg)
+          if detections:
+          # found some tags, report them and update the camera image
+  
+                for detect in detections:
+                    print("tag_id: %s, center: %s" % (detect.tag_id, detect.center))
+                    output_img = plotPoint(output_img, detect.center, CENTER_COLOR)
+                    output_img = plotText(output_img, detect.center, CENTER_COLOR, detect.tag_id)
+                    
+                    # Update values
+                    tagfound = 1
+                    apriltag_id = detect.tag_id
+                    apriltag_cX = detect.center[0]
+                    apriltag_cY = detect.center[1]
+          
+                    
+                    for corner in detect.corners:
+                        output_img = plotPoint(output_img, corner, CORNER_COLOR)
+                
+          # Find Contour
           if contour is not None and contour_is_note(contour):
                 notefound = 1
                 cv2.ellipse(output_img, cv2.fitEllipse(contour), (255, 0, 255), 2)
@@ -353,6 +430,10 @@ def main():
           vision_nt.putNumber('NoteDetect/note_found', notefound)
           vision_nt.putNumber('NoteDetect/target_x', cX)
           vision_nt.putNumber('NoteDetect/target_y', cY)
+          vision_nt.putNumber('AprilDetect/apriltag_found', tagfound) 
+          vision_nt.putNumber('AprilDetect/apriltag_value', apriltag_id)
+          vision_nt.putNumber('AprilDetect/target_x', apriltag_cX)
+          vision_nt.putNumber('AprilDetect/target_y', apriltag_cY)
 
           #processing_time = time.time() - start_time
           #fps = 1 / processing_time
