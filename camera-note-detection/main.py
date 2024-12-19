@@ -13,6 +13,14 @@ import time
 LINE_LENGTH = 2
 CENTER_COLOR = (0, 255, 0)
 CORNER_COLOR = (255, 0, 255)
+
+# For distance calculation
+h = 120
+w = 160
+K = [w, 0.0, w//2,
+     0.0, w, h//2,
+     0.0, 0.0, 1.0]
+D = [0, 0, 0.0, 0.0, 0] # Assuming no distortion
 # End Apriltag detection values
 
 
@@ -39,6 +47,7 @@ import sys
 from cscore import CameraServer, VideoSource, UsbCamera, MjpegServer
 from ntcore import NetworkTableInstance, EventFlags
 
+tag_size = 0.017
 #   JSON format:
 #   {
 #       "team": <team number>,
@@ -320,7 +329,7 @@ def main():
     vision_nt = ntinst.getTable('Vision')
     
     # Apriltag setup
-    options = apriltag.DetectorOptions(families='tag16h5',
+    options = apriltag.DetectorOptions(families='tag36h11',
                                  border=1,
                                  nthreads=4,
                                  quad_decimate=1.0,
@@ -331,6 +340,11 @@ def main():
                                  debug=False,
                                  quad_contours=True)
     detector = apriltag.Detector()
+
+    # Reshape arrays for distance calculation
+    camera_matrix = np.array(K).reshape(3, 3).astype(np.float32)
+    dist_coeffs = np.array(D).reshape(5, 1).astype(np.float32)
+
 
     # start cameras
     # work around wpilibsuite/allwpilib#5055
@@ -348,6 +362,7 @@ def main():
 
     # Allocating new images is very expensive, always try to preallocate
     img = np.zeros(shape=(240, 320, 3), dtype=np.uint8)
+
 
     # Wait for NetworkTables to start
     time.sleep(0.5)
@@ -372,6 +387,7 @@ def main():
           apriltag_id = 0
           apriltag_cX = 0
           apriltag_cY = 0
+          distance = 0
 
           # Reset Detected Note information
           notefound = 0
@@ -394,16 +410,33 @@ def main():
                     output_img = plotPoint(output_img, detect.center, CENTER_COLOR)
                     output_img = plotText(output_img, detect.center, CENTER_COLOR, detect.tag_id)
                     
+                    _, rvec, tvec = cv2.solvePnP(
+                        objectPoints = np.array([
+                            [-tag_size / 2, -tag_size / 2, 0],
+                            [tag_size / 2, -tag_size / 2, 0],
+                            [tag_size / 2, tag_size / 2, 0],
+                            [-tag_size / 2, tag_size / 2, 0]
+                        ]),
+                        imagePoints = detect.corners,
+                        cameraMatrix = camera_matrix,
+                        distCoeffs = dist_coeffs
+                    )
+                    distance = np.linalg.norm(tvec)
+
+                    #print("Tag ID:", tag_id)
+                    #print("Distance:", distance)
+
                     # Update values
                     tagfound = 1
                     apriltag_id = detect.tag_id
                     apriltag_cX = detect.center[0]
                     apriltag_cY = detect.center[1]
+                    
           
                     
                     for corner in detect.corners:
                         output_img = plotPoint(output_img, corner, CORNER_COLOR)
-                
+
           # Find Contour
           if contour is not None and contour_is_note(contour):
                 notefound = 1
@@ -434,6 +467,7 @@ def main():
           vision_nt.putNumber('AprilDetect/apriltag_value', apriltag_id)
           vision_nt.putNumber('AprilDetect/target_x', apriltag_cX)
           vision_nt.putNumber('AprilDetect/target_y', apriltag_cY)
+          vision_nt.putNumber('AprilDetect/distance', distance)
 
           #processing_time = time.time() - start_time
           #fps = 1 / processing_time
