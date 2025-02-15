@@ -66,6 +66,7 @@ public class RobotContainer
   private final IntakeCommands intakeCommands = new IntakeCommands(intake);
   private final ClimberCommands climberCommands = new ClimberCommands(climber);
   private final CaprisonCommands limelightCommands = new CaprisonCommands();
+  private final DoritoCommands visionCommands = new DoritoCommands();
 
   private final LimeLight Limelight = new LimeLight();
   private final PhotonCamera apriltagCam = new PhotonCamera("");
@@ -145,7 +146,7 @@ public class RobotContainer
   
 
     // Creates a UsbCamera and MjpegServer [1] and connects them
-    CameraServer.startAutomaticCapture(0);
+    //CameraServer.startAutomaticCapture(0);
 
     // Creates the CvSink and connects it to the UsbCamera
     //CvSink cvSink = CameraServer.getVideo();
@@ -247,8 +248,8 @@ public class RobotContainer
 
     /* Other Subsystems */
     //driverXbox.x().onTrue(intakeCommands.EjectForward());     // Outake 
-    driverXbox.b().whileTrue(limelightCommands.AdjustDriveBase(drivebase));
-    driverXbox.a().whileTrue(limelightCommands.AdjustArm(arm));
+    driverXbox.b().whileTrue(visionCommands.AdjustDriveBase(drivebase));
+    //driverXbox.a().whileTrue(limelightCommands.AdjustArm(arm));
 
     /* Drivebase */
     driverXbox.x().onTrue((new InstantCommand(drivebase::zeroGyro))); // Reset Heading
